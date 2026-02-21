@@ -26,6 +26,37 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   };
 }
 
+function RecentPostsList({ recentPosts }: { recentPosts: ReturnType<typeof getRecentPosts> }) {
+  return (
+    <div className="blog-article__recent">
+      <p className="blog-article__recent-title">Recent Posts</p>
+      <div className="blog-article__recent-list">
+        {recentPosts.map((recent) => (
+          <Link
+            key={recent.slug}
+            href={`/blogs/${recent.slug}`}
+            className="blog-article__recent-item"
+          >
+            <div className="blog-article__recent-img">
+              <Image
+                src={recent.image}
+                alt={recent.imageAlt}
+                width={56}
+                height={56}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            </div>
+            <div className="blog-article__recent-info">
+              <p>{recent.title}</p>
+              <span className="blog-article__recent-date">{recent.date}</span>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
   const post = getBlogPost(slug);
@@ -76,47 +107,33 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
       <div className="container">
         <div className="blog-article__layout">
-          <RevealWrapper>
-            <article className="blog-article__body">
-              {post.content}
-            </article>
-          </RevealWrapper>
-
-          <aside className="blog-article__sidebar">
+          {/* Author card — mobile: below image, desktop: sidebar top (sticky with recent posts) */}
+          <div className="blog-article__sidebar">
             <div className="blog-article__sidebar-inner">
               <div className="blog-article__author-card">
                 <p className="blog-article__author-label">Author</p>
                 <p className="blog-article__author-name">I H Professionals &amp; Co</p>
                 <p className="blog-article__author-role">Registered Tax Agents</p>
               </div>
-              <div className="blog-article__recent">
-                <p className="blog-article__recent-title">Recent Posts</p>
-                <div className="blog-article__recent-list">
-                  {recentPosts.map((recent) => (
-                    <Link
-                      key={recent.slug}
-                      href={`/blogs/${recent.slug}`}
-                      className="blog-article__recent-item"
-                    >
-                      <div className="blog-article__recent-img">
-                        <Image
-                          src={recent.image}
-                          alt={recent.imageAlt}
-                          width={56}
-                          height={56}
-                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                        />
-                      </div>
-                      <div className="blog-article__recent-info">
-                        <p>{recent.title}</p>
-                        <span className="blog-article__recent-date">{recent.date}</span>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
+              {/* Recent posts — desktop only (inside sticky sidebar) */}
+              <div className="blog-article__recent--desktop">
+                <RecentPostsList recentPosts={recentPosts} />
               </div>
             </div>
-          </aside>
+          </div>
+
+          {/* Article content */}
+          <RevealWrapper>
+            <article className="blog-article__body">
+              {post.content}
+            </article>
+          </RevealWrapper>
+
+          {/* Recent posts — mobile only (below content with hr) */}
+          <div className="blog-article__recent--mobile">
+            <hr className="blog-article__divider" />
+            <RecentPostsList recentPosts={recentPosts} />
+          </div>
         </div>
 
         <div className="blog-article__back">

@@ -1419,21 +1419,42 @@ p:last-child { margin-bottom: 0; }
 
 /* Article layout */
 .blog-article__layout {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-8);
-  padding: var(--space-10) 0 var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-10) 0 var(--space-8);
 }
 
-/* Sidebar */
+/* Mobile order: sidebar/author (1) → content (2) → recent-mobile (3) */
 .blog-article__sidebar {
   order: 1;
+}
+
+.blog-article__layout > .reveal,
+.blog-article__layout > .reveal-left,
+.blog-article__layout > .reveal-right {
+  order: 2;
+}
+
+.blog-article__recent--mobile {
+  order: 3;
+}
+
+/* Mobile: hide desktop recent posts (inside sidebar), show mobile version */
+.blog-article__recent--desktop {
+  display: none;
 }
 
 .blog-article__sidebar-inner {
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
+}
+
+.blog-article__divider {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin-bottom: var(--space-6);
 }
 
 .blog-article__author-card {
@@ -1804,6 +1825,41 @@ p:last-child { margin-bottom: 0; }
   .statement__text {
     font-size: var(--font-size-3xl);
   }
+
+  .blog-article__layout {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: var(--space-10);
+  }
+
+  /* Content in left column */
+  .blog-article__layout > .reveal,
+  .blog-article__layout > .reveal-left,
+  .blog-article__layout > .reveal-right {
+    order: 0;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  /* Sidebar: author + recent together, sticky, not moving */
+  .blog-article__sidebar {
+    order: 0;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    position: sticky;
+    top: 90px;
+  }
+
+  /* Desktop: show recent posts inside sidebar */
+  .blog-article__recent--desktop {
+    display: block;
+  }
+
+  /* Desktop: hide the mobile recent posts section */
+  .blog-article__recent--mobile {
+    display: none;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -1842,16 +1898,4 @@ p:last-child { margin-bottom: 0; }
   .footer__grid { grid-template-columns: 2fr 1fr 1fr 1.5fr; }
 
   .blog-article-header__title { font-size: var(--font-size-4xl); }
-
-  .blog-article__layout {
-    grid-template-columns: 1fr 260px;
-    gap: var(--space-10);
-  }
-
-  .blog-article__sidebar {
-    order: 0;
-    align-self: start;
-    position: sticky;
-    top: 90px;
-  }
 }
