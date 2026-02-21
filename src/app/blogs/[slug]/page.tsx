@@ -79,12 +79,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <RevealWrapper>
             <article className="blog-article__body">
               {post.content}
-
-              <div className="blog-article__back">
-                <Link href="/blogs" className="btn btn--outline">
-                  &larr; Back to Blog
-                </Link>
-              </div>
             </article>
           </RevealWrapper>
 
@@ -123,6 +117,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </div>
             </div>
           </aside>
+        </div>
+
+        <div className="blog-article__back">
+          <Link href="/blogs" className="btn btn--outline blog-article__back-btn">
+            &larr; Back to Blog
+          </Link>
         </div>
       </div>
 

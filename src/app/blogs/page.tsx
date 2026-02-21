@@ -93,7 +93,7 @@ export default function BlogsPage() {
           <div className="grid grid--3">
             {blogPosts.map((post, i) => (
               <RevealWrapper key={post.slug} delay={(((i % 3) + 1) as 1 | 2 | 3)}>
-                <article className="blog-card">
+                <Link href={`/blogs/${post.slug}`} className="blog-card blog-card--link">
                   <div className="blog-card__image">
                     <Image
                       src={post.image}
@@ -108,13 +108,11 @@ export default function BlogsPage() {
                       <span className="blog-card__date">{post.date}</span>
                       <span className="blog-card__read-time">{post.readTime}</span>
                     </div>
-                    <h3 className="blog-card__title">
-                      <Link href={`/blogs/${post.slug}`}>{post.title}</Link>
-                    </h3>
+                    <h3 className="blog-card__title">{post.title}</h3>
                     <p className="blog-card__excerpt">{post.excerpt}</p>
                     <p className="blog-card__author">I H Professionals &amp; Co</p>
                   </div>
-                </article>
+                </Link>
               </RevealWrapper>
             ))}
           </div>
