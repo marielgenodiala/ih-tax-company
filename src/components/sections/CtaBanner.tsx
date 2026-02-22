@@ -1,7 +1,9 @@
 import Link from "next/link";
 import RevealWrapper from "@/components/ui/RevealWrapper";
+import { normalizeHref, parseEmphasis } from "@/lib/normalizeHref";
 
 interface CtaBannerProps {
+  subtitle?: string;
   heading?: string;
   text?: string;
   buttonText?: string;
@@ -9,6 +11,7 @@ interface CtaBannerProps {
 }
 
 export default function CtaBanner({
+  subtitle,
   heading = "Ready to Get Started?",
   text = "Get in touch with our team to discuss your tax and accounting needs.",
   buttonText = "Contact Us",
@@ -17,14 +20,19 @@ export default function CtaBanner({
   return (
     <section className="cta-banner">
       <div className="container">
+        {subtitle && (
+          <RevealWrapper>
+            <span className="section-label">{subtitle}</span>
+          </RevealWrapper>
+        )}
         <RevealWrapper>
-          <h2>{heading}</h2>
+          <h2>{parseEmphasis(heading)}</h2>
         </RevealWrapper>
         <RevealWrapper delay={1}>
           <p>{text}</p>
         </RevealWrapper>
         <RevealWrapper delay={2}>
-          <Link href={buttonHref} className="btn btn--white btn--arrow">
+          <Link href={normalizeHref(buttonHref)} className="btn btn--white btn--arrow">
             {buttonText}
           </Link>
         </RevealWrapper>

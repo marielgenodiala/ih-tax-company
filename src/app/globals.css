@@ -510,6 +510,7 @@ p:last-child { margin-bottom: 0; }
   margin-bottom: var(--space-6);
   line-height: 1.15;
   font-weight: 500;
+  
 }
 
 .hero__title em {
@@ -558,6 +559,11 @@ p:last-child { margin-bottom: 0; }
   color: #ffffff;
   margin-bottom: var(--space-4);
   font-weight: 500;
+}
+
+.page-hero h1 em {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .page-hero p {
@@ -861,6 +867,11 @@ p:last-child { margin-bottom: 0; }
   font-weight: 500;
 }
 
+.cta-banner h2 em {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .cta-banner p {
   color: rgba(255, 255, 255, 0.8);
   font-size: var(--font-size-md);
@@ -1001,6 +1012,11 @@ p:last-child { margin-bottom: 0; }
   font-size: var(--font-size-3xl);
 }
 
+.opening-hours__text h2 em {
+  font-style: italic;
+  color: var(--color-primary);
+}
+
 .opening-hours__row {
   display: flex;
   justify-content: space-between;
@@ -1089,6 +1105,11 @@ p:last-child { margin-bottom: 0; }
 .team-intro h2 {
   font-size: var(--font-size-3xl);
   margin-bottom: var(--space-4);
+}
+
+.team-intro h2 em {
+  font-style: italic;
+  color: var(--color-primary);
 }
 
 .team-card {
@@ -1788,6 +1809,11 @@ p:last-child { margin-bottom: 0; }
   color: var(--color-text-muted);
   font-size: var(--font-size-md);
   margin-top: var(--space-3);
+}
+
+.section__header h2 em {
+  font-style: italic;
+  color: var(--color-primary);
 }
 
 .section__header--left {

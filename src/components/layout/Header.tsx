@@ -4,8 +4,16 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { normalizeHref } from "@/lib/normalizeHref";
 
-const navLinks = [
+interface NavLink {
+  href: string;
+  label: string;
+  exact?: boolean;
+  noActive?: boolean;
+}
+
+const defaultNavLinks: NavLink[] = [
   { href: "/", label: "Home", exact: true },
   { href: "/team", label: "Team", exact: false },
   { href: "/book-online", label: "Book Online", exact: false },
@@ -13,7 +21,14 @@ const navLinks = [
   { href: "/#contact", label: "Contact", exact: true, noActive: true },
 ];
 
-export default function Header() {
+interface HeaderProps {
+  logo?: string;
+  logoText?: string;
+  navLinks?: NavLink[];
+}
+
+export default function Header({ logo, logoText, navLinks }: HeaderProps) {
+  const links = navLinks?.length ? navLinks : defaultNavLinks;
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -39,13 +54,13 @@ export default function Header() {
       <div className="container header__inner">
         <Link href="/" className="header__logo">
           <Image
-            src="/images/brandlogo-new.png"
+            src={logo || "/images/brandlogo-new.png"}
             alt="IH Professionals logo"
             width={36}
             height={36}
             style={{ height: "36px", width: "auto" }}
           />
-          I H Professionals &amp; Co.
+          {logoText || "I H Professionals & Co."}
         </Link>
 
         {/* Hamburger button */}
@@ -80,19 +95,20 @@ export default function Header() {
           >
             &times;
           </button>
-          {navLinks.map((link) => {
+          {links.map((link) => {
+            const href = normalizeHref(link.href);
             let isActive = false;
             if (link.noActive) {
               isActive = false;
             } else if (link.exact) {
-              isActive = pathname === link.href;
+              isActive = pathname === href;
             } else {
-              isActive = pathname.startsWith(link.href);
+              isActive = pathname.startsWith(href);
             }
             return (
               <Link
                 key={link.href}
-                href={link.href}
+                href={href}
                 className={`header__link${isActive ? " header__link--active" : ""}`}
                 onClick={() => setMenuOpen(false)}
               >

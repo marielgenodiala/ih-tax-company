@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 export default function ThankYouPage() {
   return (
     <>
+      <Header />
       <section className="thank-you">
         <div className="container py-20">
           <div className="thank-you__card">

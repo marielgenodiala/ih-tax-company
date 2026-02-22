@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, Playfair_Display } from "next/font/google";
-import Header from "@/components/layout/Header";
+import { client } from "@/sanity/lib/client";
+import { seoSettingsQuery } from "@/sanity/lib/queries";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -18,14 +19,23 @@ const playfairDisplay = Playfair_Display({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "I H Professionals & Co. Pty Ltd | Tax Agent",
-  description:
-    "Tax Return, I H Professionals & Co. Pty Ltd, We have more than 15 years experience in accounting, tax and business advisory fields with a great range of business, individuals, SMSFs & Trusts. Located in the Sydney CBD and various locations across Sydney. Please feel free to make an appointment with us to target your business and personal needs.",
-  icons: {
-    icon: "/images/brandlogo-new.png",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await client.fetch(seoSettingsQuery);
+
+  return {
+    title: seo?.seoTitle || "I H Professionals & Co. Pty Ltd | Tax Agent",
+    description:
+      seo?.seoDescription ||
+      "Tax Return, I H Professionals & Co. Pty Ltd, We have more than 15 years experience in accounting, tax and business advisory fields with a great range of business, individuals, SMSFs & Trusts. Located in the Sydney CBD and various locations across Sydney.",
+    keywords: seo?.seoKeywords || undefined,
+    openGraph: seo?.seoImage
+      ? { images: [{ url: seo.seoImage }] }
+      : undefined,
+    icons: {
+      icon: "/images/brandlogo-new.png",
+    },
+  };
+}
 
 export default function RootLayout({
   children,
@@ -34,10 +44,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${dmSans.variable} ${playfairDisplay.variable}`}>
-      <body>
-        <Header />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

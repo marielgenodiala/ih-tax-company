@@ -1,31 +1,22 @@
-import Hero from "@/components/sections/Hero";
-import LogoCloud from "@/components/sections/LogoCloud";
-import Stats from "@/components/sections/Stats";
-import WhatYouNeed from "@/components/sections/WhatYouNeed";
-import Services from "@/components/sections/Services";
-import StatementBanner from "@/components/sections/StatementBanner";
-import About from "@/components/sections/About";
-import CtaBanner from "@/components/sections/CtaBanner";
-import BlogPreview from "@/components/sections/BlogPreview";
-import OpeningHours from "@/components/sections/OpeningHours";
-import ContactForm from "@/components/sections/ContactForm";
-import Footer from "@/components/layout/Footer";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { client } from "@/sanity/lib/client";
+import { pageBySlugQuery } from "@/sanity/lib/queries";
+import SectionRenderer from "@/components/sections/SectionRenderer";
 
-export default function HomePage() {
-  return (
-    <>
-      <Hero />
-      <LogoCloud />
-      <Stats />
-      <WhatYouNeed />
-      <Services />
-      <StatementBanner />
-      <About />
-      <CtaBanner />
-      <BlogPreview />
-      <OpeningHours />
-      <ContactForm />
-      <Footer variant="home" />
-    </>
-  );
+export const revalidate = 60;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await client.fetch(pageBySlugQuery, { slug: "home" });
+  if (!page) return { title: "I H Professionals & Co." };
+  return {
+    title: `${page.title} | I H Professionals & Co.`,
+  };
+}
+
+export default async function HomePage() {
+  const page = await client.fetch(pageBySlugQuery, { slug: "home" });
+  if (!page) notFound();
+
+  return <SectionRenderer sections={page.sections || []} />;
 }
