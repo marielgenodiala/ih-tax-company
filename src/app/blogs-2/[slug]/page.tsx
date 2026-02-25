@@ -13,6 +13,7 @@ import {
   recentPostsQuery,
 } from "@/sanity/lib/queries";
 import { portableTextComponents } from "@/components/blog/PortableTextComponents";
+import HeroImageModal from "@/components/blog/HeroImageModal";
 
 export const revalidate = 60;
 
@@ -128,7 +129,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <RevealWrapper>
         <div className="blog-article__hero">
           {post.image && (
-            <Image
+            <HeroImageModal
               src={post.image}
               alt={post.imageAlt || post.title}
               width={1200}

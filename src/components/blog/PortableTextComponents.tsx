@@ -1,6 +1,6 @@
-import Image from "next/image";
 import type { PortableTextComponents } from "@portabletext/react";
 import { urlFor } from "@/sanity/lib/image";
+import ClickableImage from "@/components/blog/ClickableImage";
 
 export const portableTextComponents: PortableTextComponents = {
   types: {
@@ -8,16 +8,15 @@ export const portableTextComponents: PortableTextComponents = {
       if (!value?.asset?._ref) return null;
       return (
         <div className="article-image">
-          <Image
+          <ClickableImage
             src={urlFor(value).width(800).url()}
+            fullSrc={urlFor(value).url()}
             alt={value.alt || ""}
             width={800}
             height={500}
             style={{ width: "100%", height: "auto" }}
+            caption={value.caption}
           />
-          {value.caption && (
-            <p className="article-image__caption">{value.caption}</p>
-          )}
         </div>
       );
     },
