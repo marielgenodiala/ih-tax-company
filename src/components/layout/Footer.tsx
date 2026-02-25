@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FacebookIcon, LinkedInIcon } from "@/lib/icons";
 import { normalizeHref, normalizeSocialUrl } from "@/lib/normalizeHref";
+import NewsletterForm from "@/components/ui/NewsletterForm";
 
 interface SocialLink {
   platform: string;
@@ -61,8 +62,6 @@ export default function Footer(props: FooterProps) {
   const services = props.serviceLinks?.length
     ? props.serviceLinks
     : defaultServiceLinks;
-  const email =
-    props.newsletterEmail || "marielgenodiala.work@gmail.com";
   const copyright =
     props.copyrightText ||
     "\u00A9 2026 I H Professionals & Co. Pty Ltd. All rights reserved.";
@@ -123,29 +122,7 @@ export default function Footer(props: FooterProps) {
           <div className="footer__col">
             <h4 className="footer__heading">Newsletter</h4>
             <p>Get the latest tax tips and updates delivered to your inbox.</p>
-            <form
-              className="footer__newsletter"
-              action={`https://formsubmit.co/${email}`}
-              method="POST"
-            >
-              <input type="hidden" name="_next" value="/thank-you" />
-              <input
-                type="hidden"
-                name="_subject"
-                value="New Newsletter Subscription — IH Professionals"
-              />
-              <input type="hidden" name="_captcha" value="false" />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email address"
-                className="form__input"
-                required
-              />
-              <button type="submit" className="btn btn--primary">
-                Subscribe
-              </button>
-            </form>
+            <NewsletterForm />
           </div>
         </div>
         <div className="footer__bottom">

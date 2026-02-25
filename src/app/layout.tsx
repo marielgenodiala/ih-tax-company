@@ -23,7 +23,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const seo = await client.fetch(seoSettingsQuery);
 
   return {
-    title: seo?.seoTitle || "I H Professionals & Co. Pty Ltd | Tax Agent",
+    title: {
+      template: "%s | I H Professionals & Co.",
+      default: seo?.seoTitle || "I H Professionals & Co. Pty Ltd | Tax Agent",
+    },
     description:
       seo?.seoDescription ||
       "Tax Return, I H Professionals & Co. Pty Ltd, We have more than 15 years experience in accounting, tax and business advisory fields with a great range of business, individuals, SMSFs & Trusts. Located in the Sydney CBD and various locations across Sydney.",

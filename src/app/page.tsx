@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { client } from "@/sanity/lib/client";
-import { pageBySlugQuery } from "@/sanity/lib/queries";
+import { pageBySlugQuery, seoSettingsQuery } from "@/sanity/lib/queries";
 import SectionRenderer from "@/components/sections/SectionRenderer";
 
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const page = await client.fetch(pageBySlugQuery, { slug: "home" });
-  if (!page) return { title: "I H Professionals & Co." };
+  const seo = await client.fetch(seoSettingsQuery);
   return {
-    title: `${page.title} | I H Professionals & Co.`,
+    title: {
+      absolute: seo?.seoTitle || "I H Professionals & Co. Pty Ltd | Tax Agent",
+    },
   };
 }
 
