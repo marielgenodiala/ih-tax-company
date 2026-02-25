@@ -6,7 +6,7 @@ import { Box, Text, Card } from "@sanity/ui";
 import { LaunchIcon } from "@sanity/icons";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://ih-tax-company.vercel.app";
 
 export function PageUrlPreview() {
   const slug = useFormValue(["slug", "current"]) as string | undefined;

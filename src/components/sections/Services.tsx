@@ -7,6 +7,11 @@ import {
   BasIcon,
   BookkeepingIcon,
   PlanningIcon,
+  SmsfIcon,
+  AsicIcon,
+  PayrollIcon,
+  ComplianceIcon,
+  InvestmentIcon,
 } from "@/lib/icons";
 import { client } from "@/sanity/lib/client";
 import { allServicesQuery } from "@/sanity/lib/queries";
@@ -32,6 +37,11 @@ const iconMap: Record<string, ReactNode> = {
   bas: <BasIcon />,
   bookkeeping: <BookkeepingIcon />,
   planning: <PlanningIcon />,
+  smsf: <SmsfIcon />,
+  asic: <AsicIcon />,
+  payroll: <PayrollIcon />,
+  compliance: <ComplianceIcon />,
+  investment: <InvestmentIcon />,
 };
 
 export default async function Services({
@@ -58,7 +68,7 @@ export default async function Services({
           </div>
         </RevealWrapper>
         {services.length > 0 && (
-          <div className="grid grid--3">
+          <div className="services-grid">
             {services.map((service, i) => (
               <RevealWrapper key={service.title} delay={((i % 3) + 1) as 1 | 2 | 3}>
                 <div className="card">

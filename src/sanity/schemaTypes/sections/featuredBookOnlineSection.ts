@@ -32,6 +32,13 @@ export const featuredBookOnlineSection = defineType({
       rows: 3,
     }),
     defineField({
+      name: "consultationNote",
+      title: "Consultation Note",
+      type: "text",
+      rows: 3,
+      description: "Optional note shown below the booking list (e.g. free consultation offer, quote info).",
+    }),
+    defineField({
       name: "items",
       title: "Featured Items",
       type: "array",

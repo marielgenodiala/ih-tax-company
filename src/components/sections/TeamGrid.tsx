@@ -1,14 +1,25 @@
 import Image from "next/image";
+import Link from "next/link";
 import RevealWrapper from "@/components/ui/RevealWrapper";
+import { PersonIcon } from "@/lib/icons";
 import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 import { allTeamMembersQuery } from "@/sanity/lib/queries";
 import React from "react";
 import { parseEmphasis } from "@/lib/normalizeHref";
 
+interface SanityImage {
+  asset: { _ref: string };
+  hotspot?: { x: number; y: number; width: number; height: number };
+  crop?: { top: number; bottom: number; left: number; right: number };
+}
+
 interface TeamMember {
+  _id: string;
   name: string;
+  slug: string;
   role: string;
-  image: string;
+  image: SanityImage | null;
   imageAlt: string;
 }
 
@@ -62,24 +73,32 @@ export default async function TeamGrid({
           </div>
         </RevealWrapper>
         {team.length > 0 && (
-          <div className="grid grid--3">
+          <div className="team-grid">
             {team.map((member, i) => (
-              <RevealWrapper key={member.name} delay={((i + 1) as 1 | 2 | 3)}>
-                <div className="team-card">
-                  <div className="team-card__image">
-                    {member.image && (
-                      <Image
-                        src={member.image}
-                        alt={member.imageAlt || member.name}
-                        width={220}
-                        height={220}
-                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                      />
-                    )}
+              <RevealWrapper key={member._id} delay={((i % 3 + 1) as 1 | 2 | 3)}>
+                <Link href={`/team/${member.slug}`} className="team-card__link">
+                  <div className="team-card team-card--linked">
+                    <div className="team-card__image">
+                      {member.image?.asset ? (
+                        <Image
+                          src={urlFor(member.image).width(440).auto("format").url()}
+                          alt={member.imageAlt || member.name}
+                          width={220}
+                          height={220}
+                          placeholder="empty"
+                          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
+                        />
+                      ) : (
+                        <div className="team-card__image-default">
+                          <PersonIcon size={64} />
+                        </div>
+                      )}
+                    </div>
+                    <h3 className="team-card__name">{member.name}</h3>
+                    <p className="team-card__role">{member.role}</p>
+                    <span className="team-card__cta">View Profile →</span>
                   </div>
-                  <h3 className="team-card__name">{member.name}</h3>
-                  <p className="team-card__role">{member.role}</p>
-                </div>
+                </Link>
               </RevealWrapper>
             ))}
           </div>

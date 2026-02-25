@@ -123,11 +123,35 @@ export const blogPostSlugsQuery = groq`
 
 export const allTeamMembersQuery = groq`
   *[_type == "teamMember"] | order(order asc) {
+    _id,
     name,
+    "slug": coalesce(slug.current, _id),
     role,
-    "image": image.asset->url,
+    position,
+    "image": image { asset, hotspot, crop },
     "imageAlt": image.alt
   }
+`;
+
+export const teamMemberBySlugQuery = groq`
+  *[_type == "teamMember" && (slug.current == $slug || _id == $slug)][0] {
+    _id,
+    name,
+    "slug": coalesce(slug.current, _id),
+    role,
+    position,
+    bio,
+    qualifications,
+    workExperience,
+    personalLife,
+    socials,
+    "image": image { asset, hotspot, crop },
+    "imageAlt": image.alt
+  }
+`;
+
+export const allTeamMemberSlugsQuery = groq`
+  *[_type == "teamMember"] { "slug": coalesce(slug.current, _id) }
 `;
 
 // ─── Services ─────────────────────────────────────────

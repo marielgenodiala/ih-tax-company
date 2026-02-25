@@ -18,6 +18,7 @@ interface FeaturedBookOnlineProps {
   subtitle?: string;
   title?: string;
   description?: string;
+  consultationNote?: string;
   items?: FeaturedItem[];
 }
 
@@ -25,6 +26,7 @@ export default function FeaturedBookOnline({
   subtitle,
   title,
   description,
+  consultationNote,
   items = [],
 }: FeaturedBookOnlineProps) {
   const [selectedService, setSelectedService] = useState<string | null>(null);
@@ -53,9 +55,6 @@ export default function FeaturedBookOnline({
                       {item.duration && (
                         <span className="booking-item__tag">{item.duration}</span>
                       )}
-                      {item.price && (
-                        <span className="booking-item__price">{item.price}</span>
-                      )}
                     </div>
                   </div>
                   <button
@@ -69,6 +68,11 @@ export default function FeaturedBookOnline({
               </RevealWrapper>
             ))}
           </div>
+          {consultationNote && (
+            <div className="booking-note">
+              {consultationNote}
+            </div>
+          )}
         </div>
       </section>
 
