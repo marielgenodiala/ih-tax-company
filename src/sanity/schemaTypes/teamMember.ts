@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { UsersIcon } from "@sanity/icons";
 
 const richTextFields = [
   {
@@ -20,6 +21,7 @@ export const teamMember = defineType({
   name: "teamMember",
   title: "Team Member",
   type: "document",
+  icon: UsersIcon,
   fields: [
     defineField({
       name: "name",
@@ -139,6 +141,12 @@ export const teamMember = defineType({
       title: "Display Order",
       type: "number",
       initialValue: 0,
+    }),
+    defineField({
+      name: "seo",
+      title: "SEO Settings",
+      type: "seoObject",
+      description: "Override the default SEO for this team member's profile page.",
     }),
   ],
   orderings: [

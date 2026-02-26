@@ -40,6 +40,12 @@ export const pageBySlugQuery = groq`
   *[_type == "page" && slug.current == $slug][0] {
     title,
     "slug": slug.current,
+    "seo": seo {
+      metaTitle,
+      metaDescription,
+      metaKeywords,
+      "ogImage": ogImage.asset->url
+    },
     "sections": sections[] {
       // For reusable sections, unwrap the template's section data
       _type == "reusableSection" => template->.section[0] {
@@ -88,7 +94,13 @@ export const blogPostBySlugQuery = groq`
     excerpt,
     content,
     "image": image.asset->url,
-    "imageAlt": image.alt
+    "imageAlt": image.alt,
+    "seo": seo {
+      metaTitle,
+      metaDescription,
+      metaKeywords,
+      "ogImage": ogImage.asset->url
+    }
   }
 `;
 
@@ -146,7 +158,14 @@ export const teamMemberBySlugQuery = groq`
     personalLife,
     socials,
     "image": image { asset, hotspot, crop },
-    "imageAlt": image.alt
+    "imageAlt": image.alt,
+    "imageUrl": image.asset->url,
+    "seo": seo {
+      metaTitle,
+      metaDescription,
+      metaKeywords,
+      "ogImage": ogImage.asset->url
+    }
   }
 `;
 

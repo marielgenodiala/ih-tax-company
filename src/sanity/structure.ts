@@ -8,7 +8,7 @@ export const structure: StructureResolver = (S) =>
     .items([
       // Singleton
       S.listItem()
-        .title("SEO Settings")
+        .title("Default SEO Settings")
         .id("seoSettings")
         .child(
           S.document().schemaType("seoSettings").documentId(SEO_SETTINGS_ID)
@@ -20,9 +20,9 @@ export const structure: StructureResolver = (S) =>
         .schemaType("page")
         .child(S.documentTypeList("page").title("Pages")),
       S.listItem()
-        .title("Section Templates")
+        .title("Reusable Section Templates")
         .schemaType("sectionTemplate")
-        .child(S.documentTypeList("sectionTemplate").title("Section Templates")),
+        .child(S.documentTypeList("sectionTemplate").title("Reusable Section Templates")),
       S.divider(),
       S.listItem()
         .title("Blog Posts")

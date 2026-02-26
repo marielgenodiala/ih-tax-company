@@ -11,14 +11,24 @@ import {
   blogPostBySlugQuery,
   blogPostSlugsQuery,
   recentPostsQuery,
+  seoSettingsQuery,
 } from "@/sanity/lib/queries";
 import { portableTextComponents } from "@/components/blog/PortableTextComponents";
 import HeroImageModal from "@/components/blog/HeroImageModal";
+import JsonLd from "@/components/seo/JsonLd";
+import { SITE_URL, SITE_NAME, SITE_SUFFIX, resolveSeo } from "@/lib/seo";
 
 export const revalidate = 60;
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
+}
+
+interface PostSeo {
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  metaKeywords?: string[] | null;
+  ogImage?: string | null;
 }
 
 interface BlogPost {
@@ -31,6 +41,7 @@ interface BlogPost {
   content: unknown[];
   image: string;
   imageAlt: string;
+  seo?: PostSeo | null;
 }
 
 interface RecentPost {
@@ -48,11 +59,40 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post: BlogPost | null = await client.fetch(blogPostBySlugQuery, { slug });
+  const [post, global]: [BlogPost | null, unknown] = await Promise.all([
+    client.fetch(blogPostBySlugQuery, { slug }),
+    client.fetch(seoSettingsQuery),
+  ]);
   if (!post) return { title: "Post Not Found" };
+
+  const seo = resolveSeo(post.seo, global as Parameters<typeof resolveSeo>[1]);
+  // Custom title → absolute. Empty → post.title gets template suffix.
+  const titleMeta = seo.customTitle ? { absolute: seo.customTitle } : post.title;
+  const titleStr = seo.customTitle || `${post.title} | ${SITE_SUFFIX}`;
+  const description = seo.description || post.excerpt;
+  const ogImage = seo.ogImage || post.image;
+  const canonical = `${SITE_URL}/blogs/${slug}`;
+
   return {
-    title: `${post.title} | I H Professionals & Co.`,
-    description: post.excerpt,
+    title: titleMeta,
+    description,
+    keywords: seo.keywords,
+    alternates: { canonical },
+    openGraph: {
+      type: "article",
+      url: canonical,
+      title: titleStr,
+      description,
+      siteName: SITE_NAME,
+      publishedTime: post.date,
+      ...(ogImage && { images: [{ url: ogImage, width: 1200, height: 630, alt: titleStr }] }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: titleStr,
+      description,
+      ...(ogImage && { images: [ogImage] }),
+    },
   };
 }
 
@@ -91,13 +131,43 @@ function RecentPostsList({ recentPosts }: { recentPosts: RecentPost[] }) {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post: BlogPost | null = await client.fetch(blogPostBySlugQuery, { slug });
+  const [post, global, recentPosts]: [BlogPost | null, unknown, RecentPost[]] = await Promise.all([
+    client.fetch(blogPostBySlugQuery, { slug }),
+    client.fetch(seoSettingsQuery),
+    client.fetch(recentPostsQuery, { slug }),
+  ]);
   if (!post) notFound();
 
-  const recentPosts: RecentPost[] = await client.fetch(recentPostsQuery, { slug });
+  const seo = resolveSeo(post.seo, global as Parameters<typeof resolveSeo>[1]);
+  const titleStr = seo.customTitle || `${post.title} | ${SITE_SUFFIX}`;
+  const description = seo.description || post.excerpt;
+  const ogImage = seo.ogImage || post.image;
+  const canonical = `${SITE_URL}/blogs/${slug}`;
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: titleStr,
+    description,
+    url: canonical,
+    datePublished: post.date,
+    author: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    isPartOf: { "@type": "WebSite", name: SITE_NAME, url: SITE_URL },
+    ...(ogImage && { image: { "@type": "ImageObject", url: ogImage } }),
+  };
 
   return (
     <>
+      <JsonLd data={articleSchema} />
       <Header />
       <section className="blog-article-header">
         <div className="container">

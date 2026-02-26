@@ -5,6 +5,7 @@ import { service } from "./service";
 import { page } from "./page";
 import { seoSettings } from "./seoSettings";
 import { sectionTemplate } from "./sectionTemplate";
+import { seoObject } from "./objects/seoObject";
 
 // Section object types
 import { heroSection } from "./sections/heroSection";
@@ -34,6 +35,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     service,
     seoSettings,
     sectionTemplate,
+    // Objects
+    seoObject,
     // Section objects
     heroSection,
     logoCloudSection,

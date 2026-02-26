@@ -21,7 +21,10 @@ import {
   teamMemberBySlugQuery,
   allTeamMembersQuery,
   allTeamMemberSlugsQuery,
+  seoSettingsQuery,
 } from "@/sanity/lib/queries";
+import JsonLd from "@/components/seo/JsonLd";
+import { SITE_URL, SITE_NAME, SITE_SUFFIX, resolveSeo } from "@/lib/seo";
 
 export const revalidate = 60;
 
@@ -40,6 +43,13 @@ interface SanityImage {
   crop?: { top: number; bottom: number; left: number; right: number };
 }
 
+interface MemberSeo {
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  metaKeywords?: string[] | null;
+  ogImage?: string | null;
+}
+
 interface TeamMember {
   _id: string;
   name: string;
@@ -53,6 +63,8 @@ interface TeamMember {
   socials?: Social[];
   image?: SanityImage;
   imageAlt?: string;
+  imageUrl?: string;
+  seo?: MemberSeo | null;
 }
 
 interface TeamMemberSummary {
@@ -101,23 +113,74 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: TeamMemberPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const member: TeamMember | null = await client.fetch(teamMemberBySlugQuery, { slug });
+  const [member, global]: [TeamMember | null, unknown] = await Promise.all([
+    client.fetch(teamMemberBySlugQuery, { slug }),
+    client.fetch(seoSettingsQuery),
+  ]);
   if (!member) return { title: "Team Member Not Found" };
+
+  const fallbackDesc = member.bio || `${member.name}${member.role ? ` — ${member.role}` : ""}`;
+  const seo = resolveSeo(member.seo, global as Parameters<typeof resolveSeo>[1]);
+  // Custom title → absolute. Empty → member.name gets template suffix.
+  const titleMeta = seo.customTitle ? { absolute: seo.customTitle } : member.name;
+  const titleStr = seo.customTitle || `${member.name} | ${SITE_SUFFIX}`;
+  const description = member.seo?.metaDescription || seo.description || fallbackDesc;
+  const ogImage = seo.ogImage || member.imageUrl || null;
+  const canonical = `${SITE_URL}/team/${slug}`;
+
   return {
-    title: `${member.name} | I H Professionals & Co.`,
-    description: member.bio || `${member.name}${member.role ? ` — ${member.role}` : ""}`,
+    title: titleMeta,
+    description,
+    keywords: seo.keywords,
+    alternates: { canonical },
+    openGraph: {
+      type: "profile",
+      url: canonical,
+      title: titleStr,
+      description,
+      siteName: SITE_NAME,
+      ...(ogImage && { images: [{ url: ogImage, width: 1200, height: 630, alt: titleStr }] }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: titleStr,
+      description,
+      ...(ogImage && { images: [ogImage] }),
+    },
   };
 }
 
 export default async function TeamMemberPage({ params }: TeamMemberPageProps) {
   const { slug } = await params;
 
-  const [member, allMembers]: [TeamMember | null, TeamMemberSummary[]] = await Promise.all([
+  const [member, allMembers, global]: [TeamMember | null, TeamMemberSummary[], unknown] = await Promise.all([
     client.fetch(teamMemberBySlugQuery, { slug }),
     client.fetch(allTeamMembersQuery),
+    client.fetch(seoSettingsQuery),
   ]);
 
   if (!member) notFound();
+
+  const fallbackDesc = member.bio || `${member.name}${member.role ? ` — ${member.role}` : ""}`;
+  const seo = resolveSeo(member.seo, global as Parameters<typeof resolveSeo>[1]);
+  const description = member.seo?.metaDescription || seo.description || fallbackDesc;
+  const ogImage = seo.ogImage || member.imageUrl || null;
+  const canonical = `${SITE_URL}/team/${slug}`;
+
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: member.name,
+    jobTitle: member.position || member.role,
+    description,
+    url: canonical,
+    worksFor: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    ...(ogImage && { image: ogImage }),
+  };
 
   const hasQualifications = member.qualifications && member.qualifications.length > 0;
   const hasWork = member.workExperience && member.workExperience.length > 0;
@@ -126,6 +189,7 @@ export default async function TeamMemberPage({ params }: TeamMemberPageProps) {
 
   return (
     <>
+      <JsonLd data={personSchema} />
       <Header />
 
       {/* ── Breadcrumb ── */}

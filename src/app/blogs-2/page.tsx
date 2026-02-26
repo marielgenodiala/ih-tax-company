@@ -5,15 +5,41 @@ import RevealWrapper from "@/components/ui/RevealWrapper";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { client } from "@/sanity/lib/client";
-import { allBlogPostsQuery } from "@/sanity/lib/queries";
+import { allBlogPostsQuery, seoSettingsQuery } from "@/sanity/lib/queries";
+import { SITE_URL, SITE_NAME, DEFAULT_DESCRIPTION } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: "Blog | I H Professionals & Co.",
-  description:
-    "Tax tips, accounting insights, and business updates from I H Professionals & Co.",
-};
+const PAGE_TITLE = "Blog";
+const PAGE_DESCRIPTION =
+  "Tax tips, accounting insights, and business updates from I H Professionals & Co.";
+const CANONICAL = `${SITE_URL}/blogs`;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const global = await client.fetch(seoSettingsQuery);
+  const ogImage = global?.seoImage || null;
+
+  return {
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    alternates: { canonical: CANONICAL },
+    openGraph: {
+      type: "website",
+      url: CANONICAL,
+      title: `${PAGE_TITLE} | ${SITE_NAME}`,
+      description: PAGE_DESCRIPTION,
+      siteName: SITE_NAME,
+      ...(ogImage && { images: [{ url: ogImage, width: 1200, height: 630 }] }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${PAGE_TITLE} | ${SITE_NAME}`,
+      description: PAGE_DESCRIPTION,
+      ...(ogImage && { images: [ogImage] }),
+    },
+  };
+}
 
 interface BlogPost {
   title: string;
@@ -29,8 +55,18 @@ interface BlogPost {
 export default async function BlogsPage() {
   const blogPosts: BlogPost[] = await client.fetch(allBlogPostsQuery);
 
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${PAGE_TITLE} | ${SITE_NAME}`,
+    url: CANONICAL,
+    description: PAGE_DESCRIPTION,
+    isPartOf: { "@type": "WebSite", name: SITE_NAME, url: SITE_URL },
+  };
+
   return (
     <>
+      <JsonLd data={collectionSchema} />
       <Header />
       <section className="page-hero">
         <div className="container">

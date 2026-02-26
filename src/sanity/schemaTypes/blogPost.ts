@@ -1,10 +1,12 @@
 import { defineField, defineType } from "sanity";
+import { ComposeIcon } from "@sanity/icons";
 import { PageUrlPreview } from "../components/PageUrlPreview";
 
 export const blogPost = defineType({
   name: "blogPost",
   title: "Blog Post",
   type: "document",
+  icon: ComposeIcon,
   fields: [
     defineField({
       name: "title",
@@ -168,6 +170,12 @@ export const blogPost = defineType({
           },
         },
       ],
+    }),
+    defineField({
+      name: "seo",
+      title: "SEO Settings",
+      type: "seoObject",
+      description: "Override the default SEO for this post. Leave blank to use defaults.",
     }),
   ],
   orderings: [

@@ -2189,7 +2189,7 @@ p:last-child { margin-bottom: 0; }
    ============================================ */
 .footer {
   background-color: var(--color-dark-bg);
-  color: rgba(255, 255, 255, 0.6);
+  color: #b4baca;
   padding: var(--space-16) 0 var(--space-8);
 }
 
@@ -2259,7 +2259,7 @@ p:last-child { margin-bottom: 0; }
 }
 
 .footer__links a {
-  color: rgba(255, 255, 255, 0.6);
+  color: #b4baca;
   font-size: var(--font-size-sm);
   text-decoration: none;
   transition: color var(--transition);
@@ -2300,7 +2300,7 @@ p:last-child { margin-bottom: 0; }
   padding-top: var(--space-8);
   text-align: center;
   font-size: var(--font-size-xs);
-  color: rgba(255, 255, 255, 0.4);
+  color: #8e95aa;
 }
 
 /* Grid utility */

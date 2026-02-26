@@ -1,10 +1,12 @@
 import { defineField, defineType } from "sanity";
+import { DocumentIcon } from "@sanity/icons";
 import { PageUrlPreview } from "../components/PageUrlPreview";
 
 export const page = defineType({
   name: "page",
   title: "Page",
   type: "document",
+  icon: DocumentIcon,
   fields: [
     defineField({
       name: "title",
@@ -66,6 +68,12 @@ export const page = defineType({
         { type: "footerSection" },
         { type: "reusableSection" },
       ],
+    }),
+    defineField({
+      name: "seo",
+      title: "SEO Settings",
+      type: "seoObject",
+      description: "Override the default SEO for this page. Leave blank to use site defaults.",
     }),
   ],
   preview: {

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, Playfair_Display } from "next/font/google";
 import { client } from "@/sanity/lib/client";
 import { seoSettingsQuery } from "@/sanity/lib/queries";
+import { SITE_URL, SITE_NAME, SITE_SUFFIX, DEFAULT_DESCRIPTION } from "@/lib/seo";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -22,18 +23,34 @@ const playfairDisplay = Playfair_Display({
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await client.fetch(seoSettingsQuery);
 
+  const description = seo?.seoDescription || DEFAULT_DESCRIPTION;
+  const ogImage = seo?.seoImage;
+
   return {
+    metadataBase: new URL(SITE_URL),
     title: {
-      template: "%s | I H Professionals & Co.",
-      default: seo?.seoTitle || "I H Professionals & Co. Pty Ltd | Tax Agent",
+      template: `%s | ${SITE_SUFFIX}`,
+      default: seo?.seoTitle || SITE_SUFFIX,
     },
-    description:
-      seo?.seoDescription ||
-      "Tax Return, I H Professionals & Co. Pty Ltd, We have more than 15 years experience in accounting, tax and business advisory fields with a great range of business, individuals, SMSFs & Trusts. Located in the Sydney CBD and various locations across Sydney.",
+    description,
     keywords: seo?.seoKeywords || undefined,
-    openGraph: seo?.seoImage
-      ? { images: [{ url: seo.seoImage }] }
-      : undefined,
+    openGraph: {
+      type: "website",
+      siteName: SITE_NAME,
+      description,
+      ...(ogImage && { images: [{ url: ogImage, width: 1200, height: 630 }] }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: "@ihprofessionals",
+      description,
+      ...(ogImage && { images: [ogImage] }),
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true },
+    },
     icons: {
       icon: "/images/brandlogo-new.png",
     },
@@ -47,6 +64,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${dmSans.variable} ${playfairDisplay.variable}`}>
+      <head>
+        {/* Preload hero background so LCP image is discovered early */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/heroImage.avif"
+          type="image/avif"
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

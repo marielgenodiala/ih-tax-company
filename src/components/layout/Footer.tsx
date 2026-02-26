@@ -80,7 +80,7 @@ export default function Footer(props: FooterProps) {
                 style={{ height: "32px", width: "auto" }}
               />
             </div>
-            <h4 className="footer__heading">{name}</h4>
+            <p className="footer__heading">{name}</p>
             <p>{description}</p>
             <div className="footer__socials">
               {socials.map((social) => {
@@ -100,7 +100,7 @@ export default function Footer(props: FooterProps) {
             </div>
           </div>
           <div className="footer__col">
-            <h4 className="footer__heading">Quick Links</h4>
+            <p className="footer__heading">Quick Links</p>
             <ul className="footer__links">
               {quick.map((link) => (
                 <li key={link.href}>
@@ -110,7 +110,7 @@ export default function Footer(props: FooterProps) {
             </ul>
           </div>
           <div className="footer__col">
-            <h4 className="footer__heading">Services</h4>
+            <p className="footer__heading">Services</p>
             <ul className="footer__links">
               {services.map((link) => (
                 <li key={link.label}>
@@ -120,7 +120,7 @@ export default function Footer(props: FooterProps) {
             </ul>
           </div>
           <div className="footer__col">
-            <h4 className="footer__heading">Newsletter</h4>
+            <p className="footer__heading">Newsletter</p>
             <p>Get the latest tax tips and updates delivered to your inbox.</p>
             <NewsletterForm />
           </div>

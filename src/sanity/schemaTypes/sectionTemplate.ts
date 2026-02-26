@@ -1,9 +1,11 @@
 import { defineField, defineType } from "sanity";
+import { ComponentIcon } from "@sanity/icons";
 
 export const sectionTemplate = defineType({
   name: "sectionTemplate",
   title: "Section Template",
   type: "document",
+  icon: ComponentIcon,
   description: "Reusable section templates that can be referenced from any page.",
   fields: [
     defineField({

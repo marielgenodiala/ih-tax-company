@@ -1,9 +1,11 @@
 import { defineField, defineType } from "sanity";
+import { EarthGlobeIcon } from "@sanity/icons";
 
 export const seoSettings = defineType({
   name: "seoSettings",
-  title: "SEO Settings",
+  title: "Default SEO Settings",
   type: "document",
+  icon: EarthGlobeIcon,
   fields: [
     defineField({
       name: "seoTitle",
@@ -35,6 +37,6 @@ export const seoSettings = defineType({
     }),
   ],
   preview: {
-    prepare: () => ({ title: "SEO Settings" }),
+    prepare: () => ({ title: "Default SEO Settings" }),
   },
 });
