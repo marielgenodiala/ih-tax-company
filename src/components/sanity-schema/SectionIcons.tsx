@@ -19,4 +19,5 @@ export {
   EnvelopeIcon as ContactFormIcon,
   ThLargeIcon as TeamGridIcon,
   StackCompactIcon as FooterIcon,
+  PinIcon as ContactPageIcon,
 } from "@sanity/icons";

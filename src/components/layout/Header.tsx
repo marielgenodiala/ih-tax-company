@@ -58,7 +58,6 @@ export default function Header({ logo, logoText, navLinks }: HeaderProps) {
             alt="IH Professionals logo"
             width={36}
             height={36}
-            style={{ height: "36px", width: "auto" }}
           />
           {logoText || "I H Professionals & Co."}
         </Link>

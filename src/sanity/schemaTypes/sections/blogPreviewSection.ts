@@ -48,6 +48,13 @@ export const blogPreviewSection = defineType({
       description: "When enabled, automatically fetches and displays latest blog posts.",
       initialValue: true,
     }),
+    defineField({
+      name: "readMoreLabel",
+      title: "Read more button label",
+      type: "string",
+      description: "Label for the link on each blog card (e.g. Read more).",
+      initialValue: "Read more",
+    }),
   ],
   preview: {
     select: { sectionLabel: "sectionLabel" },

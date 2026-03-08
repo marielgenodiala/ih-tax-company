@@ -23,7 +23,8 @@ export const featuredBookOnlineSection = defineType({
       name: "title",
       title: "Title",
       type: "string",
-      description: 'Wrap text in *asterisks* for blue italic emphasis, e.g. "guide to *success*"',
+      description:
+        'Wrap text in *asterisks* for blue italic emphasis, e.g. "guide to *success*"',
     }),
     defineField({
       name: "description",
@@ -36,7 +37,8 @@ export const featuredBookOnlineSection = defineType({
       title: "Consultation Note",
       type: "text",
       rows: 3,
-      description: "Optional note shown below the booking list (e.g. free consultation offer, quote info).",
+      description:
+        "Optional note shown below the booking list (e.g. free consultation offer, quote info).",
     }),
     defineField({
       name: "items",
@@ -81,6 +83,12 @@ export const featuredBookOnlineSection = defineType({
               title: "Button Link",
               type: "string",
               description: 'e.g. "/book-online", "/#contact"',
+            }),
+            defineField({
+              name: "index",
+              title: "Index",
+              type: "string",
+              initialValue: "#management-accounting",
             }),
           ],
           preview: {

@@ -9,6 +9,7 @@ import CtaBanner from "./CtaBanner";
 import BlogPreview from "./BlogPreview";
 import OpeningHours from "./OpeningHours";
 import ContactForm from "./ContactForm";
+import ContactPageSection from "./ContactPageSection";
 import TeamGrid from "./TeamGrid";
 import PageHero from "./PageHero";
 import FeaturedBookOnline from "./FeaturedBookOnline";
@@ -37,6 +38,7 @@ const sectionComponents: Record<string, React.ComponentType<any>> = {
   blogPreviewSection: BlogPreview,
   openingHoursSection: OpeningHours,
   contactFormSection: ContactForm,
+  contactPageSection: ContactPageSection,
   teamGridSection: TeamGrid,
   footerSection: Footer,
 };

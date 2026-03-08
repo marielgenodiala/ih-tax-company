@@ -24,6 +24,7 @@ import { navigationSection } from "./sections/navigationSection";
 import { footerSection } from "./sections/footerSection";
 import { pageHeroSection } from "./sections/pageHeroSection";
 import { featuredBookOnlineSection } from "./sections/featuredBookOnlineSection";
+import { contactPageSection } from "./sections/contactPageSection";
 import { reusableSection } from "./sections/reusableSection";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
@@ -54,6 +55,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     footerSection,
     pageHeroSection,
     featuredBookOnlineSection,
+    contactPageSection,
     reusableSection,
   ],
 };

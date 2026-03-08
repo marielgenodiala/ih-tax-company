@@ -14,13 +14,30 @@ interface FooterLink {
   href: string;
 }
 
+/** Service links from Sanity use path + index (anchor) to match Book Online section IDs */
+interface ServiceLinkInput {
+  label: string;
+  href?: string;
+  path?: string;
+  index?: string;
+}
+
+function toServiceHref(link: ServiceLinkInput): string {
+  if (link.index != null && link.index !== "") {
+    const path = (link.path || "/book-online").replace(/\/$/, "");
+    const anchor = link.index.startsWith("#") ? link.index : `#${link.index}`;
+    return `${path}${anchor}`;
+  }
+  return link.href ?? "/book-online";
+}
+
 interface FooterProps {
   companyName?: string;
   companyDescription?: string;
   logo?: string;
   socialLinks?: SocialLink[];
   quickLinks?: FooterLink[];
-  serviceLinks?: FooterLink[];
+  serviceLinks?: ServiceLinkInput[];
   newsletterEmail?: string;
   copyrightText?: string;
 }
@@ -34,9 +51,9 @@ const defaultQuickLinks: FooterLink[] = [
 ];
 
 const defaultServiceLinks: FooterLink[] = [
-  { label: "Tax Accounting", href: "/book-online" },
-  { label: "Management Accounting", href: "/book-online" },
-  { label: "Auditing", href: "/book-online" },
+  { label: "Tax Accounting", href: "/book-online#tax-accounting" },
+  { label: "Management Accounting", href: "/book-online#management-accounting" },
+  { label: "Auditing", href: "/book-online#auditing" },
 ];
 
 const socialIconMap: Record<string, React.ComponentType> = {
@@ -59,8 +76,11 @@ export default function Footer(props: FooterProps) {
   const quick = props.quickLinks?.length
     ? props.quickLinks
     : defaultQuickLinks;
-  const services = props.serviceLinks?.length
-    ? props.serviceLinks
+  const services: FooterLink[] = props.serviceLinks?.length
+    ? props.serviceLinks.map((link) => ({
+        label: link.label,
+        href: toServiceHref(link),
+      }))
     : defaultServiceLinks;
   const copyright =
     props.copyrightText ||

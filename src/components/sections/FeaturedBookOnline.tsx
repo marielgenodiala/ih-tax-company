@@ -12,6 +12,8 @@ interface FeaturedItem {
   price?: string;
   buttonText?: string;
   buttonHref?: string;
+  /** Anchor id for this section (e.g. tax-accounting). Must match footer service link index. */
+  index?: string;
 }
 
 interface FeaturedBookOnlineProps {
@@ -44,35 +46,42 @@ export default function FeaturedBookOnline({
               </div>
             </RevealWrapper>
           )}
-          <div className="booking__list">
-            {items.map((item, i) => (
-              <RevealWrapper key={item.title} delay={((i % 3 + 1) as 1 | 2 | 3)}>
-                <div className="booking-item">
-                  <div className="booking-item__info">
-                    <h3>{item.title}</h3>
-                    {item.description && <p>{item.description}</p>}
-                    <div className="booking-item__details">
-                      {item.duration && (
-                        <span className="booking-item__tag">{item.duration}</span>
-                      )}
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    className="btn btn--primary btn--arrow"
-                    onClick={() => setSelectedService(item.title)}
-                  >
-                    {item.buttonText || "Book Now"}
-                  </button>
-                </div>
-              </RevealWrapper>
-            ))}
-          </div>
           {consultationNote && (
-            <div className="booking-note">
-              {consultationNote}
-            </div>
+            <div className="booking-note mb-5">{consultationNote}</div>
           )}
+          <div className="booking__list">
+            {items.map((item, i) => {
+              const anchorId = item.index?.replace(/^#/, "") || undefined;
+              return (
+                <RevealWrapper
+                  key={item.title}
+                  id={anchorId}
+                  delay={((i % 3) + 1) as 1 | 2 | 3}
+                >
+                  <div className="booking-item">
+                    <div className="booking-item__info">
+                      <h3>{item.title}</h3>
+                      {item.description && <p>{item.description}</p>}
+                      <div className="booking-item__details">
+                        {item.duration && (
+                          <span className="booking-item__tag">
+                            {item.duration}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      className="btn btn--primary btn--arrow"
+                      onClick={() => setSelectedService(item.title)}
+                    >
+                      {item.buttonText || "Book Now"}
+                    </button>
+                  </div>
+                </RevealWrapper>
+              );
+            })}
+          </div>
         </div>
       </section>
 

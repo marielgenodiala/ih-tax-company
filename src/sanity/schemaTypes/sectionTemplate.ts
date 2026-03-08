@@ -34,6 +34,7 @@ export const sectionTemplate = defineType({
         { type: "blogPreviewSection" },
         { type: "openingHoursSection" },
         { type: "contactFormSection" },
+        { type: "contactPageSection" },
         { type: "teamGridSection" },
         { type: "footerSection" },
       ],

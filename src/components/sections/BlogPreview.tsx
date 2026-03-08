@@ -22,6 +22,7 @@ interface BlogPreviewProps {
   description?: string;
   useBlogList?: boolean;
   alignLeft?: boolean;
+  readMoreLabel?: string;
 }
 
 export default async function BlogPreview({
@@ -30,11 +31,10 @@ export default async function BlogPreview({
   description,
   useBlogList = true,
   alignLeft = false,
+  readMoreLabel = "Read more",
 }: BlogPreviewProps) {
   const query = alignLeft ? allBlogPostsQuery : latestBlogPostsQuery;
-  const posts: BlogPost[] = useBlogList
-    ? await client.fetch(query)
-    : [];
+  const posts: BlogPost[] = useBlogList ? await client.fetch(query) : [];
 
   const hasHeader = subtitle || title || description;
 
@@ -43,7 +43,9 @@ export default async function BlogPreview({
       <div className="container">
         {hasHeader && (
           <RevealWrapper>
-            <div className={`section__header${alignLeft ? " section__header--left" : ""}`}>
+            <div
+              className={`section__header${alignLeft ? " section__header--left" : ""}`}
+            >
               {subtitle && <span className="section-label">{subtitle}</span>}
               {title && <h2>{parseEmphasis(title)}</h2>}
               {description && <p>{description}</p>}
@@ -54,8 +56,14 @@ export default async function BlogPreview({
           <>
             <div className="grid grid--3">
               {posts.map((post, i) => (
-                <RevealWrapper key={post.slug} delay={((i % 3) + 1) as 1 | 2 | 3}>
-                  <Link href={`/blogs/${post.slug}`} className="blog-card blog-card--link">
+                <RevealWrapper
+                  key={post.slug}
+                  delay={((i % 3) + 1) as 1 | 2 | 3}
+                >
+                  <Link
+                    href={`/blogs/${post.slug}`}
+                    className="blog-card blog-card--link"
+                  >
                     <div className="blog-card__image">
                       {post.image && (
                         <Image
@@ -63,7 +71,11 @@ export default async function BlogPreview({
                           alt={post.imageAlt || post.title}
                           width={400}
                           height={250}
-                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
                         />
                       )}
                     </div>
@@ -71,12 +83,19 @@ export default async function BlogPreview({
                       <div className="blog-card__meta">
                         <span className="blog-card__date">{post.date}</span>
                         {post.readingTime && (
-                          <span className="blog-card__read-time">{post.readingTime}</span>
+                          <span className="blog-card__read-time">
+                            {post.readingTime}
+                          </span>
                         )}
                       </div>
                       <h3 className="blog-card__title">{post.title}</h3>
                       <p className="blog-card__excerpt">{post.excerpt}</p>
-                      <p className="blog-card__author">I H Professionals &amp; Co</p>
+                      <span className="blog-card__read-more">
+                        {readMoreLabel}....
+                      </span>
+                      <p className="blog-card__author">
+                        I H Professionals &amp; Co
+                      </p>
                     </div>
                   </Link>
                 </RevealWrapper>

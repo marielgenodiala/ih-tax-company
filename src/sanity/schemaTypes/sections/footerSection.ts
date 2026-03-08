@@ -99,6 +99,8 @@ export const footerSection = defineType({
       name: "serviceLinks",
       title: "Service Links",
       type: "array",
+      description:
+        "Links to service sections on the Book Online page. The Index must match the Index field on each Featured Book Online item (e.g. tax-accounting, management-accounting, auditing).",
       of: [
         {
           type: "object",
@@ -107,18 +109,33 @@ export const footerSection = defineType({
               name: "label",
               title: "Label",
               type: "string",
+              description: "Link text (e.g. Tax Accounting). Should match the Book Online item title.",
               validation: (rule) => rule.required(),
             }),
             defineField({
-              name: "href",
-              title: "URL Path",
+              name: "path",
+              title: "Page Path",
               type: "string",
-              description: 'Accepts: "/book-online", "book-online", etc.',
+              initialValue: "/book-online",
+              description: "Base path for the link (usually /book-online).",
+            }),
+            defineField({
+              name: "index",
+              title: "Index (anchor)",
+              type: "string",
+              description:
+                "Must exactly match the Index on the Book Online page item (e.g. tax-accounting, management-accounting, auditing). No leading # needed.",
               validation: (rule) => rule.required(),
             }),
           ],
           preview: {
-            select: { title: "label", subtitle: "href" },
+            select: { label: "label", index: "index" },
+            prepare({ label, index }) {
+              return {
+                title: label,
+                subtitle: index ? `#${index}` : undefined,
+              };
+            },
           },
         },
       ],

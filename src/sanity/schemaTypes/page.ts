@@ -64,6 +64,7 @@ export const page = defineType({
         { type: "blogPreviewSection" },
         { type: "openingHoursSection" },
         { type: "contactFormSection" },
+        { type: "contactPageSection" },
         { type: "teamGridSection" },
         { type: "footerSection" },
         { type: "reusableSection" },

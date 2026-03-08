@@ -7,6 +7,7 @@ interface RevealWrapperProps {
   className?: string;
   delay?: 1 | 2 | 3 | 4;
   direction?: "up" | "left" | "right";
+  id?: string;
 }
 
 export default function RevealWrapper({
@@ -14,6 +15,7 @@ export default function RevealWrapper({
   className = "",
   delay,
   direction = "up",
+  id,
 }: RevealWrapperProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -41,7 +43,7 @@ export default function RevealWrapper({
   const delayClass = delay ? `reveal-delay-${delay}` : "";
 
   return (
-    <div ref={ref} className={`${directionClass} ${delayClass} ${className}`.trim()}>
+    <div ref={ref} id={id} className={`${directionClass} ${delayClass} ${className}`.trim()}>
       {children}
     </div>
   );
