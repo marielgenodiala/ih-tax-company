@@ -229,7 +229,7 @@ p:last-child {
   transform: translateX(0);
 }
 
-/* Mobile only: force all reveals to vertical to prevent overlapping */
+/* Mobile only: use vertical reveal (no left/right) to avoid overlapping */
 @media (max-width: 767px) {
   .reveal-left,
   .reveal-right {
@@ -238,22 +238,6 @@ p:last-child {
   .reveal-left.revealed,
   .reveal-right.revealed {
     transform: translateY(0);
-  }
-}
-
-/* Mobile: keep content visible even if IntersectionObserver hasn't fired */
-@media (max-width: 767px) {
-  .reveal,
-  .reveal-left,
-  .reveal-right {
-    opacity: 1;
-    transform: none;
-  }
-  .reveal.revealed,
-  .reveal-left.revealed,
-  .reveal-right.revealed {
-    opacity: 1;
-    transform: none;
   }
 }
 
