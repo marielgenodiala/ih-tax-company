@@ -94,8 +94,9 @@ export default function Header({ logo, logoText, navLinks }: HeaderProps) {
           >
             &times;
           </button>
-          {links.map((link) => {
+          {links.map((link, index) => {
             const href = normalizeHref(link.href);
+            const isLast = index === links.length - 1;
             let isActive = false;
             if (link.noActive) {
               isActive = false;
@@ -108,7 +109,11 @@ export default function Header({ logo, logoText, navLinks }: HeaderProps) {
               <Link
                 key={link.href}
                 href={href}
-                className={`header__link${isActive ? " header__link--active" : ""}`}
+                className={
+                  isLast
+                    ? "btn btn--primary btn btn--arrow"
+                    : `header__link${isActive ? " header__link--active" : ""}`
+                }
                 onClick={() => setMenuOpen(false)}
               >
                 {link.label}

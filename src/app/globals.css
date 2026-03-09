@@ -342,7 +342,7 @@ p:last-child {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 72px;
+  height: 88px;
 }
 
 .header__logo {
@@ -486,7 +486,7 @@ p:last-child {
   color: var(--color-text-light);
   font-weight: 500;
   font-size: var(--font-size-sm);
-  padding: var(--space-3) 0;
+  padding: var(--space-4) 0;
   text-decoration: none;
   position: relative;
   transition: color var(--transition);
@@ -523,6 +523,18 @@ p:last-child {
 .header__link--active::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+/* Header nav primary button: full width + centered text on mobile/md */
+@media (max-width: 1023px) {
+  .header__nav {
+    align-items: stretch;
+  }
+  .header__nav .btn.btn--primary {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
 }
 
 /* ============================================
@@ -2870,7 +2882,7 @@ p:last-child {
   }
 
   .header__link {
-    padding: var(--space-3) var(--space-4);
+    padding: var(--space-4) var(--space-4);
   }
 
   .header__link::after {
