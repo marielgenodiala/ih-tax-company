@@ -23,9 +23,20 @@ const sectionImageResolvers = `
     ...,
     "logo": logo.asset->url
   },
+  _type == "footerTwoPartSection" => {
+    ...,
+    "logo": logo.asset->url
+  },
   _type == "logoCloudSection" => {
     ...,
     logos[] {
+      ...,
+      "image": image.asset->url
+    }
+  },
+  _type == "statsSection" => {
+    ...,
+    partners[] {
       ...,
       "image": image.asset->url
     }
@@ -106,6 +117,19 @@ export const blogPostBySlugQuery = groq`
 
 export const latestBlogPostsQuery = groq`
   *[_type == "blogPost"] | order(date desc) [0..2] {
+    title,
+    "slug": slug.current,
+    date,
+    category,
+    readingTime,
+    excerpt,
+    "image": image.asset->url,
+    "imageAlt": image.alt
+  }
+`;
+
+export const latestFourBlogPostsQuery = groq`
+  *[_type == "blogPost"] | order(date desc) [0..3] {
     title,
     "slug": slug.current,
     date,

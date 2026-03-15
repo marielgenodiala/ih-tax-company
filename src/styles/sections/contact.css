@@ -1,0 +1,19 @@
+/* ============================================
+   Contact (section on pages)
+   ============================================ */
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-10);
+  align-items: start;
+}
+
+.contact__info h2 {
+  margin-bottom: var(--space-5);
+  font-size: var(--font-size-3xl);
+}
+
+.contact__info h2 em {
+  color: var(--color-primary);
+  font-style: italic;
+}

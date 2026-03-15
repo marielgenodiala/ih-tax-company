@@ -1,0 +1,118 @@
+/* ============================================
+   Footer
+   ============================================ */
+.footer {
+  background-color: var(--color-dark-bg);
+  color: #b4baca;
+  padding: var(--space-16) 0 var(--space-8);
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  margin-bottom: var(--space-12);
+}
+
+.footer__heading {
+  font-family: var(--font-body);
+  color: #ffffff;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: var(--space-5);
+}
+
+.footer__col p {
+  font-size: var(--font-size-sm);
+  line-height: 1.75;
+}
+
+.footer__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.footer__logo img {
+  height: 32px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.footer__socials {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.footer__socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: #ffffff;
+  transition: color var(--transition);
+}
+
+.footer__socials a:hover {
+  color: var(--color-primary);
+}
+
+.footer__socials svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.footer__links li {
+  margin-bottom: var(--space-3);
+}
+
+.footer__links a {
+  color: #b4baca;
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.footer__links a:hover {
+  color: #ffffff;
+}
+
+.footer__newsletter {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.footer__newsletter .form__input {
+  flex: 1;
+  padding: 10px var(--space-4);
+  font-size: var(--font-size-sm);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  border-radius: 100px;
+}
+
+.footer__newsletter .form__input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.footer__newsletter .btn {
+  padding: 10px 20px;
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+.footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: var(--space-8);
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: #8e95aa;
+}

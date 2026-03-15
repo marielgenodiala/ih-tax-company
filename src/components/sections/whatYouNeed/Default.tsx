@@ -27,7 +27,6 @@ export default function WhatYouNeed({
     ? urlFor(image).width(600).url()
     : "/images/accountingImage.avif";
 
-  // subtitle takes priority, fallback to label for backwards compatibility
   const sectionLabel = subtitle || label || "Inside Business";
 
   return (

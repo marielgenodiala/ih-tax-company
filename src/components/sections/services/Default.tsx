@@ -17,20 +17,20 @@ import { client } from "@/sanity/lib/client";
 import { allServicesQuery } from "@/sanity/lib/queries";
 import { parseEmphasis } from "@/lib/normalizeHref";
 
-interface Service {
+export interface Service {
   title: string;
   description: string;
   icon: string;
 }
 
-interface ServicesProps {
+export interface ServicesProps {
   subtitle?: string;
   title?: string;
   description?: string;
   useServiceList?: boolean;
 }
 
-const iconMap: Record<string, ReactNode> = {
+export const iconMap: Record<string, ReactNode> = {
   tax: <TaxIcon />,
   management: <ManagementIcon />,
   audit: <AuditIcon />,

@@ -12,7 +12,6 @@ interface FeaturedItem {
   price?: string;
   buttonText?: string;
   buttonHref?: string;
-  /** Anchor id for this section (e.g. tax-accounting). Must match footer service link index. */
   index?: string;
 }
 
@@ -84,7 +83,6 @@ export default function FeaturedBookOnline({
           </div>
         </div>
       </section>
-
       {selectedService && (
         <BookingModal
           serviceName={selectedService}

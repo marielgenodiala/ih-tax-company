@@ -22,9 +22,11 @@ import { contactFormSection } from "./sections/contactFormSection";
 import { teamGridSection } from "./sections/teamGridSection";
 import { navigationSection } from "./sections/navigationSection";
 import { footerSection } from "./sections/footerSection";
+import { footerTwoPartSection } from "./sections/footerTwoPartSection";
 import { pageHeroSection } from "./sections/pageHeroSection";
 import { featuredBookOnlineSection } from "./sections/featuredBookOnlineSection";
 import { contactPageSection } from "./sections/contactPageSection";
+import { googleReviewsSection } from "./sections/googleReviewsSection";
 import { reusableSection } from "./sections/reusableSection";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
@@ -53,9 +55,11 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     teamGridSection,
     navigationSection,
     footerSection,
+    footerTwoPartSection,
     pageHeroSection,
     featuredBookOnlineSection,
     contactPageSection,
+    googleReviewsSection,
     reusableSection,
   ],
 };

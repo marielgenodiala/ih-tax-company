@@ -1,0 +1,92 @@
+/* ============================================
+   Statement Banner
+   ============================================ */
+.statement {
+  padding: var(--space-20) 0;
+  background-color: var(--color-dark-bg);
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.statement::before {
+  --tw-content: "";
+  content: var(--tw-content);
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 16, 36, 0.88);
+}
+
+.statement .container {
+  position: relative;
+  z-index: 1;
+}
+
+.statement__text {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+  max-width: 750px;
+  margin: 0 auto;
+  font-weight: 400;
+}
+
+.statement__text em {
+  color: #ffffff;
+  font-style: italic;
+}
+
+/* —— Title + content variant (solid dark banner) —— */
+.statement--title-content {
+  background-image: none;
+  padding: var(--space-10) 0;
+}
+
+.statement--title-content::before {
+  display: none;
+}
+
+.statement__title-content-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-6);
+}
+
+.statement__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.2;
+  max-width: 800px;
+}
+
+.statement__content-blocks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.statement__content-block {
+  font-family: var(--font-body);
+  font-size: var(--font-size-md);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.statement__content-block em {
+  color: #ffffff;
+  font-style: italic;
+}
+

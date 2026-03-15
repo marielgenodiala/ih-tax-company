@@ -8,6 +8,18 @@ export const blogPreviewSection = defineType({
   icon: BlogPreviewIcon,
   fields: [
     defineField({
+      name: "variant",
+      title: "Layout",
+      type: "string",
+      options: {
+        list: [
+          { value: "default", title: "Default (3 cards grid + header)" },
+          { value: "latestNews", title: "Latest News (featured + 3 side cards, 4 total)" },
+        ],
+      },
+      initialValue: "default",
+    }),
+    defineField({
       name: "sectionLabel",
       title: "Section Label",
       type: "string",
@@ -19,6 +31,7 @@ export const blogPreviewSection = defineType({
       type: "string",
       description: "Small label above the heading.",
       initialValue: "Latest Insights",
+      hidden: ({ parent }) => parent?.variant === "latestNews",
     }),
     defineField({
       name: "title",
@@ -33,6 +46,7 @@ export const blogPreviewSection = defineType({
       type: "text",
       rows: 3,
       initialValue: "Stay informed with the latest tax tips and business updates.",
+      hidden: ({ parent }) => parent?.variant === "latestNews",
     }),
     defineField({
       name: "alignLeft",
@@ -40,6 +54,7 @@ export const blogPreviewSection = defineType({
       type: "boolean",
       description: "Align the header text to the left instead of centered.",
       initialValue: false,
+      hidden: ({ parent }) => parent?.variant === "latestNews",
     }),
     defineField({
       name: "useBlogList",
@@ -54,12 +69,22 @@ export const blogPreviewSection = defineType({
       type: "string",
       description: "Label for the link on each blog card (e.g. Read more).",
       initialValue: "Read more",
+      hidden: ({ parent }) => parent?.variant === "latestNews",
+    }),
+    defineField({
+      name: "viewAllLabel",
+      title: "View all button label",
+      type: "string",
+      description: "Label for the link below the grid (Latest News layout only).",
+      initialValue: "View All Blogs",
+      hidden: ({ parent }) => parent?.variant !== "latestNews",
     }),
   ],
   preview: {
-    select: { sectionLabel: "sectionLabel" },
-    prepare: ({ sectionLabel }) => ({
+    select: { sectionLabel: "sectionLabel", variant: "variant" },
+    prepare: ({ sectionLabel, variant }) => ({
       title: sectionLabel ? `Blog Preview — ${sectionLabel}` : "Blog Preview",
+      subtitle: variant === "latestNews" ? "Latest News" : "Default",
       media: BlogPreviewIcon,
     }),
   },

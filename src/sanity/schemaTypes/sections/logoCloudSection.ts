@@ -14,6 +14,22 @@ export const logoCloudSection = defineType({
       description: "Optional label to distinguish sections.",
     }),
     defineField({
+      name: "variant",
+      title: "Variant",
+      type: "string",
+      options: {
+        list: [
+          { title: "Compact row (default)", value: "default" },
+          {
+            title: "Carousel (loop, grayscale logos with color on hover/click)",
+            value: "loopCarousel",
+          },
+        ],
+      },
+      initialValue: "default",
+      description: "Choose between the compact row or the looping carousel.",
+    }),
+    defineField({
       name: "title",
       title: "Section Title",
       type: "string",
@@ -38,6 +54,20 @@ export const logoCloudSection = defineType({
               title: "Alt Text",
               type: "string",
               validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: "buttonLabel",
+              title: "Button label",
+              type: "string",
+              description:
+                "Optional label used for accessibility when this logo links somewhere.",
+            }),
+            defineField({
+              name: "buttonHref",
+              title: "Button URL",
+              type: "string",
+              description:
+                "Optional URL. When set, this logo becomes a clickable link.",
             }),
           ],
           preview: {

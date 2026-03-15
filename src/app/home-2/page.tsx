@@ -1,22 +1,22 @@
 import Header from "@/components/layout/Header";
-import Hero from "@/components/sections/Hero";
-import LogoCloud from "@/components/sections/LogoCloud";
-import Stats from "@/components/sections/Stats";
-import WhatYouNeed from "@/components/sections/WhatYouNeed";
-import Services from "@/components/sections/Services";
-import StatementBanner from "@/components/sections/StatementBanner";
-import About from "@/components/sections/About";
-import CtaBanner from "@/components/sections/CtaBanner";
-import BlogPreview from "@/components/sections/BlogPreview";
-import OpeningHours from "@/components/sections/OpeningHours";
-import ContactForm from "@/components/sections/ContactForm";
+import { HeroHome } from "@/components/sections/hero";
+import LogoCloud from "@/components/sections/logoCloud";
+import Stats from "@/components/sections/stats";
+import WhatYouNeed from "@/components/sections/whatYouNeed";
+import Services from "@/components/sections/services";
+import StatementBanner from "@/components/sections/statementBanner";
+import About from "@/components/sections/about";
+import CtaBanner from "@/components/sections/ctaBanner";
+import BlogPreview from "@/components/sections/blogPreview";
+import OpeningHours from "@/components/sections/openingHours";
+import ContactForm from "@/components/sections/contactForm";
 import Footer from "@/components/layout/Footer";
 
 export default function StaticHomePage() {
   return (
     <>
       <Header />
-      <Hero />
+      <HeroHome />
       <LogoCloud />
       <Stats />
       <WhatYouNeed />

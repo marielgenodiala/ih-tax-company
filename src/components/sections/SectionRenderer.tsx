@@ -1,20 +1,21 @@
-import Hero from "./Hero";
-import LogoCloud from "./LogoCloud";
-import Stats from "./Stats";
-import WhatYouNeed from "./WhatYouNeed";
-import Services from "./Services";
-import StatementBanner from "./StatementBanner";
-import About from "./About";
-import CtaBanner from "./CtaBanner";
-import BlogPreview from "./BlogPreview";
-import OpeningHours from "./OpeningHours";
-import ContactForm from "./ContactForm";
-import ContactPageSection from "./ContactPageSection";
-import TeamGrid from "./TeamGrid";
-import PageHero from "./PageHero";
-import FeaturedBookOnline from "./FeaturedBookOnline";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import HeroSection from "./hero";
+import NavSection from "./nav";
+import FooterSection from "./footer";
+import FooterTwoPart from "./footer/FooterTwoPart";
+import LogoCloud from "./logoCloud";
+import Stats from "./stats";
+import WhatYouNeed from "./whatYouNeed";
+import Services from "./services";
+import FeaturedBookOnline from "./featuredBookOnline";
+import StatementBanner from "./statementBanner";
+import About from "./about";
+import CtaBanner from "./ctaBanner";
+import BlogPreview from "./blogPreview";
+import OpeningHours from "./openingHours";
+import ContactForm from "./contactForm";
+import ContactPageSection from "./contactPage";
+import TeamGrid from "./teamGrid";
+import GoogleReviews from "./googleReviews";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface Section {
@@ -24,9 +25,9 @@ interface Section {
 }
 
 const sectionComponents: Record<string, React.ComponentType<any>> = {
-  navigationSection: Header,
-  heroSection: Hero,
-  pageHeroSection: PageHero,
+  navigationSection: NavSection,
+  heroSection: HeroSection,
+  pageHeroSection: HeroSection,
   logoCloudSection: LogoCloud,
   statsSection: Stats,
   whatYouNeedSection: WhatYouNeed,
@@ -40,7 +41,9 @@ const sectionComponents: Record<string, React.ComponentType<any>> = {
   contactFormSection: ContactForm,
   contactPageSection: ContactPageSection,
   teamGridSection: TeamGrid,
-  footerSection: Footer,
+  googleReviewsSection: GoogleReviews,
+  footerSection: FooterSection,
+  footerTwoPartSection: FooterTwoPart,
 };
 
 export default function SectionRenderer({ sections }: { sections: Section[] }) {
@@ -53,7 +56,7 @@ export default function SectionRenderer({ sections }: { sections: Section[] }) {
         if (!Component) return null;
 
         const { _type, _key, ...props } = section;
-        return <Component key={_key} {...props} />;
+        return <Component key={_key} _type={_type} {...props} />;
       })}
     </>
   );

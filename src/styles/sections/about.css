@@ -1,0 +1,47 @@
+/* ============================================
+   About
+   ============================================ */
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-10);
+  align-items: center;
+}
+
+.about__image {
+  border-radius: var(--border-radius-xl);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.about__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about__label {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+}
+
+.about__text h2 {
+  margin-bottom: var(--space-5);
+  font-size: var(--font-size-3xl);
+}
+
+.about__text h2 em {
+  font-style: italic;
+  color: var(--color-primary);
+}
+
+.about__text .btn {
+  margin-top: var(--space-5);
+}
+

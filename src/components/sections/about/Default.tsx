@@ -28,7 +28,7 @@ export default function About({
     : "/images/businessImage.avif";
 
   return (
-    <section className="section about">
+    <section className="section section--compact about">
       <div className="container">
         <div className="about__grid">
           <RevealWrapper direction="left">

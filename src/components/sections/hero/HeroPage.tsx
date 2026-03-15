@@ -1,16 +1,16 @@
 import { parseEmphasis } from "@/lib/normalizeHref";
 
-interface PageHeroProps {
+export interface HeroPageProps {
   title?: string;
   description?: string;
   backgroundImage?: string;
 }
 
-export default function PageHero({
+export default function HeroPage({
   title = "Page Title",
   description,
   backgroundImage,
-}: PageHeroProps) {
+}: HeroPageProps) {
   const bgUrl = backgroundImage || "/images/accountingImage2.avif";
 
   return (

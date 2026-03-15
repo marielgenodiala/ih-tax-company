@@ -8,6 +8,18 @@ export const ctaBannerSection = defineType({
   icon: CtaBannerIcon,
   fields: [
     defineField({
+      name: "variant",
+      title: "Layout",
+      type: "string",
+      options: {
+        list: [
+          { value: "default", title: "Default (centered, primary colour)" },
+          { value: "twoColumn", title: "Two column (blue, title left, button right)" },
+        ],
+      },
+      initialValue: "default",
+    }),
+    defineField({
       name: "sectionLabel",
       title: "Section Label",
       type: "string",

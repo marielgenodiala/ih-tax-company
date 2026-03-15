@@ -14,13 +14,17 @@ interface StatsProps {
   stats?: { number: string; label: string }[];
 }
 
-function parseStatNumber(str: string): { value: number; suffix: string; prefix: string } {
+function parseStatNumber(str: string): {
+  value: number;
+  suffix: string;
+  prefix: string;
+} {
   const match = str.match(/^([^0-9]*)(\d+\.?\d*)(.*)$/);
   if (!match) return { value: 0, suffix: str, prefix: "" };
   return { value: parseFloat(match[2]), suffix: match[3], prefix: match[1] };
 }
 
-function CountUpNumber({ value: str }: { value: string }) {
+export function CountUpNumber({ value: str }: { value: string }) {
   const { value: target, suffix, prefix } = parseStatNumber(str);
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
@@ -49,7 +53,7 @@ function CountUpNumber({ value: str }: { value: string }) {
           observer.disconnect();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     );
 
     observer.observe(el);
@@ -58,7 +62,9 @@ function CountUpNumber({ value: str }: { value: string }) {
 
   return (
     <span ref={ref}>
-      {prefix}{count}{suffix}
+      {prefix}
+      {count}
+      {suffix}
     </span>
   );
 }

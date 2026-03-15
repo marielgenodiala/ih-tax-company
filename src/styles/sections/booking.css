@@ -1,0 +1,210 @@
+/* ============================================
+   Booking (list, items, note, modal)
+   ============================================ */
+.booking__list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.booking__list > [id] {
+  scroll-margin-top: var(--space-10);
+}
+
+.booking-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-8);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-xl);
+  margin-bottom: var(--space-5);
+  transition: all var(--transition);
+  background: #ffffff;
+}
+
+.booking-item .btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+  align-self: center;
+  width: 100%;
+  justify-content: center;
+}
+
+.booking-item:hover {
+  border-color: var(--color-primary-light);
+  box-shadow: var(--shadow-md);
+}
+
+.booking-item__info h3 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+}
+
+.booking-item__info p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.booking-item__details {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.booking-item__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-light);
+  background: var(--color-off-white);
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+
+.booking-item__price {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.booking-note {
+  max-width: 800px;
+  width: 100%;
+  margin: var(--space-6) auto 0;
+  padding: var(--space-5) var(--space-6);
+  background: var(--color-primary-lighter);
+  border-left: 3px solid var(--color-primary);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  line-height: 1.6;
+  text-align: center;
+  box-sizing: border-box;
+  margin-bottom: var(--space-5);
+}
+
+/* Booking Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(11, 16, 36, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  animation: modal-fade-in 250ms ease;
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal {
+  background: #ffffff;
+  border-radius: var(--border-radius-xl);
+  padding: var(--space-8);
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  animation: modal-slide-up 300ms ease;
+}
+
+.modal__close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
+  line-height: 1;
+}
+
+.modal__close:hover {
+  background: var(--color-off-white);
+  border-color: var(--color-primary-light);
+  color: var(--color-text);
+}
+
+.modal__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  margin-bottom: var(--space-1);
+  padding-right: var(--space-10);
+}
+
+.modal__subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-bottom: var(--space-6);
+}
+
+.modal .form__group {
+  margin-bottom: var(--space-4);
+}
+
+.modal .form__input,
+.modal .form__select {
+  width: 100%;
+}
+
+.form__select {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  background-color: #ffffff;
+  transition: border-color var(--transition);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+
+.form__select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}

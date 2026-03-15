@@ -1,0 +1,31 @@
+/* ============================================
+   What You Need
+   ============================================ */
+.what-you-need__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-10);
+  align-items: center;
+}
+
+.what-you-need__text h2 {
+  margin-bottom: var(--space-5);
+  font-size: var(--font-size-3xl);
+}
+
+.what-you-need__text h2 em {
+  color: var(--color-primary);
+  font-style: italic;
+}
+
+.what-you-need__image {
+  border-radius: var(--border-radius-xl);
+  overflow: hidden;
+}
+
+.what-you-need__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+}

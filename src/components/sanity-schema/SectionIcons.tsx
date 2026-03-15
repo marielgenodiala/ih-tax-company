@@ -20,4 +20,5 @@ export {
   ThLargeIcon as TeamGridIcon,
   StackCompactIcon as FooterIcon,
   PinIcon as ContactPageIcon,
+  StarIcon as GoogleReviewsIcon,
 } from "@sanity/icons";

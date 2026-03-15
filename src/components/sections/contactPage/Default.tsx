@@ -211,8 +211,6 @@ export default function ContactPageSection({
           </RevealWrapper>
         )}
         <div className="contact-page__grid">
-          {/* Right: 3 cards + Opening hours (centered with form) */}
-
           <RevealWrapper direction="left">
             <div className="contact-page__form">
               <h3 className="contact-page__heading">{formTitle}</h3>
@@ -258,7 +256,6 @@ export default function ContactPageSection({
           <RevealWrapper direction="right">
             <div className="contact-page__info">
               <h3 className="contact-page__heading">Contacts</h3>
-
               <div className="contact-page__cards">
                 {phone && (
                   <div className="contact-page__card">
@@ -322,7 +319,6 @@ export default function ContactPageSection({
                   </div>
                 )}
               </div>
-
               <h3 className="contact-page__heading contact-page__hours-title">
                 Opening Hours
               </h3>
@@ -338,7 +334,6 @@ export default function ContactPageSection({
           </RevealWrapper>
         </div>
       </div>
-
       {(mapLinkUrl || mapEmbedUrl) && (
         <div className="container contact-page__map-container">
           {mapEmbedLoading ? (

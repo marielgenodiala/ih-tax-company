@@ -14,6 +14,22 @@ export const heroSection = defineType({
       description: 'Optional label to distinguish sections (e.g. "hero_1").',
     }),
     defineField({
+      name: "variant",
+      title: "Variant",
+      type: "string",
+      options: {
+        list: [
+          { title: "Home (with CTAs)", value: "home" },
+          {
+            title: "Home fullscreen (swiping background images)",
+            value: "homeFullscreen",
+          },
+        ],
+      },
+      initialValue: "home",
+      description: "Hero visual/layout variant.",
+    }),
+    defineField({
       name: "subtitle",
       title: "Subtitle",
       type: "string",
@@ -24,7 +40,8 @@ export const heroSection = defineType({
       title: "Title",
       type: "text",
       rows: 2,
-      description: 'Use *asterisks* for italic emphasis. Press Enter for a line break.',
+      description:
+        "Use *asterisks* for italic emphasis. Press Enter for a line break.",
       initialValue: "Feel the *I H Professionals*\nDifference",
     }),
     defineField({
@@ -32,13 +49,63 @@ export const heroSection = defineType({
       title: "Description",
       type: "text",
       rows: 3,
-      initialValue: "The care your accounting needs. We provide unparalleled personalised accounting services to individuals and businesses across Australia.",
+      initialValue:
+        "The care your accounting needs. We provide unparalleled personalised accounting services to individuals and businesses across Australia.",
+    }),
+    defineField({
+      name: "ctaPrimaryLabel",
+      title: "Primary button — Label",
+      type: "string",
+      initialValue: "Book a Consultation",
+    }),
+    defineField({
+      name: "ctaPrimaryHref",
+      title: "Primary button — URL",
+      type: "string",
+      initialValue: "/book-online",
+    }),
+    defineField({
+      name: "ctaSecondaryLabel",
+      title: "Secondary button — Label",
+      type: "string",
+      initialValue: "Our Services",
+    }),
+    defineField({
+      name: "ctaSecondaryHref",
+      title: "Secondary button — URL",
+      type: "string",
+      initialValue: "#services",
     }),
     defineField({
       name: "backgroundImage",
       title: "Background Image",
       type: "image",
       options: { hotspot: true },
+      hidden: ({ parent }) => parent?.variant === "homeFullscreen",
+    }),
+    defineField({
+      name: "backgroundImages",
+      title: "Background Images (carousel)",
+      type: "array",
+      description:
+        "Images auto-swipe as the hero background. Used when variant is Home fullscreen.",
+      hidden: ({ parent }) => parent?.variant !== "homeFullscreen",
+      of: [
+        {
+          type: "image",
+          options: { hotspot: true },
+        },
+      ],
+      validation: (rule) =>
+        rule.custom((val, ctx) => {
+          const parent = ctx.parent as { variant?: string } | undefined;
+          if (
+            parent?.variant === "homeFullscreen" &&
+            (!val || (Array.isArray(val) && val.length === 0))
+          )
+            return "Add at least one image for the fullscreen hero.";
+          return true;
+        }),
     }),
   ],
   preview: {

@@ -20,7 +20,9 @@ export default function LogoCloud({ title, logos }: LogoCloudProps) {
   return (
     <RevealWrapper>
       <section className="logo-cloud">
-        <h2 className="logo-cloud__title">{title || "Registered & Accredited"}</h2>
+        <h2 className="logo-cloud__title">
+          {title || "Registered & Accredited"}
+        </h2>
         <div className="logo-cloud__grid">
           {logos?.length
             ? logos.map((logo, i) =>
@@ -34,7 +36,7 @@ export default function LogoCloud({ title, logos }: LogoCloudProps) {
                     className="logo-cloud__logo"
                     style={{ height: "100px", width: "auto" }}
                   />
-                ) : null
+                ) : null,
               )
             : defaultLogos.map((logo) => (
                 <Image

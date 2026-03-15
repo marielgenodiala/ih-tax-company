@@ -14,6 +14,19 @@ export const pageHeroSection = defineType({
       description: "Optional label to distinguish sections.",
     }),
     defineField({
+      name: "variant",
+      title: "Variant",
+      type: "string",
+      options: {
+        list: [
+          { title: "Page (title + description)", value: "page" },
+          // Add more variants here when needed
+        ],
+      },
+      initialValue: "page",
+      description: "Page hero variant.",
+    }),
+    defineField({
       name: "title",
       title: "Title",
       type: "string",
