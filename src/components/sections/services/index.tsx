@@ -7,7 +7,7 @@ import Carousel, {
 export interface ServicesSectionProps
   extends ServicesProps,
     ServicesCarouselProps {
-  _type: string;
+  _type?: string;
   variant?: "grid" | "carousel";
   items?: ServicesCarouselItem[];
 }

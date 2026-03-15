@@ -4,7 +4,7 @@ import StatementBannerTitleContent from "./StatementBannerTitleContent";
 export type StatementBannerVariant = "default" | "titleContent";
 
 export interface StatementBannerSectionProps {
-  _type: "statementBannerSection";
+  _type?: "statementBannerSection";
   variant?: StatementBannerVariant;
   sectionLabel?: string;
   statement?: string;

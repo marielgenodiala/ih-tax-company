@@ -4,7 +4,7 @@ import BlogPreviewLatestNews from "./BlogPreviewLatestNews";
 export type BlogPreviewVariant = "default" | "latestNews";
 
 export interface BlogPreviewSectionProps {
-  _type: "blogPreviewSection";
+  _type?: "blogPreviewSection";
   variant?: BlogPreviewVariant;
   sectionLabel?: string;
   subtitle?: string;

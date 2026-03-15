@@ -4,7 +4,7 @@ import CtaBannerTwoColumn from "./CtaBannerTwoColumn";
 export type CtaBannerVariant = "default" | "twoColumn";
 
 export interface CtaBannerSectionProps {
-  _type: "ctaBannerSection";
+  _type?: "ctaBannerSection";
   variant?: CtaBannerVariant;
   sectionLabel?: string;
   subtitle?: string;
