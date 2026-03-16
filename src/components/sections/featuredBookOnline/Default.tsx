@@ -34,7 +34,7 @@ export default function FeaturedBookOnline({
 
   return (
     <>
-      <section className="section">
+      <section className="section featured-book-online">
         <div className="container">
           {(subtitle || title || description) && (
             <RevealWrapper>

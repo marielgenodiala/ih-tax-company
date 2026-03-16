@@ -12,6 +12,8 @@ import {
   blogPostSlugsQuery,
   recentPostsQuery,
   seoSettingsQuery,
+  navigationV2Query,
+  footerV2Query,
 } from "@/sanity/lib/queries";
 import { portableTextComponents } from "@/components/blog/PortableTextComponents";
 import HeroImageModal from "@/components/blog/HeroImageModal";
@@ -131,10 +133,12 @@ function RecentPostsList({ recentPosts }: { recentPosts: RecentPost[] }) {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const [post, global, recentPosts]: [BlogPost | null, unknown, RecentPost[]] = await Promise.all([
+  const [post, global, recentPosts, navSection, footerSection] = await Promise.all([
     client.fetch(blogPostBySlugQuery, { slug }),
     client.fetch(seoSettingsQuery),
     client.fetch(recentPostsQuery, { slug }),
+    client.fetch(navigationV2Query),
+    client.fetch(footerV2Query),
   ]);
   if (!post) notFound();
 
@@ -168,9 +172,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <>
       <JsonLd data={articleSchema} />
-      <Header />
+      <Header navSection={navSection ?? undefined} />
       <section className="blog-article-header">
         <div className="container">
+          <nav className="hero-banner__breadcrumb blog-article-header__breadcrumb" aria-label="Breadcrumb">
+            <Link href="/" className="hero-banner__breadcrumb-link">Home</Link>
+            <span className="hero-banner__breadcrumb-sep">›</span>
+            <Link href="/blogs" className="hero-banner__breadcrumb-link">Blogs</Link>
+            <span className="hero-banner__breadcrumb-sep">›</span>
+            <span className="hero-banner__breadcrumb-cur">{post.title}</span>
+          </nav>
           <RevealWrapper>
             <dl className="blog-article-header__meta">
               <div>
@@ -249,7 +260,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
       </div>
 
-      <Footer />
+      <Footer footerSection={footerSection ?? undefined} />
     </>
   );
 }

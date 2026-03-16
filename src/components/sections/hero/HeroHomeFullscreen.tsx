@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef, useCallback } from "react";
+import { useState, useEffect, useLayoutEffect, useMemo, useRef, useCallback } from "react";
 import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
 import { parseEmphasis, normalizeHref } from "@/lib/normalizeHref";
+
+const PARALLAX_FACTOR = 0.4;
 
 const SWIPE_INTERVAL_MS = 5000;
 
@@ -11,8 +13,8 @@ export interface HeroHomeFullscreenProps {
   subtitle?: string;
   title?: string;
   description?: string;
-  /** Array of Sanity image refs; used as auto-swiping background. */
-  backgroundImages?: Array<{ asset?: { _ref: string } }>;
+  /** Array of image URLs (from GROQ asset->url) or Sanity image refs; used as auto-swiping background. */
+  backgroundImages?: (string | { asset?: { _ref: string } })[];
   ctaPrimaryLabel?: string;
   ctaPrimaryHref?: string;
   ctaSecondaryLabel?: string;
@@ -24,9 +26,21 @@ function parseImages(
 ): string[] {
   if (!Array.isArray(backgroundImages) || backgroundImages.length === 0)
     return ["/images/heroImage.avif"];
-  return backgroundImages
-    .filter((img) => img?.asset?._ref)
-    .map((img) => urlFor(img).width(1920).url());
+  const urls = backgroundImages
+    .map((img) => {
+      if (typeof img === "string" && img) return img;
+      if (
+        img &&
+        typeof img === "object" &&
+        (img as { asset?: { _ref: string } }).asset?._ref
+      )
+        return urlFor(img as { asset: { _ref: string } })
+          .width(1920)
+          .url();
+      return null;
+    })
+    .filter((url): url is string => url != null);
+  return urls.length > 0 ? urls : ["/images/heroImage.avif"];
 }
 
 export default function HeroHomeFullscreen({
@@ -42,6 +56,7 @@ export default function HeroHomeFullscreen({
   const urls = useMemo(() => parseImages(backgroundImages), [backgroundImages]);
   const [index, setIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const bgCarouselRef = useRef<HTMLDivElement>(null);
 
   const goToSlide = useCallback(
     (i: number) => {
@@ -57,6 +72,26 @@ export default function HeroHomeFullscreen({
     }, SWIPE_INTERVAL_MS);
     return () => clearInterval(id);
   }, [urls.length]);
+
+  useLayoutEffect(() => {
+    const el = bgCarouselRef.current;
+    if (!el) return;
+    let rafId: number | null = null;
+    const onScroll = () => {
+      if (rafId != null) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const y = window.scrollY * PARALLAX_FACTOR;
+        el.style.transform = `translate3d(0, ${y}px, 0)`;
+        rafId = null;
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId != null) cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   const scrollToNextSection = useCallback(() => {
     const section = sectionRef.current;
@@ -79,7 +114,7 @@ export default function HeroHomeFullscreen({
       className="hero hero--fullscreen"
       aria-label="Hero"
     >
-      <div className="hero__bg-carousel" aria-hidden>
+      <div ref={bgCarouselRef} className="hero__bg-carousel" aria-hidden>
         {urls.map((url, i) => (
           <div
             key={url + i}

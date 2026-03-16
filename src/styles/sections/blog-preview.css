@@ -1,6 +1,11 @@
 /* ============================================
    Blog Preview (cards + CTA)
    ============================================ */
+/* Default variant: no rounded corners */
+.blog-preview--default .blog-card {
+  border-radius: 0;
+}
+
 .blog-card {
   background: #ffffff;
   border-radius: var(--border-radius-xl);
@@ -136,6 +141,12 @@
   --ln-heading-color: #0f2557;
   --ln-accent: #d4960a;
   padding: var(--space-10) 0;
+}
+
+.blog-preview .container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
 }
 
 .blog-preview-ln__inner {

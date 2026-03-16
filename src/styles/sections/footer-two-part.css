@@ -4,7 +4,7 @@
    ============================================ */
 .footer-2p {
   --footer-2p-upper: #0b1024;
-  --footer-2p-lower: #898b90;
+  --footer-2p-lower: #fff;
 }
 
 .footer-2p__upper {
@@ -15,7 +15,7 @@
 
 .footer-2p__lower {
   background-color: var(--footer-2p-lower);
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.9);
   padding: var(--space-4) 0;
   font-size: var(--font-size-xs);
 }

@@ -1,7 +1,9 @@
 import HeroHome from "./HeroHome";
 import HeroHomeFullscreen from "./HeroHomeFullscreen";
 import HeroPage from "./HeroPage";
-import HeroServicesBanner, { type HeroServicesBannerProps } from "./HeroServicesBanner";
+import HeroServicesBanner, {
+  type HeroServicesBannerProps,
+} from "./HeroServicesBanner";
 import type { HeroHomeProps } from "./HeroHome";
 import type { HeroHomeFullscreenProps } from "./HeroHomeFullscreen";
 
@@ -34,6 +36,8 @@ export default function HeroSection(props: HeroSectionProps) {
         ctaPrimaryHref={rest.ctaPrimaryHref as string}
         ctaSecondaryLabel={rest.ctaSecondaryLabel as string}
         ctaSecondaryHref={rest.ctaSecondaryHref as string}
+        backgroundType={rest.servicesBackgroundType as HeroServicesBannerProps["backgroundType"]}
+        backgroundImage={rest.servicesBackgroundImage as HeroServicesBannerProps["backgroundImage"]}
       />
     );
   }

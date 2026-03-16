@@ -111,8 +111,8 @@ export default function ServicesPartnerGrid({
                         <Image
                           src={card.image!}
                           alt=""
-                          width={240}
-                          height={120}
+                          width={280}
+                          height={160}
                           className="services-partner-grid__logo-img"
                           unoptimized={card.image?.startsWith("data:")}
                         />

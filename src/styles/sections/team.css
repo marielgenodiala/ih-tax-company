@@ -1,6 +1,12 @@
 /* ============================================
    Team Cards
    ============================================ */
+.team-section .container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+}
+
 .team-intro {
   text-align: center;
   max-width: 600px;
@@ -125,30 +131,30 @@
    Team Profile (Individual Page)
    ============================================ */
 
-/* Breadcrumb */
-.tp-breadcrumb {
-  padding: var(--space-5) 0;
-  border-bottom: 1px solid var(--color-border);
-  background: #fff;
+/* When sticky nav is used: pull hero up under transparent nav (same as hero-banner) */
+.nav-sticky__wrapper + .tp-hero {
+  margin-top: calc(-1 * var(--nav-sticky-height, 120px));
 }
-
-.tp-breadcrumb__link {
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: var(--color-text-muted);
-  text-decoration: none;
-  transition: color var(--transition);
+.nav-sticky__wrapper + .tp-hero .container {
+  padding-top: var(--nav-sticky-height, 120px);
 }
-
-.tp-breadcrumb__link:hover {
-  color: var(--color-primary);
+@media (max-width: 767px) {
+  .nav-sticky__wrapper + .tp-hero .container {
+    padding-top: calc(var(--nav-sticky-height, 120px) + var(--space-3));
+  }
 }
 
 /* ── Profile hero header ── */
 .tp-hero {
+  position: relative;
+  z-index: 0;
   background: var(--color-dark-bg);
   border-bottom: none;
   padding: var(--space-10) 0;
+}
+
+.tp-hero__breadcrumb {
+  margin-bottom: var(--space-4);
 }
 
 .tp-hero__content {
@@ -442,3 +448,239 @@
 }
 
 /* ============================================
+
+
+/* Team Page layout (cards with photo on top) */
+.team-page-section__inner {
+  max-width: 1160px;
+  margin-inline: auto;
+}
+
+.team-page-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.team-page-header__eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-primary, #2563eb);
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.team-page-header__eyebrow::before,
+.team-page-header__eyebrow::after {
+  content: "";
+  flex: 0 0 24px;
+  height: 2px;
+  background: var(--color-primary, #2563eb);
+  border-radius: 2px;
+}
+
+.team-page-header__title {
+  font-family: var(--font-heading);
+  font-size: 46px;
+  font-weight: 700;
+  color: #0f1f3d;
+  line-height: 1.08;
+  margin-bottom: 14px;
+}
+
+.team-page-header__title em {
+  font-style: italic;
+  color: #3b82f6;
+}
+
+.team-page-header__desc {
+  font-size: 15.5px;
+  color: var(--color-text-muted, #4b6a8a);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+.team-page-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 24px;
+}
+
+@media (min-width: 640px) {
+  .team-page-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .team-page-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.team-page-card {
+  background: #fff;
+  border: 1px solid var(--color-border, #dde8f4);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition:
+    box-shadow 0.28s,
+    border-color 0.28s,
+    transform 0.28s;
+  text-decoration: none;
+  color: inherit;
+}
+
+.team-page-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  opacity: 0;
+  transition: opacity 0.28s;
+  z-index: 2;
+}
+
+.team-page-card:hover {
+  border-color: #bfdbfe;
+  box-shadow: 0 16px 52px rgba(37, 99, 235, 0.13);
+  transform: translateY(-6px);
+}
+
+.team-page-card:hover::before {
+  opacity: 1;
+}
+
+.team-page-card__photo {
+  position: relative;
+  height: 260px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0f1f3d, #1e3a5f);
+}
+
+.team-page-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.55s ease;
+}
+
+.team-page-card:hover .team-page-card__photo img {
+  transform: scale(1.06);
+}
+
+.team-page-card__photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 25, 60, 0.55) 0%,
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 0.28s;
+}
+
+.team-page-card:hover .team-page-card__photo-overlay {
+  opacity: 1;
+}
+
+.team-page-card__initials {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 52px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.04em;
+  position: absolute;
+  inset: 0;
+}
+
+.team-page-card__body {
+  padding: 22px 20px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.team-page-card__name {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f1f3d;
+  line-height: 1.15;
+  margin-bottom: 5px;
+}
+
+.team-page-card__rule {
+  width: 28px;
+  height: 2px;
+  background: var(--color-primary, #2563eb);
+  border-radius: 2px;
+  margin-bottom: 8px;
+  transition: width 0.28s;
+}
+
+.team-page-card:hover .team-page-card__rule {
+  width: 48px;
+}
+
+.team-page-card__position {
+  font-size: 13px;
+  color: var(--color-text-muted, #4b6a8a);
+  font-weight: 500;
+  line-height: 1.45;
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+}
+
+.team-page-card__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--space-5);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.team-page-card__btn:hover,
+.team-page-card:hover .team-page-card__btn {
+  color: var(--color-primary-dark);
+}
+
+.team-page-card__btn svg {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.22s;
+}
+
+.team-page-card__btn:hover svg,
+.team-page-card:hover .team-page-card__btn svg {
+  transform: translateX(3px);
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -69,7 +69,8 @@ function DropdownMenu({
     if (isOpen) {
       document.addEventListener("click", handleOutsideClick, true);
     }
-    return () => document.removeEventListener("click", handleOutsideClick, true);
+    return () =>
+      document.removeEventListener("click", handleOutsideClick, true);
   }, [isOpen, onToggle]);
 
   const children = item.children ?? [];
@@ -151,17 +152,43 @@ export default function NavSticky({
 }: NavStickyProps) {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", handler);
-    return () => window.removeEventListener("scroll", handler);
+  /* Update scrolled appearance via DOM (no setState) to avoid blink on load/scroll */
+  useLayoutEffect(() => {
+    let rafId: number | null = null;
+    let lastScrolled: boolean | null = null;
+    const updateScrolled = () => {
+      const el = wrapperRef.current;
+      if (!el) return;
+      const isScrolled = window.scrollY > 40;
+      if (lastScrolled === isScrolled) return;
+      lastScrolled = isScrolled;
+      el.setAttribute("data-scrolled", isScrolled ? "true" : "false");
+      el.querySelector("nav")?.classList.toggle("nav-sticky--scrolled", isScrolled);
+      const cta = el.querySelector(".nav-sticky__cta");
+      if (cta) {
+        cta.classList.toggle("btn--primary", isScrolled);
+        cta.classList.toggle("btn--white", !isScrolled);
+      }
+    };
+    const onScroll = () => {
+      if (rafId != null) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        updateScrolled();
+        rafId = null;
+      });
+    };
+    updateScrolled();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId != null) cancelAnimationFrame(rafId);
+    };
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = wrapperRef.current;
     if (!el) return;
     const update = () => {
@@ -251,7 +278,7 @@ export default function NavSticky({
           </div>
         </div>
       )}
-      <nav className={`nav-sticky${scrolled ? " nav-sticky--scrolled" : ""}`}>
+      <nav className="nav-sticky">
         <div className="nav-sticky__inner">
           <Link href="/" className="nav-sticky__logo">
             {logo ? (
@@ -293,7 +320,7 @@ export default function NavSticky({
                 <Link
                   key={item.label}
                   href={normalizeHref(item.href ?? "#")}
-                  className={`btn btn--arrow nav-sticky__cta ${scrolled ? "btn--primary" : "btn--white"}`}
+                  className="btn btn--arrow nav-sticky__cta btn--white"
                 >
                   {item.label}
                 </Link>

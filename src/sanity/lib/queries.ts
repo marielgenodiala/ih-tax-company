@@ -15,6 +15,12 @@ export const seoSettingsQuery = groq`
 
 // Helper fragment for resolving section image URLs
 const sectionImageResolvers = `
+  _type == "heroSection" => {
+    ...,
+    "servicesBackgroundImage": servicesBackgroundImage.asset->url,
+    "backgroundImage": backgroundImage.asset->url,
+    "backgroundImages": backgroundImages[].asset->url
+  },
   _type == "navigationSection" => {
     ...,
     "logo": logo.asset->url
@@ -36,6 +42,7 @@ const sectionImageResolvers = `
   },
   _type == "statsSection" => {
     ...,
+    "backgroundImage": backgroundImage.asset->url,
     partners[] {
       ...,
       "image": image.asset->url
@@ -51,6 +58,10 @@ const sectionImageResolvers = `
       ...,
       "image": image.asset->url
     }
+  },
+  _type == "ctaBannerSection" => {
+    ...,
+    "backgroundImage": backgroundImage.asset->url
   }
 `;
 
@@ -204,24 +215,71 @@ export const allTeamMemberSlugsQuery = groq`
   *[_type == "teamMember"] { "slug": coalesce(slug.current, _id) }
 `;
 
+// ─── Nav & Footer from section templates (for blog/team pages) ───
+// Navigation v2 and Main Footer v2 live in sectionTemplate docs, not in page sections.
+
+export const navigationV2Query = groq`
+  *[_type == "sectionTemplate" && name == "Main Navigation v2"][0].section[0] {
+    _type, _key, layout, "logo": logo.asset->url, logoLine1, showTopBar, topBarLeftLinks, topBarRightLinks, navItems
+  }
+`;
+
+export const footerV2Query = groq`
+  *[_type == "sectionTemplate" && name == "Main Footer v2"][0].section[0] {
+    _type, _key, layout, "logo": logo.asset->url, logoText, newsletterLabel, newsletterPlaceholder, newsletterButtonText, newsletterEmail,
+    contactLabel, contactEmail, contactNumber, contactAddress,
+    twoPartServicesLabel, twoPartServiceLinks, twoPartAboutLabel, twoPartAboutLinks, followLabel, twoPartSocialLinks, copyrightText
+  }
+`;
+
 // ─── Services ─────────────────────────────────────────
 
 export const allServicesQuery = groq`
   *[_type == "service"] | order(order asc) {
     title,
     description,
-    icon,
-    duration,
-    price,
-    isBookable
+    categorySegment,
+    "slug": slug.current
   }
 `;
 
-export const bookableServicesQuery = groq`
-  *[_type == "service" && isBookable == true] | order(order asc) {
+export const allServicePathsQuery = groq`
+  *[_type == "service" && defined(categorySegment) && defined(slug.current)] {
+    "category": categorySegment,
+    "slug": slug.current
+  }
+`;
+
+export const serviceByPathQuery = groq`
+  *[
+    _type == "service" &&
+    categorySegment == $category &&
+    slug.current == $slug
+  ][0] {
     title,
+    "slug": slug.current,
+    categorySegment,
     description,
-    duration,
-    price
+    "sections": sections[] {
+      // Match pageBySlugQuery behavior: unwrap reusableSection and resolve images
+      _type == "reusableSection" => template->.section[0] {
+        _type,
+        _key,
+        ...,
+        ${sectionImageResolvers}
+      },
+      _type != "reusableSection" => {
+        _type,
+        _key,
+        ...,
+        ${sectionImageResolvers}
+      }
+    },
+    "seo": seo {
+      metaTitle,
+      metaDescription,
+      metaKeywords,
+      "ogImage": ogImage.asset->url
+    }
   }
 `;

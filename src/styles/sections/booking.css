@@ -1,7 +1,23 @@
 /* ============================================
    Booking (list, items, note, modal)
    ============================================ */
+/* Same section padding and container max-width as other sections */
+.featured-book-online.section {
+  padding: var(--space-10) 0;
+}
+@media (max-width: 767px) {
+  .featured-book-online.section {
+    padding: var(--space-10) 0;
+  }
+}
+.featured-book-online .container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+}
+
 .booking__list {
+  width: 100%;
   max-width: 800px;
   margin: 0 auto;
 }

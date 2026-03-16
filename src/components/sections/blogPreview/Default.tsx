@@ -39,7 +39,7 @@ export default async function BlogPreview({
   const hasHeader = subtitle || title || description;
 
   return (
-    <section className="section blog-preview">
+    <section className="section blog-preview blog-preview--default">
       <div className="container">
         {hasHeader && (
           <RevealWrapper>

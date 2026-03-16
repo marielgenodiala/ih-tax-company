@@ -14,7 +14,10 @@ export const ctaBannerSection = defineType({
       options: {
         list: [
           { value: "default", title: "Default (centered, primary colour)" },
-          { value: "twoColumn", title: "Two column (blue, title left, button right)" },
+          {
+            value: "twoColumn",
+            title: "Two column (blue, title left, button right)",
+          },
         ],
       },
       initialValue: "default",
@@ -35,14 +38,15 @@ export const ctaBannerSection = defineType({
       name: "heading",
       title: "Heading",
       type: "string",
-      description: 'Use *asterisks* for italic emphasis.',
+      description: "Use *asterisks* for italic emphasis.",
       initialValue: "Ready to Get Started?",
     }),
     defineField({
       name: "text",
       title: "Text",
       type: "string",
-      initialValue: "Get in touch with our team to discuss your tax and accounting needs.",
+      initialValue:
+        "Get in touch with our team to discuss your tax and accounting needs.",
     }),
     defineField({
       name: "buttonText",
@@ -56,6 +60,30 @@ export const ctaBannerSection = defineType({
       type: "string",
       description: 'Accepts: "/book-online", "/#contact", etc.',
       initialValue: "/#contact",
+    }),
+    defineField({
+      name: "backgroundType",
+      title: "Background (Two column only)",
+      type: "string",
+      options: {
+        list: [
+          { value: "darkBlue", title: "Dark blue (solid)" },
+          { value: "linear", title: "Linear gradient" },
+          { value: "image", title: "Image (with overlay)" },
+        ],
+      },
+      initialValue: "darkBlue",
+      hidden: ({ parent }) => parent?.variant !== "twoColumn",
+    }),
+    defineField({
+      name: "backgroundImage",
+      title: "Background image",
+      type: "image",
+      options: { hotspot: true },
+      description:
+        "Used when Background is “Image”. Same overlay is applied on top.",
+      hidden: ({ parent }) =>
+        parent?.variant !== "twoColumn" || parent?.backgroundType !== "image",
     }),
   ],
   preview: {

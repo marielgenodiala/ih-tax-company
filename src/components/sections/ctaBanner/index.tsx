@@ -12,6 +12,8 @@ export interface CtaBannerSectionProps {
   text?: string;
   buttonText?: string;
   buttonHref?: string;
+  backgroundType?: "darkBlue" | "linear" | "image";
+  backgroundImage?: string | null;
 }
 
 /**
@@ -29,6 +31,8 @@ export default function CtaBanner(props: CtaBannerSectionProps) {
         text={rest.text}
         buttonText={rest.buttonText}
         buttonHref={rest.buttonHref}
+        backgroundType={rest.backgroundType}
+        backgroundImage={rest.backgroundImage}
       />
     );
   }

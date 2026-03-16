@@ -3,6 +3,9 @@ import type { PortableTextBlock } from "@portabletext/types";
 import RevealWrapper from "@/components/ui/RevealWrapper";
 import { parseEmphasis } from "@/lib/normalizeHref";
 import ServicesHeaderIntroPillars, { type ValuePillarItem } from "./ServicesHeaderIntroPillars";
+import ServicesHeaderLeadContent, {
+  type ServicesHeaderLeadChecklistItem,
+} from "./ServicesHeaderLeadContent";
 
 export interface ServicesHeaderSectionProps {
   variant?: string | null;
@@ -13,6 +16,9 @@ export interface ServicesHeaderSectionProps {
   accredBadgeTitle?: string | null;
   accredChips?: string[] | null;
   valuePillars?: ValuePillarItem[] | null;
+  checklistItems?: ServicesHeaderLeadChecklistItem[] | null;
+  checklistHeading?: string | null;
+  checklistSubheading?: string | null;
 }
 
 const bodyComponents = {
@@ -36,6 +42,9 @@ export default function ServicesHeaderSection(props: ServicesHeaderSectionProps)
     accredBadgeTitle,
     accredChips,
     valuePillars,
+    checklistItems,
+    checklistHeading,
+    checklistSubheading,
   } = props;
 
   if (variant === "introWithPillars") {
@@ -45,6 +54,19 @@ export default function ServicesHeaderSection(props: ServicesHeaderSectionProps)
         title={title}
         body={body}
         valuePillars={valuePillars}
+      />
+    );
+  }
+
+  if (variant === "leadChecklist") {
+    return (
+      <ServicesHeaderLeadContent
+        sectionLabel={sectionLabel || undefined}
+        title={title || undefined}
+        body={body || undefined}
+        checklistItems={checklistItems || undefined}
+        checklistHeading={checklistHeading || undefined}
+        checklistSubheading={checklistSubheading || undefined}
       />
     );
   }

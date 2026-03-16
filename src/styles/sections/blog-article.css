@@ -1,8 +1,29 @@
 /* ============================================
    Blog Article
    ============================================ */
+
+/* When sticky nav is used: pull header up under transparent nav (same as hero-banner / tp-hero) */
+.nav-sticky__wrapper + .blog-article-header {
+  margin-top: calc(-1 * var(--nav-sticky-height, 120px));
+}
+.nav-sticky__wrapper + .blog-article-header .container {
+  padding-top: var(--nav-sticky-height, 120px);
+}
+@media (max-width: 767px) {
+  .nav-sticky__wrapper + .blog-article-header .container {
+    padding-top: calc(var(--nav-sticky-height, 120px) + var(--space-3));
+  }
+}
+
 .blog-article-header {
-  padding: var(--space-16) 0 var(--space-10);
+  position: relative;
+  z-index: 0;
+  padding: var(--space-12) 0 var(--space-8);
+  background: var(--color-dark-bg);
+}
+
+.blog-article-header__breadcrumb {
+  margin-bottom: var(--space-4);
 }
 
 .blog-article-header__meta {
@@ -11,18 +32,18 @@
   font-size: var(--font-size-xs);
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.6);
   font-weight: 500;
   margin-bottom: var(--space-8);
 }
 
 .blog-article-header__meta dt {
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.6);
   margin-bottom: var(--space-1);
 }
 
 .blog-article-header__meta dd {
-  color: var(--color-text);
+  color: #fff;
   font-weight: 600;
   text-transform: none;
   letter-spacing: 0;
@@ -35,20 +56,22 @@
   line-height: 1.2;
   margin-bottom: var(--space-6);
   max-width: 700px;
+  color: #fff;
 }
 
 .blog-article-header__excerpt {
   font-size: var(--font-size-md);
-  color: var(--color-text-light);
+  color: rgba(255, 255, 255, 0.75);
   max-width: 600px;
   line-height: 1.7;
 }
 
-/* Featured image */
+/* Featured image — spacing from hero above */
 .blog-article__hero {
   max-width: var(--container-max);
   margin: 0 auto;
   padding: 0 var(--space-5);
+  margin-top: var(--space-10);
 }
 
 .blog-article__hero img {

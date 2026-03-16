@@ -115,6 +115,28 @@ export const heroSection = defineType({
       initialValue: "#services",
     }),
     defineField({
+      name: "servicesBackgroundType",
+      title: "Services background",
+      type: "string",
+      options: {
+        list: [
+          { title: "Blue (default)", value: "blue" },
+          { title: "Image", value: "image" },
+        ],
+      },
+      initialValue: "blue",
+      hidden: ({ parent }) => parent?.variant !== "services",
+    }),
+    defineField({
+      name: "servicesBackgroundImage",
+      title: "Services background image",
+      type: "image",
+      options: { hotspot: true },
+      hidden: ({ parent }) =>
+        parent?.variant !== "services" ||
+        parent?.servicesBackgroundType !== "image",
+    }),
+    defineField({
       name: "backgroundImage",
       title: "Background Image",
       type: "image",

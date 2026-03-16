@@ -198,7 +198,7 @@ export default function ContactPageSection({
   }
 
   return (
-    <section className="section contact-page" id="contact">
+    <section className="section--compact contact-page" id="contact">
       <div className="container">
         {(subtitle || title) && (
           <RevealWrapper>

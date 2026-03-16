@@ -24,6 +24,10 @@ export const statsSection = defineType({
             title: "With partners (3 per row, short desc, partner logos)",
             value: "withPartners",
           },
+        {
+          title: "Full-width image strip with stats",
+          value: "fullWidthImage",
+        },
         ],
       },
       initialValue: "default",
@@ -45,6 +49,30 @@ export const statsSection = defineType({
           },
         },
       ],
+    }),
+    // Full-width image strip variant
+    defineField({
+      name: "backgroundImage",
+      title: "Background image",
+      type: "image",
+      options: { hotspot: true },
+      description: "Full-width background image behind the stats.",
+      hidden: ({ parent }) => parent?.variant !== "fullWidthImage",
+    }),
+    defineField({
+      name: "title",
+      title: "Title",
+      type: "string",
+      description: "Heading for the image strip.",
+      hidden: ({ parent }) => parent?.variant !== "fullWidthImage",
+    }),
+    defineField({
+      name: "body",
+      title: "Body",
+      type: "text",
+      rows: 3,
+      description: "Short supporting text under the title.",
+      hidden: ({ parent }) => parent?.variant !== "fullWidthImage",
     }),
     defineField({
       name: "shortDesc",

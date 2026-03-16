@@ -5,8 +5,9 @@ import { parseEmphasis } from "@/lib/normalizeHref";
 import { normalizeHref } from "@/lib/normalizeHref";
 import RevealWrapper from "@/components/ui/RevealWrapper";
 
-const PER_PAGE = 3;
 const AUTO_ADVANCE_MS = 7000;
+const BREAKPOINT_MD = 768;
+const BREAKPOINT_LG = 1024;
 
 const StarIcon = () => (
   <svg viewBox="0 0 24 24" aria-hidden>
@@ -92,7 +93,26 @@ export default function GoogleReviews({
   reviews = [],
 }: GoogleReviewsProps) {
   const [page, setPage] = useState(0);
-  const totalPages = Math.max(1, Math.ceil(reviews.length / PER_PAGE));
+  const [perPage, setPerPage] = useState(2);
+
+  useEffect(() => {
+    const mqSmall = window.matchMedia(`(max-width: ${BREAKPOINT_MD - 1}px)`);
+    const mqLarge = window.matchMedia(`(min-width: ${BREAKPOINT_LG}px)`);
+    const update = () => {
+      if (mqSmall.matches) setPerPage(1);
+      else if (mqLarge.matches) setPerPage(3);
+      else setPerPage(2);
+    };
+    update();
+    mqSmall.addEventListener("change", update);
+    mqLarge.addEventListener("change", update);
+    return () => {
+      mqSmall.removeEventListener("change", update);
+      mqLarge.removeEventListener("change", update);
+    };
+  }, []);
+
+  const totalPages = Math.max(1, Math.ceil(reviews.length / perPage));
   const safePage = Math.min(page, totalPages - 1);
   const currentPage = reviews.length === 0 ? 0 : safePage;
 
@@ -115,8 +135,8 @@ export default function GoogleReviews({
   }, [totalPages, goNext]);
 
   const visibleReviews = reviews.slice(
-    currentPage * PER_PAGE,
-    currentPage * PER_PAGE + PER_PAGE,
+    currentPage * perPage,
+    currentPage * perPage + perPage,
   );
 
   const viewAllUrl = googleReviewsUrl ? normalizeHref(googleReviewsUrl) : null;

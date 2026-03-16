@@ -159,6 +159,12 @@
   gap: var(--space-3);
 }
 
+@media (max-width: 767px) {
+  .services-header__pillars {
+    grid-template-columns: 1fr;
+  }
+}
+
 .services-header__pillar {
   background: #fff;
   border: 1px solid var(--color-border);
@@ -167,7 +173,9 @@
   display: flex;
   align-items: flex-start;
   gap: var(--space-3);
-  transition: box-shadow 0.2s, transform 0.2s;
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
 }
 
 .services-header__pillar:hover {
@@ -206,4 +214,178 @@
   color: var(--color-text-light, #4b6a8a);
   line-height: 1.5;
   margin: 0;
+}
+
+/* ============================================
+   Service Lead + Checklist (Bookkeeping layout)
+   ============================================ */
+.lead {
+  padding: 88px 0;
+  background: var(--white, #ffffff);
+}
+
+.lead .w {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: flex-start;
+}
+
+.lbl {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue, #2563eb);
+  font-weight: 600;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lbl::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--blue, #2563eb);
+  border-radius: 2px;
+}
+
+.lead-text h2 {
+  font-family: var(--serif, var(--font-heading));
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--navy, #0f1f3d);
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.lead-text h2 em {
+  font-style: italic;
+  color: var(--blt, #2563eb);
+}
+
+.service-lead__p,
+.lead-text__body p {
+  font-size: 15px;
+  color: var(--muted, #4b6a8a);
+  line-height: 1.82;
+  margin-bottom: 16px;
+}
+
+.service-lead__p strong,
+.lead-text__body p strong {
+  color: var(--navy, #0f1f3d);
+  font-weight: 600;
+}
+
+.service-lead__callout {
+  background: var(--pale, #eff6ff);
+  border-left: 4px solid var(--blue, #2563eb);
+  border-radius: 0 8px 8px 0;
+  padding: 20px 24px;
+  margin: 24px 0;
+}
+
+.service-lead__callout-body {
+  font-size: 14.5px;
+  color: var(--slate, #4b6a8a);
+  line-height: 1.75;
+  margin-bottom: 0;
+}
+
+.incl-box {
+  background: var(--light, #f9fafb);
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.incl-box-header {
+  background: linear-gradient(
+    90deg,
+    var(--navy, #0f172a),
+    var(--slate, #1f2937)
+  );
+  padding: 18px 24px;
+}
+
+.incl-box-header h3 {
+  font-family: var(--serif, var(--font-heading));
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.incl-box-header p {
+  font-size: 12.5px;
+  color: #fff;
+  margin-top: 3px;
+}
+
+.incl-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.incl-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--border, #e5e7eb);
+  font-size: 14px;
+  color: var(--muted, #4b6a8a);
+  line-height: 1.6;
+  transition: background 0.18s;
+}
+
+.incl-list li:last-child {
+  border-bottom: none;
+}
+
+.incl-list li:hover {
+  background: var(--pale, #eff6ff);
+}
+
+.incl-list li .ck {
+  width: 22px;
+  height: 22px;
+  background: var(--pale, #eff6ff);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  border: 1px solid #bfdbfe;
+}
+
+.incl-list li .ck svg {
+  width: 11px;
+  height: 11px;
+  stroke: var(--blue, #2563eb);
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.incl-list li strong {
+  color: var(--navy, #0f1f3d);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 2px;
+}
+
+@media (max-width: 767px) {
+  .lead {
+    padding: 64px 0;
+  }
+
+  .lead .w {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
 }

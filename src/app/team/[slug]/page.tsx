@@ -22,6 +22,8 @@ import {
   allTeamMembersQuery,
   allTeamMemberSlugsQuery,
   seoSettingsQuery,
+  navigationV2Query,
+  footerV2Query,
 } from "@/sanity/lib/queries";
 import JsonLd from "@/components/seo/JsonLd";
 import { SITE_URL, SITE_NAME, SITE_SUFFIX, resolveSeo } from "@/lib/seo";
@@ -153,10 +155,12 @@ export async function generateMetadata({ params }: TeamMemberPageProps): Promise
 export default async function TeamMemberPage({ params }: TeamMemberPageProps) {
   const { slug } = await params;
 
-  const [member, allMembers, global]: [TeamMember | null, TeamMemberSummary[], unknown] = await Promise.all([
+  const [member, allMembers, global, navSection, footerSection] = await Promise.all([
     client.fetch(teamMemberBySlugQuery, { slug }),
     client.fetch(allTeamMembersQuery),
     client.fetch(seoSettingsQuery),
+    client.fetch(navigationV2Query),
+    client.fetch(footerV2Query),
   ]);
 
   if (!member) notFound();
@@ -190,20 +194,18 @@ export default async function TeamMemberPage({ params }: TeamMemberPageProps) {
   return (
     <>
       <JsonLd data={personSchema} />
-      <Header />
+      <Header navSection={navSection ?? undefined} />
 
-      {/* ── Breadcrumb ── */}
-      <div className="tp-breadcrumb">
-        <div className="container">
-          <Link href="/team" className="tp-breadcrumb__link">
-            ← Back to Team
-          </Link>
-        </div>
-      </div>
-
-      {/* ── Hero header: name + role band ── */}
+      {/* ── Hero header: breadcrumb + name + role ── */}
       <div className="tp-hero">
         <div className="container">
+          <nav className="hero-banner__breadcrumb tp-hero__breadcrumb" aria-label="Breadcrumb">
+            <Link href="/" className="hero-banner__breadcrumb-link">Home</Link>
+            <span className="hero-banner__breadcrumb-sep">›</span>
+            <Link href="/team" className="hero-banner__breadcrumb-link">Team</Link>
+            <span className="hero-banner__breadcrumb-sep">›</span>
+            <span className="hero-banner__breadcrumb-cur">{member.name}</span>
+          </nav>
           <RevealWrapper>
             <div className="tp-hero__content">
               {member.position && (
@@ -362,7 +364,7 @@ export default async function TeamMemberPage({ params }: TeamMemberPageProps) {
         </nav>
       )}
 
-      <Footer />
+      <Footer footerSection={footerSection ?? undefined} />
     </>
   );
 }

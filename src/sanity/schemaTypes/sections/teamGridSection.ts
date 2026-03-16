@@ -14,6 +14,24 @@ export const teamGridSection = defineType({
       description: "Optional label to distinguish sections.",
     }),
     defineField({
+      name: "layout",
+      title: "Layout",
+      type: "string",
+      options: {
+        list: [
+          {
+            value: "default",
+            title: "Default (circular photo, compact cards)",
+          },
+          {
+            value: "teamPage",
+            title: "Team page (full-width cards, photo on top)",
+          },
+        ],
+      },
+      initialValue: "default",
+    }),
+    defineField({
       name: "introLabel",
       title: "Section Label Text",
       type: "string",
@@ -23,7 +41,7 @@ export const teamGridSection = defineType({
       name: "introHeading",
       title: "Heading",
       type: "string",
-      description: 'Use *asterisks* for blue italic emphasis.',
+      description: "Use *asterisks* for blue italic emphasis.",
       initialValue: "The People Behind *I H Professionals*",
     }),
     defineField({
@@ -36,7 +54,8 @@ export const teamGridSection = defineType({
       name: "useTeamList",
       title: "Use Team List from Sanity",
       type: "boolean",
-      description: "When enabled, automatically fetches and displays team members from the Team Members collection.",
+      description:
+        "When enabled, automatically fetches and displays team members from the Team Members collection.",
       initialValue: true,
     }),
   ],

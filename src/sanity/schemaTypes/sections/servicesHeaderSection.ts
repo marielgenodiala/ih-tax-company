@@ -15,6 +15,7 @@ export const servicesHeaderSection = defineType({
         list: [
           { title: "Default (title + visual / accreditation)", value: "default" },
           { title: "Intro with value pillars", value: "introWithPillars" },
+          { title: "Service Lead + checklist", value: "leadChecklist" },
         ],
       },
       initialValue: "default",
@@ -36,21 +37,22 @@ export const servicesHeaderSection = defineType({
       title: "Body",
       type: "array",
       of: [{ type: "block" }],
-      description: "Paragraphs below the title.",
+      description:
+        "Content under the title. For Service Lead + checklist, use normal paragraphs and a Quote block for the highlighted callout.",
     }),
     defineField({
       name: "visualLabel",
       title: "Visual label",
       type: "string",
       description: "Text inside the right-side visual box (e.g. Accounting).",
-      hidden: ({ parent }) => parent?.variant === "introWithPillars",
+      hidden: ({ parent }) => parent?.variant !== "default",
     }),
     defineField({
       name: "accredBadgeTitle",
       title: "Accreditation badge — Title",
       type: "string",
       description: "e.g. Registered & Accredited",
-      hidden: ({ parent }) => parent?.variant === "introWithPillars",
+      hidden: ({ parent }) => parent?.variant !== "default",
     }),
     defineField({
       name: "accredChips",
@@ -58,7 +60,7 @@ export const servicesHeaderSection = defineType({
       type: "array",
       of: [{ type: "string" }],
       description: "e.g. CPA Australia, TPB Registered",
-      hidden: ({ parent }) => parent?.variant === "introWithPillars",
+      hidden: ({ parent }) => parent?.variant !== "default",
     }),
     defineField({
       name: "valuePillars",
@@ -88,6 +90,54 @@ export const servicesHeaderSection = defineType({
             defineField({ name: "description", title: "Description", type: "text", rows: 2 }),
           ],
           preview: { select: { title: "title" }, prepare: ({ title }) => ({ title: title || "Pillar" }) },
+        },
+      ],
+    }),
+    // Lead content + checklist variant (Bookkeeping service style)
+    defineField({
+      name: "checklistHeading",
+      title: "Checklist heading",
+      type: "string",
+      description: 'e.g. "What’s Included".',
+      hidden: ({ parent }) => parent?.variant !== "leadChecklist",
+      initialValue: "What's Included",
+    }),
+    defineField({
+      name: "checklistSubheading",
+      title: "Checklist subheading",
+      type: "string",
+      description: 'Short line under the heading (e.g. "Everything you need, handled end-to-end").',
+      hidden: ({ parent }) => parent?.variant !== "leadChecklist",
+      initialValue: "Everything you need, handled end-to-end",
+    }),
+    defineField({
+      name: "checklistItems",
+      title: "Checklist items",
+      type: "array",
+      description: "Items in the 'What’s Included' checklist column.",
+      hidden: ({ parent }) => parent?.variant !== "leadChecklist",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "title",
+              title: "Item title",
+              type: "string",
+              validation: (r) => r.required(),
+            }),
+            defineField({
+              name: "description",
+              title: "Item description",
+              type: "string",
+            }),
+          ],
+          preview: {
+            select: { title: "title" },
+            prepare: ({ title }) => ({
+              title: title || "Checklist item",
+            }),
+          },
         },
       ],
     }),

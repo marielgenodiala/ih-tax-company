@@ -5,7 +5,12 @@ import RevealWrapper from "@/components/ui/RevealWrapper";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { client } from "@/sanity/lib/client";
-import { allBlogPostsQuery, seoSettingsQuery } from "@/sanity/lib/queries";
+import {
+  allBlogPostsQuery,
+  seoSettingsQuery,
+  navigationV2Query,
+  footerV2Query,
+} from "@/sanity/lib/queries";
 import { SITE_URL, SITE_NAME, DEFAULT_DESCRIPTION } from "@/lib/seo";
 import JsonLd from "@/components/seo/JsonLd";
 
@@ -53,7 +58,11 @@ interface BlogPost {
 }
 
 export default async function BlogsPage() {
-  const blogPosts: BlogPost[] = await client.fetch(allBlogPostsQuery);
+  const [blogPosts, navSection, footerSection] = await Promise.all([
+    client.fetch(allBlogPostsQuery),
+    client.fetch(navigationV2Query),
+    client.fetch(footerV2Query),
+  ]);
 
   const collectionSchema = {
     "@context": "https://schema.org",
@@ -67,7 +76,7 @@ export default async function BlogsPage() {
   return (
     <>
       <JsonLd data={collectionSchema} />
-      <Header />
+      <Header navSection={navSection ?? undefined} />
       <section className="page-hero">
         <div className="container">
           <h1>Our Blog</h1>
@@ -115,7 +124,7 @@ export default async function BlogsPage() {
         </div>
       </section>
 
-      <Footer />
+      <Footer footerSection={footerSection ?? undefined} />
     </>
   );
 }

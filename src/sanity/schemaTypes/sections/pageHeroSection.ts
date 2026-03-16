@@ -30,7 +30,8 @@ export const pageHeroSection = defineType({
       name: "breadcrumb",
       title: "Breadcrumb",
       type: "array",
-      description: "Add one item per step. Example: 1) Label « Home », URL « / » 2) Label « Accounting », URL empty (current page). Shows as: Home › Accounting",
+      description:
+        "Add one item per step. Example: 1) Label « Home », URL « / » 2) Label « Accounting », URL empty (current page). Shows as: Home › Accounting",
       hidden: ({ parent }) => parent?.variant !== "services",
       of: [
         {
@@ -41,17 +42,22 @@ export const pageHeroSection = defineType({
               name: "label",
               title: "Label",
               type: "string",
-              description: "One word or phrase for this step only (e.g. Home, Accounting). Do not type « Home > Accounting » — add a separate item for each step.",
+              description:
+                "One word or phrase for this step only (e.g. Home, Accounting). Do not type « Home > Accounting » — add a separate item for each step.",
               validation: (r) => r.required(),
             }),
             defineField({
               name: "href",
               title: "URL",
               type: "string",
-              description: "Link for this step. Leave empty only for the current page (usually the last item). Use / for home.",
+              description:
+                "Link for this step. Leave empty only for the current page (usually the last item). Use / for home.",
             }),
           ],
-          preview: { select: { label: "label" }, prepare: ({ label }) => ({ title: label || "Item" }) },
+          preview: {
+            select: { label: "label" },
+            prepare: ({ label }) => ({ title: label || "Item" }),
+          },
         },
       ],
     }),
@@ -66,7 +72,8 @@ export const pageHeroSection = defineType({
       name: "title",
       title: "Title",
       type: "string",
-      description: 'Wrap text in *asterisks* for blue italic emphasis, e.g. "guide to *success*"',
+      description:
+        'Wrap text in *asterisks* for blue italic emphasis, e.g. "guide to *success*"',
     }),
     defineField({
       name: "description",

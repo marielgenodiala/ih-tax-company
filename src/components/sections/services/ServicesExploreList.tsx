@@ -118,15 +118,21 @@ export default function ServicesExploreList({
                         ))}
                       </ul>
                     )}
-                    {hasButton && (
-                      <Link
-                        href={btnHref ? normalizeHref(btnHref) : "#"}
-                        className="btn btn--outline svc-btn"
-                      >
-                        {btnLabel}
-                        <ArrowRightIcon />
-                      </Link>
-                    )}
+                    {hasButton &&
+                      (btnHref ? (
+                        <Link
+                          href={normalizeHref(btnHref)}
+                          className="btn btn--outline svc-btn"
+                        >
+                          {btnLabel}
+                          <ArrowRightIcon />
+                        </Link>
+                      ) : (
+                        <span className="btn btn--outline svc-btn">
+                          {btnLabel}
+                          <ArrowRightIcon />
+                        </span>
+                      ))}
                   </div>
                 </RevealWrapper>
               );

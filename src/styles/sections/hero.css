@@ -42,6 +42,10 @@
   position: absolute;
   inset: 0;
   z-index: 0;
+  will-change: transform;
+  /* Slightly taller so parallax translate doesn't show gaps */
+  height: 120%;
+  top: -10%;
 }
 .hero--fullscreen .hero__bg-slide {
   position: absolute;
@@ -54,6 +58,7 @@
 .hero--fullscreen .hero__overlay {
   z-index: 1;
   background: rgba(11, 71, 181, 0.8);
+  /* background: linear-gradient(to top, #0a193cd9 0%, #0a193c73 55%, #0000 100%); */
 }
 .hero--fullscreen .hero__content {
   z-index: 2;
@@ -84,6 +89,15 @@
   justify-content: center;
   gap: var(--space-2);
   margin-top: var(--space-10);
+}
+@media (max-width: 767px) {
+  .hero--fullscreen .hero__pagination {
+    margin-top: var(--space-5);
+  }
+
+  .hero--fullscreen .hero__scroll-down {
+    bottom: var(--space-4);
+  }
 }
 .hero__pagination-dot {
   width: 8px;

@@ -1,6 +1,12 @@
 /* ============================================
    Contact Page (full page layout)
    ============================================ */
+.contact-page .container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+}
+
 .contact-page__header {
   margin-bottom: var(--space-8);
   text-align: center;
