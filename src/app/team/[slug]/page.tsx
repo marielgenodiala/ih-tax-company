@@ -306,7 +306,7 @@ export default async function TeamMemberPage({ params }: TeamMemberPageProps) {
                   <div className="tp-section">
                     <span className="section-label">Connect</span>
                     <div className="tp-socials">
-                      {member.socials!.map((social, i) => (
+                      {member.socials!.map((social: Social, i: number) => (
                         <a
                           key={i}
                           href={social.platform === "email" ? `mailto:${social.url}` : social.url}
@@ -334,7 +334,7 @@ export default async function TeamMemberPage({ params }: TeamMemberPageProps) {
           <div className="container">
             <p className="team-nav__label">Meet the Rest of the Team</p>
             <div className="team-nav__strip">
-              {allMembers.map((m) => (
+              {allMembers.map((m: TeamMemberSummary) => (
                 <Link
                   key={m._id}
                   href={`/team/${m.slug}`}

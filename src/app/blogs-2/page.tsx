@@ -58,11 +58,12 @@ interface BlogPost {
 }
 
 export default async function BlogsPage() {
-  const [blogPosts, navSection, footerSection] = await Promise.all([
+  const [rawPosts, navSection, footerSection] = await Promise.all([
     client.fetch(allBlogPostsQuery),
     client.fetch(navigationV2Query),
     client.fetch(footerV2Query),
   ]);
+  const blogPosts: BlogPost[] = Array.isArray(rawPosts) ? rawPosts : [];
 
   const collectionSchema = {
     "@context": "https://schema.org",

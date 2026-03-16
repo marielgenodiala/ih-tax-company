@@ -6,13 +6,21 @@ export const revalidate = 60;
 
 interface BookableService {
   title: string;
-  description: string;
-  duration: string;
-  price: string;
+  description?: string;
+  duration?: string;
+  price?: string;
 }
 
 export default async function BookOnlinePage() {
-  const services: BookableService[] = await client.fetch(bookableServicesQuery);
+  const raw = await client.fetch(bookableServicesQuery);
+  const services: BookableService[] = Array.isArray(raw)
+    ? raw.map((s: { title: string; description?: string }) => ({
+        title: s.title ?? "",
+        description: s.description ?? "",
+        duration: "",
+        price: "",
+      }))
+    : [];
 
   return <BookOnlineClient services={services} />;
 }

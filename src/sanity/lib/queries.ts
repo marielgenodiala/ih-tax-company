@@ -234,6 +234,16 @@ export const footerV2Query = groq`
 
 // ─── Services ─────────────────────────────────────────
 
+/** Services for book-online page (same as allServices; duration/price removed from schema) */
+export const bookableServicesQuery = groq`
+  *[_type == "service"] | order(order asc) {
+    title,
+    description,
+    categorySegment,
+    "slug": slug.current
+  }
+`;
+
 export const allServicesQuery = groq`
   *[_type == "service"] | order(order asc) {
     title,

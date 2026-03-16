@@ -8,9 +8,9 @@ import Footer from "@/components/layout/Footer";
 
 interface BookableService {
   title: string;
-  description: string;
-  duration: string;
-  price: string;
+  description?: string;
+  duration?: string;
+  price?: string;
 }
 
 export default function BookOnlineClient({ services }: { services: BookableService[] }) {
@@ -34,15 +34,19 @@ export default function BookOnlineClient({ services }: { services: BookableServi
           <div className="booking__list">
             {services.map((service, i) => (
               <RevealWrapper key={service.title} delay={((i + 1) as 1 | 2 | 3)}>
-                <div className="booking-item">
-                  <div className="booking-item__info">
-                    <h3>{service.title}</h3>
-                    <p>{service.description}</p>
-                    <div className="booking-item__details">
-                      <span className="booking-item__tag">{service.duration}</span>
-                      <span className="booking-item__price">{service.price}</span>
+                  <div className="booking-item">
+                    <div className="booking-item__info">
+                      <h3>{service.title}</h3>
+                      {service.description && <p>{service.description}</p>}
+                      <div className="booking-item__details">
+                        {service.duration && (
+                          <span className="booking-item__tag">{service.duration}</span>
+                        )}
+                        {service.price && (
+                          <span className="booking-item__price">{service.price}</span>
+                        )}
+                      </div>
                     </div>
-                  </div>
                   <button
                     type="button"
                     className="btn btn--primary btn--arrow"
