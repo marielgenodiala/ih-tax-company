@@ -61,13 +61,15 @@ function DropdownMenu({
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    function handleClick(e: MouseEvent) {
+    function handleOutsideClick(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         onToggle(null);
       }
     }
-    if (isOpen) document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    if (isOpen) {
+      document.addEventListener("click", handleOutsideClick, true);
+    }
+    return () => document.removeEventListener("click", handleOutsideClick, true);
   }, [isOpen, onToggle]);
 
   const children = item.children ?? [];
@@ -101,7 +103,6 @@ function DropdownMenu({
               href={normalizeHref(child.href)}
               className="nav-sticky__dropdown-item"
               role="menuitem"
-              onClick={() => onToggle(null)}
             >
               <span className="nav-sticky__dropdown-item-label">
                 {child.label}
@@ -118,7 +119,6 @@ function DropdownMenu({
               href={normalizeHref(servicesLink.url)}
               className="nav-sticky__dropdown-item nav-sticky__dropdown-services-link"
               role="menuitem"
-              onClick={() => onToggle(null)}
             >
               <span className="nav-sticky__dropdown-item-label">
                 {servicesLink.label} →
@@ -130,7 +130,6 @@ function DropdownMenu({
               <Link
                 href={normalizeHref(item.href)}
                 className="nav-sticky__dropdown-view-all"
-                onClick={() => onToggle(null)}
               >
                 View All {item.label} Services →
               </Link>

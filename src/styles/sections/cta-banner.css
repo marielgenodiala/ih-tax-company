@@ -53,7 +53,7 @@
 .cta-banner p {
   color: rgba(255, 255, 255, 0.8);
   font-size: var(--font-size-md);
-  max-width: 680px;
+  max-width: 540px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -116,11 +116,11 @@
   color: rgba(255, 255, 255, 0.85);
 }
 
-.cta-banner--two-column__desc {
+.cta-banner--two-column__content .cta-banner--two-column__desc {
   color: rgba(255, 255, 255, 0.9);
   font-size: var(--font-size-md);
   margin: 0;
-  max-width: none;
+  max-width: 100%;
   margin-left: 0;
   margin-right: 0;
 }

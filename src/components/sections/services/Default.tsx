@@ -54,19 +54,23 @@ export default async function Services({
     ? await client.fetch(allServicesQuery)
     : [];
 
+  const hasSubtitle = Boolean(subtitle?.trim());
+  const hasTitle = Boolean(title?.trim());
+  const hasDescription = Boolean(description?.trim());
+  const hasHeader = hasSubtitle || hasTitle || hasDescription;
+
   return (
     <section className="section section--light" id="services">
       <div className="container">
-        <RevealWrapper>
-          <div className="section__header">
-            <span className="section-label">{subtitle || "Services"}</span>
-            <h2>{title ? parseEmphasis(title) : "What You Need"}</h2>
-            <p>
-              {description ||
-                "Comprehensive taxation and accounting solutions tailored to your needs."}
-            </p>
-          </div>
-        </RevealWrapper>
+        {hasHeader && (
+          <RevealWrapper>
+            <div className="section__header">
+              {hasSubtitle && <span className="section-label">{subtitle}</span>}
+              {hasTitle && <h2>{parseEmphasis(title!)}</h2>}
+              {hasDescription && <p>{description}</p>}
+            </div>
+          </RevealWrapper>
+        )}
         {services.length > 0 && (
           <div className="services-grid">
             {services.map((service, i) => (

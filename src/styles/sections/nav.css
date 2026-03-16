@@ -154,7 +154,10 @@ nav.nav-sticky.nav-sticky--scrolled .nav-sticky__inner {
   font-size: var(--font-size-sm);
   letter-spacing: 0.02em;
   font-family: var(--font-heading);
-  transition: width var(--transition), height var(--transition), font-size var(--transition);
+  transition:
+    width var(--transition),
+    height var(--transition),
+    font-size var(--transition);
 }
 .nav-sticky__logo-line1 {
   font-weight: 600;
@@ -163,7 +166,9 @@ nav.nav-sticky.nav-sticky--scrolled .nav-sticky__inner {
   line-height: 1.2;
   font-family: var(--font-heading);
   white-space: nowrap;
-  transition: color var(--transition), font-size var(--transition);
+  transition:
+    color var(--transition),
+    font-size var(--transition);
 }
 .nav-sticky--scrolled .nav-sticky__logo-line1 {
   color: var(--color-text);
@@ -233,17 +238,19 @@ nav.nav-sticky.nav-sticky--scrolled .nav-sticky__inner {
   }
 }
 
-/* Desktop nav links: white when not scrolled (lg only), dark when scrolled */
+/* Desktop nav links: no underline by default; underline only on hover */
 .nav-sticky__link {
+  display: inline-block;
   text-decoration: none;
   font-size: var(--font-size-sm);
   font-weight: 500;
   color: var(--color-text-light);
   letter-spacing: 0.03em;
   padding: var(--space-2) 0;
-  border-bottom: 2px solid transparent;
+  border-bottom: 0 solid transparent;
   transition:
     border-color var(--transition),
+    border-width var(--transition),
     color var(--transition);
   font-family: var(--font-body);
 }
@@ -256,8 +263,16 @@ nav.nav-sticky.nav-sticky--scrolled .nav-sticky__inner {
   }
 }
 .nav-sticky__link:hover {
+  border-bottom-width: 2px;
   border-bottom-color: var(--color-primary);
   color: var(--color-primary);
+}
+@media (min-width: 1024px) {
+  nav.nav-sticky:not(.nav-sticky--scrolled) .nav-sticky__link:hover {
+    border-bottom-width: 2px;
+    border-bottom-color: #fff;
+    color: #fff;
+  }
 }
 .nav-sticky__services-btn {
   display: inline-flex;
@@ -290,17 +305,18 @@ nav.nav-sticky.nav-sticky--scrolled .nav-sticky__inner {
 .nav-sticky__dropdown-trigger {
   background: none;
   border: none;
+  border-bottom: 0 solid transparent;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  padding: var(--space-2) var(--space-1);
+  padding: var(--space-2) 0;
   font-size: var(--font-size-sm);
   font-weight: 500;
   color: var(--color-text-light);
   letter-spacing: 0.03em;
   font-family: var(--font-body);
-  transition: color var(--transition);
+  transition: color var(--transition), border-color var(--transition), border-width var(--transition);
 }
 @media (min-width: 1024px) {
   .nav-sticky__dropdown-trigger {
@@ -310,9 +326,23 @@ nav.nav-sticky.nav-sticky--scrolled .nav-sticky__inner {
     color: var(--color-text-light);
   }
 }
+/* Underline only on hover or when dropdown is open, not by default */
 .nav-sticky__dropdown-trigger:hover,
 .nav-sticky__dropdown-trigger[aria-expanded="true"] {
   color: var(--color-primary);
+}
+@media (min-width: 1024px) {
+  nav.nav-sticky:not(.nav-sticky--scrolled) .nav-sticky__dropdown-trigger:hover,
+  nav.nav-sticky:not(.nav-sticky--scrolled) .nav-sticky__dropdown-trigger[aria-expanded="true"] {
+    border-bottom-width: 2px;
+    border-bottom-color: #fff;
+    color: #fff;
+  }
+  nav.nav-sticky.nav-sticky--scrolled .nav-sticky__dropdown-trigger:hover,
+  nav.nav-sticky.nav-sticky--scrolled .nav-sticky__dropdown-trigger[aria-expanded="true"] {
+    border-bottom-width: 2px;
+    border-bottom-color: var(--color-primary);
+  }
 }
 .nav-sticky__dropdown-chevron {
   font-size: 10px;

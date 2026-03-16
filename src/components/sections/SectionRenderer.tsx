@@ -6,6 +6,7 @@ import LogoCloud from "./logoCloud";
 import Stats from "./stats";
 import WhatYouNeed from "./whatYouNeed";
 import Services from "./services";
+import ServicesHeaderSection from "./servicesHeader";
 import FeaturedBookOnline from "./featuredBookOnline";
 import StatementBanner from "./statementBanner";
 import About from "./about";
@@ -32,6 +33,7 @@ const sectionComponents: Record<string, React.ComponentType<any>> = {
   statsSection: Stats,
   whatYouNeedSection: WhatYouNeed,
   servicesSection: Services,
+  servicesHeaderSection: ServicesHeaderSection,
   featuredBookOnlineSection: FeaturedBookOnline,
   statementBannerSection: StatementBanner,
   aboutSection: About,

@@ -13,6 +13,7 @@ import { logoCloudSection } from "./sections/logoCloudSection";
 import { statsSection } from "./sections/statsSection";
 import { whatYouNeedSection } from "./sections/whatYouNeedSection";
 import { servicesSection } from "./sections/servicesSection";
+import { servicesHeaderSection } from "./sections/servicesHeaderSection";
 import { statementBannerSection } from "./sections/statementBannerSection";
 import { aboutSection } from "./sections/aboutSection";
 import { ctaBannerSection } from "./sections/ctaBannerSection";
@@ -46,6 +47,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     statsSection,
     whatYouNeedSection,
     servicesSection,
+    servicesHeaderSection,
     statementBannerSection,
     aboutSection,
     ctaBannerSection,

@@ -24,16 +24,54 @@ export const heroSection = defineType({
             title: "Home fullscreen (swiping background images)",
             value: "homeFullscreen",
           },
+          { title: "Services (banner + breadcrumb + CTAs)", value: "services" },
         ],
       },
       initialValue: "home",
       description: "Hero visual/layout variant.",
     }),
     defineField({
+      name: "breadcrumb",
+      title: "Breadcrumb",
+      type: "array",
+      description: "Add one item per step. Example: 1) Label « Home », URL « / » 2) Label « Accounting », URL empty (current page). Shows as: Home › Accounting",
+      hidden: ({ parent }) => parent?.variant !== "services",
+      of: [
+        {
+          type: "object",
+          name: "breadcrumbItem",
+          fields: [
+            defineField({
+              name: "label",
+              title: "Label",
+              type: "string",
+              description: "One word or phrase for this step only (e.g. Home, Accounting, Bookkeeping). Do not type « Home > Accounting » here — add a separate item for each.",
+              validation: (r) => r.required(),
+            }),
+            defineField({
+              name: "href",
+              title: "URL",
+              type: "string",
+              description: "Link for this step. Leave empty only for the current page (usually the last item). Use / for home.",
+            }),
+          ],
+          preview: { select: { label: "label" }, prepare: ({ label }) => ({ title: label || "Item" }) },
+        },
+      ],
+    }),
+    defineField({
+      name: "eyebrow",
+      title: "Eyebrow",
+      type: "string",
+      description: "Small label above title (e.g. Our Services). For Services variant.",
+      hidden: ({ parent }) => parent?.variant !== "services",
+    }),
+    defineField({
       name: "subtitle",
       title: "Subtitle",
       type: "string",
       initialValue: "Registered Tax Agent · Business Consultant · Sydney NSW",
+      hidden: ({ parent }) => parent?.variant === "services",
     }),
     defineField({
       name: "title",
@@ -81,7 +119,7 @@ export const heroSection = defineType({
       title: "Background Image",
       type: "image",
       options: { hotspot: true },
-      hidden: ({ parent }) => parent?.variant === "homeFullscreen",
+      hidden: ({ parent }) => parent?.variant === "homeFullscreen" || parent?.variant === "services",
     }),
     defineField({
       name: "backgroundImages",

@@ -1,10 +1,11 @@
 import HeroHome from "./HeroHome";
 import HeroHomeFullscreen from "./HeroHomeFullscreen";
 import HeroPage from "./HeroPage";
+import HeroServicesBanner, { type HeroServicesBannerProps } from "./HeroServicesBanner";
 import type { HeroHomeProps } from "./HeroHome";
 import type { HeroHomeFullscreenProps } from "./HeroHomeFullscreen";
 
-export type HeroVariant = "home" | "homeFullscreen" | "page";
+export type HeroVariant = "home" | "homeFullscreen" | "page" | "services";
 
 export interface HeroSectionProps {
   _type: "heroSection" | "pageHeroSection";
@@ -14,12 +15,28 @@ export interface HeroSectionProps {
 
 /**
  * Renders the appropriate hero variant. Add new variants here and in Sanity when needed.
+ * - heroSection / pageHeroSection + variant "services" → HeroServicesBanner (banner + breadcrumb + CTAs)
  * - heroSection + variant "home" → HeroHome (landing hero with CTAs)
  * - heroSection + variant "homeFullscreen" → HeroHomeFullscreen (full viewport, swiping background images)
  * - pageHeroSection → HeroPage (simple title + description)
  */
 export default function HeroSection(props: HeroSectionProps) {
   const { _type, variant, ...rest } = props;
+
+  if (variant === "services") {
+    return (
+      <HeroServicesBanner
+        breadcrumb={rest.breadcrumb as HeroServicesBannerProps["breadcrumb"]}
+        eyebrow={rest.eyebrow as string}
+        title={rest.title as string}
+        description={rest.description as string}
+        ctaPrimaryLabel={rest.ctaPrimaryLabel as string}
+        ctaPrimaryHref={rest.ctaPrimaryHref as string}
+        ctaSecondaryLabel={rest.ctaSecondaryLabel as string}
+        ctaSecondaryHref={rest.ctaSecondaryHref as string}
+      />
+    );
+  }
 
   if (_type === "pageHeroSection" || variant === "page") {
     return (

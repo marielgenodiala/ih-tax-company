@@ -21,9 +21,12 @@
 @import "../styles/sections/header.css";
 @import "../styles/sections/nav.css";
 @import "../styles/sections/hero.css";
+@import "../styles/sections/hero-services-banner.css";
 @import "../styles/sections/stats.css";
 @import "../styles/sections/what-you-need.css";
 @import "../styles/sections/services.css";
+@import "../styles/sections/services-explore-list.css";
+@import "../styles/sections/services-header.css";
 @import "../styles/sections/about.css";
 @import "../styles/sections/statement-banner.css";
 @import "../styles/sections/logo-cloud.css";

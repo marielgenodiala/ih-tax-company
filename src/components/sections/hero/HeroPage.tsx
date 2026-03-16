@@ -7,11 +7,13 @@ export interface HeroPageProps {
 }
 
 export default function HeroPage({
-  title = "Page Title",
+  title,
   description,
   backgroundImage,
 }: HeroPageProps) {
   const bgUrl = backgroundImage || "/images/accountingImage2.avif";
+  const hasTitle = Boolean(title?.trim());
+  const hasDescription = Boolean(description?.trim());
 
   return (
     <section
@@ -19,8 +21,8 @@ export default function HeroPage({
       style={{ backgroundImage: `url('${bgUrl}')` }}
     >
       <div className="container">
-        <h1>{parseEmphasis(title)}</h1>
-        {description && <p>{description}</p>}
+        {hasTitle && <h1>{parseEmphasis(title!)}</h1>}
+        {hasDescription && <p>{description}</p>}
       </div>
     </section>
   );

@@ -44,6 +44,13 @@ const sectionImageResolvers = `
   _type == "pageHeroSection" => {
     ...,
     "backgroundImage": backgroundImage.asset->url
+  },
+  _type == "servicesSection" => {
+    ...,
+    partnerCards[] {
+      ...,
+      "image": image.asset->url
+    }
   }
 `;
 

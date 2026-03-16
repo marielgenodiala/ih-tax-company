@@ -108,10 +108,7 @@ export default function HeroHomeFullscreen({
             </>
           )}
         </h1>
-        <p className="hero__text">
-          {description ||
-            "The care your accounting needs. We provide unparalleled personalised accounting services to individuals and businesses across Australia."}
-        </p>
+        <p className="hero__text">{description}</p>
         <div className="hero__cta-group">
           <Link
             href={normalizeHref(ctaPrimaryHref)}

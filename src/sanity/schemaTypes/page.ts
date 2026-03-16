@@ -57,6 +57,7 @@ export const page = defineType({
         { type: "statsSection" },
         { type: "whatYouNeedSection" },
         { type: "servicesSection" },
+        { type: "servicesHeaderSection" },
         { type: "featuredBookOnlineSection" },
         { type: "statementBannerSection" },
         { type: "aboutSection" },

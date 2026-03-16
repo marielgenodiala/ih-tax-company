@@ -1,0 +1,217 @@
+/* ============================================
+   Services Explore List — layout from to follow service page.html (425-586)
+   Scoped under .services-explore-list to avoid conflicts
+   ============================================ */
+.services-explore-list {
+  padding: var(--space-10) 0 88px;
+  background: #fff;
+}
+
+.services-explore-list .w {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.services-explore-list .sec-hd {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.services-explore-list .sec-hd .lbl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #2563eb;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.services-explore-list .sec-hd .lbl::before,
+.services-explore-list .sec-hd .lbl::after {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: #2563eb;
+  border-radius: 2px;
+}
+
+.services-explore-list .sec-hd h2 {
+  font-family: var(--font-heading);
+  font-size: 40px;
+  font-weight: 700;
+  color: #0f1f3d;
+  line-height: 1.12;
+  margin-bottom: 14px;
+}
+
+.services-explore-list .sec-hd h2 em {
+  font-style: italic;
+  color: #3b82f6;
+}
+
+.services-explore-list .sec-hd p {
+  font-size: 15.5px;
+  color: #4b6a8a;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+.services-explore-list .svc-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.services-explore-list .svc-grid > * {
+  min-height: 0;
+}
+
+@media (min-width: 768px) {
+  .services-explore-list .svc-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .services-explore-list .svc-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.services-explore-list .svc-card {
+  background: #fff;
+  border: 1px solid #dde8f4;
+  border-radius: 12px;
+  padding: 34px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.22s, border-color 0.22s, transform 0.22s;
+  cursor: default;
+  height: 100%;
+}
+
+.services-explore-list .svc-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  opacity: 0;
+  transition: opacity 0.22s;
+}
+
+.services-explore-list .svc-card:hover {
+  border-color: #bfdbfe;
+  box-shadow: 0 12px 48px rgba(37, 99, 235, 0.1);
+  transform: translateY(-5px);
+}
+
+.services-explore-list .svc-card:hover::before {
+  opacity: 1;
+}
+
+.services-explore-list .svc-icon {
+  width: 50px;
+  height: 50px;
+  background: #eff6ff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.services-explore-list .svc-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: #2563eb;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.services-explore-list .svc-card h3 {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f1f3d;
+  line-height: 1.18;
+  margin-bottom: 11px;
+}
+
+.services-explore-list .svc-card > p {
+  font-size: 14.5px;
+  color: #4b6a8a;
+  line-height: 1.78;
+  flex: 1;
+  margin-bottom: 24px;
+}
+
+.services-explore-list .svc-features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 24px;
+}
+
+.services-explore-list .svc-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  color: #4b6a8a;
+  padding: 6px 0;
+  border-bottom: 1px solid #dde8f4;
+  line-height: 1.5;
+}
+
+.services-explore-list .svc-features li:last-child {
+  border-bottom: none;
+}
+
+.services-explore-list .svc-features li svg {
+  width: 16px;
+  height: 16px;
+  stroke: #2563eb;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.services-explore-list .svc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.services-explore-list .svc-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.18s;
+}
+
+.services-explore-list .svc-btn:hover svg {
+  transform: translateX(3px);
+}
