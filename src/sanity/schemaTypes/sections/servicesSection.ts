@@ -41,10 +41,17 @@ export const servicesSection = defineType({
           name: "exploreListItem",
           fields: [
             defineField({ name: "title", title: "Title", type: "string", validation: (r) => r.required() }),
+            defineField({
+              name: "image",
+              title: "Card image",
+              type: "image",
+              options: { hotspot: true },
+              description: "Image shown at the top of the card. Recommended size: 600×400 or similar.",
+            }),
             defineField({ name: "description", title: "Description", type: "text", rows: 3 }),
             defineField({
               name: "iconKey",
-              title: "Icon",
+              title: "Icon (fallback when no image)",
               type: "string",
               options: {
                 list: [

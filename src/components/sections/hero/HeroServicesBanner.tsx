@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useEffect, useRef } from "react";
 import Link from "next/link";
 import { parseEmphasis, normalizeHref } from "@/lib/normalizeHref";
 
@@ -51,6 +51,19 @@ export default function HeroServicesBanner({
     backgroundType === "image" && Boolean(backgroundImage?.trim());
   const parallaxRef = useRef<HTMLDivElement>(null);
 
+  // Preload hero background image so it loads immediately
+  useEffect(() => {
+    if (!useImageBg || !backgroundImage?.trim()) return;
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "image";
+    link.href = backgroundImage;
+    document.head.appendChild(link);
+    return () => {
+      if (link.parentNode === document.head) document.head.removeChild(link);
+    };
+  }, [useImageBg, backgroundImage]);
+
   useLayoutEffect(() => {
     if (!useImageBg) return;
     const el = parallaxRef.current;
@@ -84,6 +97,7 @@ export default function HeroServicesBanner({
             src={backgroundImage!}
             alt=""
             aria-hidden
+            fetchPriority="high"
           />
           <div className="hero-banner__img-overlay" aria-hidden />
         </div>

@@ -57,6 +57,10 @@ const sectionImageResolvers = `
     partnerCards[] {
       ...,
       "image": image.asset->url
+    },
+    exploreListItems[] {
+      ...,
+      "image": image.asset->url
     }
   },
   _type == "ctaBannerSection" => {

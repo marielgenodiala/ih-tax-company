@@ -1,6 +1,10 @@
 /* ============================================
    Blog Preview (cards + CTA)
    ============================================ */
+.section.blog-preview {
+  padding: var(--space-10) 0;
+}
+
 /* Default variant: no rounded corners */
 .blog-preview--default .blog-card {
   border-radius: 0;

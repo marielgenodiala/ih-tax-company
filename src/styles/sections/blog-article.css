@@ -379,7 +379,7 @@
 
 .blog-article__back {
   padding-top: var(--space-6);
-  padding-bottom: var(--space-16);
+  padding-bottom: var(--space-10);
 }
 
 .blog-article__back-btn {

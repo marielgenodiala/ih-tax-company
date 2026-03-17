@@ -1,7 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import RevealWrapper from "@/components/ui/RevealWrapper";
 import { parseEmphasis, normalizeHref } from "@/lib/normalizeHref";
-import { iconMap } from "./Default";
 
 function CheckIcon() {
   return (
@@ -46,6 +46,7 @@ function ArrowRightIcon() {
 export interface ExploreListItem {
   title?: string | null;
   description?: string | null;
+  image?: string | null;
   iconKey?: string | null;
   features?: string[] | null;
   buttonLabel?: string | null;
@@ -94,10 +95,7 @@ export default function ServicesExploreList({
               const btnLabel = item.buttonLabel?.trim();
               const btnHref = item.buttonHref?.trim();
               const hasButton = Boolean(btnLabel);
-              const Icon =
-                item.iconKey && iconMap[item.iconKey]
-                  ? iconMap[item.iconKey]
-                  : iconMap.management;
+              const imageUrl = item.image?.trim() || null;
 
               return (
                 <RevealWrapper
@@ -105,34 +103,57 @@ export default function ServicesExploreList({
                   delay={((i % 3) + 1) as 1 | 2 | 3}
                 >
                   <div className="svc-card">
-                    <div className="svc-icon">{Icon}</div>
-                    {cardTitle && <h3>{cardTitle}</h3>}
-                    {cardDesc && <p>{cardDesc}</p>}
-                    {features.length > 0 && (
-                      <ul className="svc-features">
-                        {features.map((feature, j) => (
-                          <li key={j}>
-                            <CheckIcon />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    {hasButton &&
-                      (btnHref ? (
-                        <Link
-                          href={normalizeHref(btnHref)}
-                          className="btn btn--outline svc-btn"
-                        >
-                          {btnLabel}
-                          <ArrowRightIcon />
-                        </Link>
+                    <div className="svc-img">
+                      {imageUrl ? (
+                        <Image
+                          src={imageUrl}
+                          alt=""
+                          width={600}
+                          height={200}
+                          sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
                       ) : (
-                        <span className="btn btn--outline svc-btn">
-                          {btnLabel}
-                          <ArrowRightIcon />
-                        </span>
-                      ))}
+                        <div className="svc-img-placeholder" aria-hidden />
+                      )}
+                      <div className="svc-img-overlay" aria-hidden />
+                      {cardTitle && (
+                        <div className="svc-img-badge">{cardTitle}</div>
+                      )}
+                    </div>
+                    <div className="svc-card-body">
+                      {/* {cardTitle && <h3>{cardTitle}</h3>} */}
+                      {cardDesc && <p>{cardDesc}</p>}
+                      {features.length > 0 && (
+                        <ul className="svc-features">
+                          {features.map((feature, j) => (
+                            <li key={j}>
+                              <CheckIcon />
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      {hasButton &&
+                        (btnHref ? (
+                          <Link
+                            href={normalizeHref(btnHref)}
+                            className="btn btn--outline svc-btn"
+                          >
+                            {btnLabel}
+                            <ArrowRightIcon />
+                          </Link>
+                        ) : (
+                          <span className="btn btn--outline svc-btn">
+                            {btnLabel}
+                            <ArrowRightIcon />
+                          </span>
+                        ))}
+                    </div>
                   </div>
                 </RevealWrapper>
               );

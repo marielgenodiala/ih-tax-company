@@ -65,6 +65,24 @@ export default function HeroHomeFullscreen({
     [urls.length],
   );
 
+  // Preload hero background images so they load immediately
+  useEffect(() => {
+    const links: HTMLLinkElement[] = [];
+    urls.slice(0, 2).forEach((url) => {
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = url;
+      document.head.appendChild(link);
+      links.push(link);
+    });
+    return () => {
+      links.forEach((link) => {
+        if (link.parentNode === document.head) document.head.removeChild(link);
+      });
+    };
+  }, [urls]);
+
   useEffect(() => {
     if (urls.length <= 1) return;
     const id = setInterval(() => {
