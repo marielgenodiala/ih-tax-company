@@ -49,3 +49,4 @@ export default function CtaBanner(props: CtaBannerSectionProps) {
 }
 
 export { CtaBannerDefault, CtaBannerTwoColumn };
+export { default as CtaBannerDownload } from "./CtaBannerDownload";

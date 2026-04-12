@@ -50,10 +50,9 @@ export default function LogoCloudCarousel({
         </RevealWrapper>
       </div>
 
-      <RevealWrapper>
-        <div className="logo-cloud-carousel__track-wrapper">
-          <div className="logo-cloud-carousel__track">
-            <Swiper
+      <div className="logo-cloud-carousel__track-wrapper">
+        <div className="logo-cloud-carousel__track">
+          <Swiper
             modules={[Autoplay]}
             loop
             loopAdditionalSlides={6}
@@ -91,26 +90,29 @@ export default function LogoCloudCarousel({
                   key={`${logo.alt}-${index}`}
                   className="logo-cloud-carousel__slide"
                 >
-                  <div className="logo-cloud-carousel__item">
-                    {logo.buttonHref ? (
-                      <Link
-                        href={logo.buttonHref}
-                        className="logo-cloud-carousel__link"
-                        aria-label={logo.buttonLabel || logo.alt}
-                      >
-                        {content}
-                      </Link>
-                    ) : (
-                      content
-                    )}
-                  </div>
+                  <RevealWrapper
+                    delay={((index % 4) + 1) as 1 | 2 | 3 | 4}
+                  >
+                    <div className="logo-cloud-carousel__item">
+                      {logo.buttonHref ? (
+                        <Link
+                          href={logo.buttonHref}
+                          className="logo-cloud-carousel__link"
+                          aria-label={logo.buttonLabel || logo.alt}
+                        >
+                          {content}
+                        </Link>
+                      ) : (
+                        content
+                      )}
+                    </div>
+                  </RevealWrapper>
                 </SwiperSlide>
               );
             })}
-            </Swiper>
-          </div>
+          </Swiper>
         </div>
-      </RevealWrapper>
+      </div>
     </section>
   );
 }

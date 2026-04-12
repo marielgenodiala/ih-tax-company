@@ -32,13 +32,15 @@ export default function StatsWithPartners({
 
   return (
     <section className="stats stats--with-partners">
-      <RevealWrapper>
-        {/* Top: full-width gray — stats */}
-        <div className="stats-wp__gray-top">
-          <div className="container">
-            <div className="stats__grid stats__grid--3col">
+      {/* Top: full-width gray — stats */}
+      <div className="stats-wp__gray-top">
+        <div className="container">
+          <div className="stats__grid stats__grid--3col">
             {items.map((stat, i) => (
-              <RevealWrapper key={`${stat.label}-${i}`} delay={(i + 1) as 1 | 2 | 3 | 4}>
+              <RevealWrapper
+                key={`${stat.label}-${i}`}
+                delay={(i + 1) as 1 | 2 | 3 | 4}
+              >
                 <div className="stats__item">
                   <span className="stats__number">
                     <CountUpNumber value={stat.number} />
@@ -47,16 +49,20 @@ export default function StatsWithPartners({
                 </div>
               </RevealWrapper>
             ))}
-            </div>
           </div>
         </div>
+      </div>
 
-        {/* Bottom: left half gray (short desc, lg rounded bottom-right) | right half white (partners) */}
-        {(shortDesc || (partners?.length ?? 0) > 0) && (
-          <div className="stats-wp__bottom-row">
+      {/* Bottom: left half gray (short desc, lg rounded bottom-right) | right half white (partners) */}
+      {(shortDesc || (partners?.length ?? 0) > 0) && (
+        <div className="stats-wp__bottom-row">
           <div className="stats-wp__gray-part">
             <div className="container">
-              {shortDesc && <p className="stats__short-desc">{shortDesc}</p>}
+              {shortDesc && (
+                <RevealWrapper>
+                  <p className="stats__short-desc">{shortDesc}</p>
+                </RevealWrapper>
+              )}
             </div>
           </div>
           <div className="stats-wp__white-part">
@@ -78,13 +84,14 @@ export default function StatsWithPartners({
                           </div>
                         )}
                         {partner.title && (
-                          <span className="stats__partner-title">{partner.title}</span>
+                          <span className="stats__partner-title">
+                            {partner.title}
+                          </span>
                         )}
                       </>
                     );
-                    return partner.link ? (
+                    const inner = partner.link ? (
                       <a
-                        key={i}
                         href={partner.link}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -93,18 +100,23 @@ export default function StatsWithPartners({
                         {content}
                       </a>
                     ) : (
-                      <div key={i} className="stats__partner-item">
-                        {content}
-                      </div>
+                      <div className="stats__partner-item">{content}</div>
+                    );
+                    return (
+                      <RevealWrapper
+                        key={i}
+                        delay={((i % 4) + 1) as 1 | 2 | 3 | 4}
+                      >
+                        {inner}
+                      </RevealWrapper>
                     );
                   })}
                 </div>
               ) : null}
-              </div>
             </div>
           </div>
-        )}
-      </RevealWrapper>
+        </div>
+      )}
     </section>
   );
 }

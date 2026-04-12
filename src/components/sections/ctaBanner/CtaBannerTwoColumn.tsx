@@ -44,22 +44,29 @@ export default function CtaBannerTwoColumn({
         </>
       )}
       <div className="container cta-banner--two-column__row">
-        <RevealWrapper className="cta-banner--two-column__row-inner">
-          <div className="cta-banner--two-column__content">
-            <h2 className="cta-banner--two-column__title">
-              {parseEmphasis(heading)}
-            </h2>
-            <p className="cta-banner--two-column__desc">{text}</p>
-          </div>
-          <div className="cta-banner--two-column__action">
-            <Link
-              href={normalizeHref(buttonHref)}
-              className="btn btn--white btn--arrow"
-            >
-              {buttonText}
-            </Link>
-          </div>
-        </RevealWrapper>
+        <div className="cta-banner--two-column__row-inner">
+          <RevealWrapper className="cta-banner--two-column__reveal-col">
+            <div className="cta-banner--two-column__content">
+              <h2 className="cta-banner--two-column__title">
+                {parseEmphasis(heading)}
+              </h2>
+              <p className="cta-banner--two-column__desc">{text}</p>
+            </div>
+          </RevealWrapper>
+          <RevealWrapper
+            className="cta-banner--two-column__reveal-col cta-banner--two-column__reveal-col--action"
+            delay={1}
+          >
+            <div className="cta-banner--two-column__action">
+              <Link
+                href={normalizeHref(buttonHref)}
+                className="btn btn--white btn--arrow"
+              >
+                {buttonText}
+              </Link>
+            </div>
+          </RevealWrapper>
+        </div>
       </div>
     </section>
   );

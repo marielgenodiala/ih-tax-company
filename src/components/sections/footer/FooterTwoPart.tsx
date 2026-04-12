@@ -215,18 +215,32 @@ export default function FooterTwoPart(props: FooterTwoPartProps) {
             <div className="footer-2p__col">
               <p className="footer-2p__heading">{followLabel}</p>
               <div className="footer-2p__socials">
-                {socialLinks.map((social) => {
+                {socialLinks.map((social, idx) => {
                   const Icon = socialIconMap[social.platform];
+                  const label =
+                    social.platform === "rednote" ? "Red Note" : social.platform;
                   return (
                     <a
-                      key={social.platform}
+                      key={`${social.platform}-${idx}`}
                       href={normalizeSocialUrl(social.url)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={social.platform}
+                      aria-label={label}
                       className="footer-2p__social-link"
                     >
-                      {Icon ? <Icon /> : social.platform}
+                      {social.platform === "rednote" ? (
+                        <Image
+                          src="/images/red-note-logo.png"
+                          alt=""
+                          width={20}
+                          height={20}
+                          className="footer-2p__social-img"
+                        />
+                      ) : Icon ? (
+                        <Icon />
+                      ) : (
+                        social.platform
+                      )}
                     </a>
                   );
                 })}

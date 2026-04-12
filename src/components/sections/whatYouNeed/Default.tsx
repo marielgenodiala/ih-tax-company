@@ -33,32 +33,47 @@ export default function WhatYouNeed({
     <section className="section what-you-need">
       <div className="container">
         <div className="what-you-need__grid">
-          <RevealWrapper direction="left">
-            <div className="what-you-need__text">
+          <div className="what-you-need__text">
+            <RevealWrapper direction="left">
               <span className="section-label">{sectionLabel}</span>
+            </RevealWrapper>
+            <RevealWrapper direction="left" delay={1}>
               <h2>
                 {heading ? parseEmphasis(heading) : (
                   <>
-                    We don&apos;t just handle accounting &mdash; we help your business{" "}
-                    <em>grow</em>
+                    We don&apos;t just handle accounting &mdash; we help your
+                    business <em>grow</em>
                   </>
                 )}
               </h2>
-              {description && <p>{description}</p>}
-              <p>
-                {text1 ||
-                  (!description
-                    ? "We are committed to forming close partnerships with our clients. This way we can understand your unique situation and customise the assistance we provide to suit your needs."
-                    : undefined)}
-              </p>
-              {(text2 || !description) && (
+            </RevealWrapper>
+            {description && (
+              <RevealWrapper direction="left" delay={2}>
+                <p>{description}</p>
+              </RevealWrapper>
+            )}
+            {(() => {
+              const para1 =
+                text1 ||
+                (!description
+                  ? "We are committed to forming close partnerships with our clients. This way we can understand your unique situation and customise the assistance we provide to suit your needs."
+                  : undefined);
+              if (!para1) return null;
+              return (
+                <RevealWrapper direction="left" delay={description ? 3 : 2}>
+                  <p>{para1}</p>
+                </RevealWrapper>
+              );
+            })()}
+            {(text2 || !description) && (
+              <RevealWrapper direction="left" delay={description ? 4 : 3}>
                 <p>
                   {text2 ||
                     "Our enthusiasm for our work means you are provided with a friendly team of professionals who are eager to use their expertise to help you succeed."}
                 </p>
-              )}
-            </div>
-          </RevealWrapper>
+              </RevealWrapper>
+            )}
+          </div>
           <RevealWrapper direction="right">
             <div className="what-you-need__image">
               <Image

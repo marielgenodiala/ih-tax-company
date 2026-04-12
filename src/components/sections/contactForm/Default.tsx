@@ -112,20 +112,24 @@ export default function ContactForm({
     <section className="section contact" id="contact">
       <div className="container">
         <div className="contact__grid">
-          <RevealWrapper direction="left">
-            <div className="contact__info">
+          <div className="contact__info">
+            <RevealWrapper direction="left">
               <span className="section-label">{subtitle || "Get in Touch"}</span>
+            </RevealWrapper>
+            <RevealWrapper direction="left" delay={1}>
               <h2>
                 {title ? parseEmphasis(title) : (
                   <>Add Your Details, <em>Get Started Now</em></>
                 )}
               </h2>
+            </RevealWrapper>
+            <RevealWrapper direction="left" delay={2}>
               <p>
                 {description ||
                   "Let us know how we can help. Fill in the form and a member of our team will be in touch to discuss how we can assist you."}
               </p>
-            </div>
-          </RevealWrapper>
+            </RevealWrapper>
+          </div>
           <RevealWrapper direction="right">
             <div className="contact__form">
               <form className="form" ref={formRef} onSubmit={handleSubmit}>

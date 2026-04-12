@@ -70,148 +70,148 @@ export default async function BlogPreviewLatestNews({
           <div
             className={`blog-preview-ln__grid${!topRight ? " blog-preview-ln__grid--featured-only" : ""}`}
           >
-          {/* Featured (left) */}
-          <Link
-            href={`/blogs/${featured.slug}`}
-            className="blog-preview-ln__featured"
-          >
-            <div className="blog-preview-ln__feat-img-wrap">
-              {featured.image && (
-                <Image
-                  src={featured.image}
-                  alt={featured.imageAlt || featured.title}
-                  fill
-                  sizes="(min-width: 1024px) 740px, 100vw"
-                  className="blog-preview-ln__feat-img"
-                />
-              )}
-            </div>
-            <div className="blog-preview-ln__feat-overlay" aria-hidden />
-            <div className="blog-preview-ln__feat-caption">
-              {featured.category && (
-                <span className="blog-preview-ln__feat-category">
-                  {featured.category}
+            {/* Featured (left) */}
+            <Link
+              href={`/blogs/${featured.slug}`}
+              className="blog-preview-ln__featured"
+            >
+              <div className="blog-preview-ln__feat-img-wrap">
+                {featured.image && (
+                  <Image
+                    src={featured.image}
+                    alt={featured.imageAlt || featured.title}
+                    fill
+                    sizes="(min-width: 1024px) 740px, 100vw"
+                    className="blog-preview-ln__feat-img"
+                  />
+                )}
+              </div>
+              <div className="blog-preview-ln__feat-overlay" aria-hidden />
+              <div className="blog-preview-ln__feat-caption">
+                {featured.category && (
+                  <span className="blog-preview-ln__feat-category">
+                    {featured.category}
+                  </span>
+                )}
+                <h3 className="blog-preview-ln__feat-title">{featured.title}</h3>
+                <span className="blog-preview-ln__feat-rule" aria-hidden />
+                <span className="blog-preview-ln__feat-date">
+                  {formatDate(featured.date)}
                 </span>
-              )}
-              <h3 className="blog-preview-ln__feat-title">{featured.title}</h3>
-              <span className="blog-preview-ln__feat-rule" aria-hidden />
-              <span className="blog-preview-ln__feat-date">
-                {formatDate(featured.date)}
-              </span>
-            </div>
-          </Link>
+              </div>
+            </Link>
 
-          {/* Right column — only when we have at least 2 posts */}
-          {topRight && (
-            <div className="blog-preview-ln__right">
-              <Link
-                href={`/blogs/${topRight.slug}`}
-                className="blog-preview-ln__side-card blog-preview-ln__side-card--top"
-              >
-                <div className="blog-preview-ln__side-img-wrap">
-                  {topRight.image && (
-                    <Image
-                      src={topRight.image}
-                      alt={topRight.imageAlt || topRight.title}
-                      fill
-                      sizes="(min-width: 1024px) 420px, 100vw"
-                      className="blog-preview-ln__side-img"
-                    />
-                  )}
-                </div>
-                <div className="blog-preview-ln__side-overlay" aria-hidden />
-                <div className="blog-preview-ln__side-caption">
-                  {topRight.category && (
-                    <span className="blog-preview-ln__sc-cat">
-                      {topRight.category}
-                    </span>
-                  )}
-                  <h4 className="blog-preview-ln__side-title">
-                    {topRight.title}
-                  </h4>
-                  <span className="blog-preview-ln__side-rule" aria-hidden />
-                </div>
-              </Link>
-
-              {(bottomLeft || bottomRight) && (
-                <div className="blog-preview-ln__side-bottom">
-                  {bottomLeft && (
-                    <Link
-                      href={`/blogs/${bottomLeft.slug}`}
-                      className="blog-preview-ln__side-card"
-                    >
-                      <div className="blog-preview-ln__side-img-wrap">
-                        {bottomLeft.image && (
-                          <Image
-                            src={bottomLeft.image}
-                            alt={bottomLeft.imageAlt || bottomLeft.title}
-                            fill
-                            sizes="(min-width: 1024px) 207px, 50vw"
-                            className="blog-preview-ln__side-img"
-                          />
-                        )}
-                      </div>
-                      <div
-                        className="blog-preview-ln__side-overlay"
-                        aria-hidden
+            {/* Right column — only when we have at least 2 posts */}
+            {topRight && (
+              <div className="blog-preview-ln__right">
+                <Link
+                  href={`/blogs/${topRight.slug}`}
+                  className="blog-preview-ln__side-card blog-preview-ln__side-card--top"
+                >
+                  <div className="blog-preview-ln__side-img-wrap">
+                    {topRight.image && (
+                      <Image
+                        src={topRight.image}
+                        alt={topRight.imageAlt || topRight.title}
+                        fill
+                        sizes="(min-width: 1024px) 420px, 100vw"
+                        className="blog-preview-ln__side-img"
                       />
-                      <div className="blog-preview-ln__side-caption">
-                        {bottomLeft.category && (
-                          <span className="blog-preview-ln__sc-cat">
-                            {bottomLeft.category}
-                          </span>
-                        )}
-                        <h4 className="blog-preview-ln__side-title">
-                          {bottomLeft.title}
-                        </h4>
-                        <span
-                          className="blog-preview-ln__side-rule"
+                    )}
+                  </div>
+                  <div className="blog-preview-ln__side-overlay" aria-hidden />
+                  <div className="blog-preview-ln__side-caption">
+                    {topRight.category && (
+                      <span className="blog-preview-ln__sc-cat">
+                        {topRight.category}
+                      </span>
+                    )}
+                    <h4 className="blog-preview-ln__side-title">
+                      {topRight.title}
+                    </h4>
+                    <span className="blog-preview-ln__side-rule" aria-hidden />
+                  </div>
+                </Link>
+
+                {(bottomLeft || bottomRight) && (
+                  <div className="blog-preview-ln__side-bottom">
+                    {bottomLeft && (
+                      <Link
+                        href={`/blogs/${bottomLeft.slug}`}
+                        className="blog-preview-ln__side-card"
+                      >
+                        <div className="blog-preview-ln__side-img-wrap">
+                          {bottomLeft.image && (
+                            <Image
+                              src={bottomLeft.image}
+                              alt={bottomLeft.imageAlt || bottomLeft.title}
+                              fill
+                              sizes="(min-width: 1024px) 207px, 50vw"
+                              className="blog-preview-ln__side-img"
+                            />
+                          )}
+                        </div>
+                        <div
+                          className="blog-preview-ln__side-overlay"
                           aria-hidden
                         />
-                      </div>
-                    </Link>
-                  )}
-                  {bottomRight && (
-                    <Link
-                      href={`/blogs/${bottomRight.slug}`}
-                      className="blog-preview-ln__side-card"
-                    >
-                      <div className="blog-preview-ln__side-img-wrap">
-                        {bottomRight.image && (
-                          <Image
-                            src={bottomRight.image}
-                            alt={bottomRight.imageAlt || bottomRight.title}
-                            fill
-                            sizes="(min-width: 1024px) 207px, 50vw"
-                            className="blog-preview-ln__side-img"
+                        <div className="blog-preview-ln__side-caption">
+                          {bottomLeft.category && (
+                            <span className="blog-preview-ln__sc-cat">
+                              {bottomLeft.category}
+                            </span>
+                          )}
+                          <h4 className="blog-preview-ln__side-title">
+                            {bottomLeft.title}
+                          </h4>
+                          <span
+                            className="blog-preview-ln__side-rule"
+                            aria-hidden
                           />
-                        )}
-                      </div>
-                      <div
-                        className="blog-preview-ln__side-overlay"
-                        aria-hidden
-                      />
-                      <div className="blog-preview-ln__side-caption">
-                        {bottomRight.category && (
-                          <span className="blog-preview-ln__sc-cat">
-                            {bottomRight.category}
-                          </span>
-                        )}
-                        <h4 className="blog-preview-ln__side-title">
-                          {bottomRight.title}
-                        </h4>
-                        <span
-                          className="blog-preview-ln__side-rule"
+                        </div>
+                      </Link>
+                    )}
+                    {bottomRight && (
+                      <Link
+                        href={`/blogs/${bottomRight.slug}`}
+                        className="blog-preview-ln__side-card"
+                      >
+                        <div className="blog-preview-ln__side-img-wrap">
+                          {bottomRight.image && (
+                            <Image
+                              src={bottomRight.image}
+                              alt={bottomRight.imageAlt || bottomRight.title}
+                              fill
+                              sizes="(min-width: 1024px) 207px, 50vw"
+                              className="blog-preview-ln__side-img"
+                            />
+                          )}
+                        </div>
+                        <div
+                          className="blog-preview-ln__side-overlay"
                           aria-hidden
                         />
-                      </div>
-                    </Link>
-                  )}
-                </div>
-              )}
-            </div>
-          )}
-        </div>
+                        <div className="blog-preview-ln__side-caption">
+                          {bottomRight.category && (
+                            <span className="blog-preview-ln__sc-cat">
+                              {bottomRight.category}
+                            </span>
+                          )}
+                          <h4 className="blog-preview-ln__side-title">
+                            {bottomRight.title}
+                          </h4>
+                          <span
+                            className="blog-preview-ln__side-rule"
+                            aria-hidden
+                          />
+                        </div>
+                      </Link>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </RevealWrapper>
       </div>
     </section>

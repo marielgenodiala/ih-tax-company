@@ -44,12 +44,14 @@ export default async function TeamGrid({
     <section className="section--compact team-section">
       <div className="container">
         {(introLabel?.trim() || introHeading?.trim() || introText?.trim()) && (
-          <RevealWrapper>
-            <div className="team-intro">
-              {introLabel?.trim() && (
+          <div className="team-intro">
+            {introLabel?.trim() && (
+              <RevealWrapper>
                 <span className="section-label">{introLabel}</span>
-              )}
-              {introHeading?.trim() && (
+              </RevealWrapper>
+            )}
+            {introHeading?.trim() && (
+              <RevealWrapper delay={introLabel?.trim() ? 1 : undefined}>
                 <h2>
                   {(() => {
                     const parts = parseEmphasis(introHeading);
@@ -66,10 +68,22 @@ export default async function TeamGrid({
                     return result;
                   })()}
                 </h2>
-              )}
-              {introText?.trim() && <p>{introText}</p>}
-            </div>
-          </RevealWrapper>
+              </RevealWrapper>
+            )}
+            {introText?.trim() && (
+              <RevealWrapper
+                delay={
+                  introLabel?.trim() && introHeading?.trim()
+                    ? 2
+                    : introLabel?.trim() || introHeading?.trim()
+                      ? 1
+                      : undefined
+                }
+              >
+                <p>{introText}</p>
+              </RevealWrapper>
+            )}
+          </div>
         )}
         {team.length > 0 && (
           <div className="team-grid">

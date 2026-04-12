@@ -104,17 +104,31 @@ export default function FooterDefault(props: FooterDefaultProps) {
             <p className="footer__heading">{name}</p>
             <p>{description}</p>
             <div className="footer__socials">
-              {socials.map((social) => {
+              {socials.map((social, idx) => {
                 const Icon = socialIconMap[social.platform];
+                const label =
+                  social.platform === "rednote" ? "Red Note" : social.platform;
                 return (
                   <a
-                    key={social.platform}
+                    key={`${social.platform}-${idx}`}
                     href={normalizeSocialUrl(social.url)}
                     target="_blank"
                     rel="noopener"
-                    aria-label={social.platform}
+                    aria-label={label}
                   >
-                    {Icon ? <Icon /> : social.platform}
+                    {social.platform === "rednote" ? (
+                      <Image
+                        src="/images/red-note-logo.png"
+                        alt=""
+                        width={20}
+                        height={20}
+                        className="footer__social-img"
+                      />
+                    ) : Icon ? (
+                      <Icon />
+                    ) : (
+                      social.platform
+                    )}
                   </a>
                 );
               })}

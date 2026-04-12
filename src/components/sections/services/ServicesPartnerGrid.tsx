@@ -69,8 +69,8 @@ export default function ServicesPartnerGrid({
     >
       <div className="services-partner-grid__container container">
         {hasHeader && (
-          <RevealWrapper>
-            <div className="services-partner-grid__divider">
+          <div className="services-partner-grid__divider">
+            <RevealWrapper>
               <div>
                 {hasCategoryLabel && (
                   <div className="services-partner-grid__cat-label">
@@ -83,13 +83,15 @@ export default function ServicesPartnerGrid({
                   </h2>
                 )}
               </div>
-              {hasCategoryDesc && (
+            </RevealWrapper>
+            {hasCategoryDesc && (
+              <RevealWrapper delay={1}>
                 <p className="services-partner-grid__cat-desc">
                   {categoryDescription}
                 </p>
-              )}
-            </div>
-          </RevealWrapper>
+              </RevealWrapper>
+            )}
+          </div>
         )}
         {hasCards && (
           <div className="services-partner-grid__grid">

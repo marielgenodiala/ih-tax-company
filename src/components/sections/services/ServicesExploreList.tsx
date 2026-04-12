@@ -76,13 +76,27 @@ export default function ServicesExploreList({
     <section className="services-explore-list services" id="services">
       <div className="w">
         {hasHeader && (
-          <RevealWrapper>
-            <div className="sec-hd">
-              {hasSubtitle && <div className="lbl">{subtitle}</div>}
-              {hasTitle && <h2>{parseEmphasis(title!)}</h2>}
-              {hasDescription && <p>{description}</p>}
-            </div>
-          </RevealWrapper>
+          <div className="sec-hd">
+            {hasSubtitle && (
+              <RevealWrapper>
+                <div className="lbl">{subtitle}</div>
+              </RevealWrapper>
+            )}
+            {hasTitle && (
+              <RevealWrapper delay={hasSubtitle ? 1 : undefined}>
+                <h2>{parseEmphasis(title!)}</h2>
+              </RevealWrapper>
+            )}
+            {hasDescription && (
+              <RevealWrapper
+                delay={
+                  hasSubtitle && hasTitle ? 2 : hasSubtitle || hasTitle ? 1 : undefined
+                }
+              >
+                <p>{description}</p>
+              </RevealWrapper>
+            )}
+          </div>
         )}
         {items.length > 0 && (
           <div className="svc-grid">

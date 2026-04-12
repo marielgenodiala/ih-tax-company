@@ -42,15 +42,29 @@ export default async function BlogPreview({
     <section className="section blog-preview blog-preview--default">
       <div className="container">
         {hasHeader && (
-          <RevealWrapper>
-            <div
-              className={`section__header${alignLeft ? " section__header--left" : ""}`}
-            >
-              {subtitle && <span className="section-label">{subtitle}</span>}
-              {title && <h2>{parseEmphasis(title)}</h2>}
-              {description && <p>{description}</p>}
-            </div>
-          </RevealWrapper>
+          <div
+            className={`section__header${alignLeft ? " section__header--left" : ""}`}
+          >
+            {subtitle && (
+              <RevealWrapper>
+                <span className="section-label">{subtitle}</span>
+              </RevealWrapper>
+            )}
+            {title && (
+              <RevealWrapper delay={subtitle ? 1 : undefined}>
+                <h2>{parseEmphasis(title)}</h2>
+              </RevealWrapper>
+            )}
+            {description && (
+              <RevealWrapper
+                delay={
+                  subtitle && title ? 2 : subtitle || title ? 1 : undefined
+                }
+              >
+                <p>{description}</p>
+              </RevealWrapper>
+            )}
+          </div>
         )}
         {posts.length > 0 && (
           <>

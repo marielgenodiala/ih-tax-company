@@ -56,16 +56,21 @@ export default function FullWidthImageStats({
       <div className="img-strip__overlay" />
       <div className="img-strip__content">
         <div className="img-strip__inner container">
-          <RevealWrapper>
-            <div className="img-strip__text">
-              {renderTitle(title)}
-              {hasBody && <p className="img-strip__body">{body}</p>}
-            </div>
-          </RevealWrapper>
-          <RevealWrapper delay={2}>
-            <div className="img-strip__stats">
-              {items.map((item, i) => (
-                <div key={item._key ?? i} className="img-strip__stat">
+          <div className="img-strip__text">
+            {title?.trim() && <RevealWrapper>{renderTitle(title)}</RevealWrapper>}
+            {hasBody && (
+              <RevealWrapper delay={title?.trim() ? 1 : undefined}>
+                <p className="img-strip__body">{body}</p>
+              </RevealWrapper>
+            )}
+          </div>
+          <div className="img-strip__stats">
+            {items.map((item, i) => (
+              <RevealWrapper
+                key={item._key ?? i}
+                delay={(i + 1) as 1 | 2 | 3 | 4}
+              >
+                <div className="img-strip__stat">
                   {item.number && (
                     <div className="img-strip__stat-number">
                       <CountUpNumber value={item.number} />
@@ -75,9 +80,9 @@ export default function FullWidthImageStats({
                     <div className="img-strip__stat-label">{item.label}</div>
                   )}
                 </div>
-              ))}
-            </div>
-          </RevealWrapper>
+              </RevealWrapper>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -18,17 +18,21 @@ const defaultLogos = [
 
 export default function LogoCloud({ title, logos }: LogoCloudProps) {
   return (
-    <RevealWrapper>
-      <section className="logo-cloud">
+    <section className="logo-cloud">
+      <RevealWrapper>
         <h2 className="logo-cloud__title">
           {title || "Registered & Accredited"}
         </h2>
-        <div className="logo-cloud__grid">
-          {logos?.length
-            ? logos.map((logo, i) =>
-                logo.image ? (
+      </RevealWrapper>
+      <div className="logo-cloud__grid">
+        {logos?.length
+          ? logos.map((logo, i) =>
+              logo.image ? (
+                <RevealWrapper
+                  key={i}
+                  delay={((i % 3) + 1) as 1 | 2 | 3}
+                >
                   <Image
-                    key={i}
                     src={logo.image}
                     alt={logo.alt}
                     width={120}
@@ -36,11 +40,15 @@ export default function LogoCloud({ title, logos }: LogoCloudProps) {
                     className="logo-cloud__logo"
                     style={{ height: "100px", width: "auto" }}
                   />
-                ) : null,
-              )
-            : defaultLogos.map((logo) => (
+                </RevealWrapper>
+              ) : null,
+            )
+          : defaultLogos.map((logo, i) => (
+              <RevealWrapper
+                key={logo.alt}
+                delay={((i % 3) + 1) as 1 | 2 | 3}
+              >
                 <Image
-                  key={logo.alt}
                   src={logo.src}
                   alt={logo.alt}
                   width={120}
@@ -48,9 +56,9 @@ export default function LogoCloud({ title, logos }: LogoCloudProps) {
                   className="logo-cloud__logo"
                   style={{ height: "100px", width: "auto" }}
                 />
-              ))}
-        </div>
-      </section>
-    </RevealWrapper>
+              </RevealWrapper>
+            ))}
+      </div>
+    </section>
   );
 }

@@ -42,29 +42,41 @@ export default function About({
               />
             </div>
           </RevealWrapper>
-          <RevealWrapper direction="right">
-            <div className="about__text">
+          <div className="about__text">
+            <RevealWrapper direction="right">
               <span className="about__label">{label || "Our Way"}</span>
+            </RevealWrapper>
+            <RevealWrapper direction="right" delay={1}>
               <h2>
                 {heading ? parseEmphasis(heading) : (
                   <>
-                    Your business advisor, tax planner, and guide to <em>success</em>
+                    Your business advisor, tax planner, and guide to{" "}
+                    <em>success</em>
                   </>
                 )}
               </h2>
+            </RevealWrapper>
+            <RevealWrapper direction="right" delay={2}>
               <p>
                 {text1 ||
                   "While the company is large enough to offer a comprehensive range of services across the broad accounting and financial spectrum, it remains small enough to ensure that all clients have direct and immediate access to senior persons for consultation and advice."}
               </p>
+            </RevealWrapper>
+            <RevealWrapper direction="right" delay={3}>
               <p>
                 {text2 ||
                   "Our clients include the various professions and range from restaurant to developers, travel agency, technology, educational institution, real estate agency, online retailer, importer and exporter, brokerage services and more across Australia."}
               </p>
-              <Link href={normalizeHref(buttonHref || "/team")} className="btn btn--outline">
+            </RevealWrapper>
+            <RevealWrapper direction="right" delay={4}>
+              <Link
+                href={normalizeHref(buttonHref || "/team")}
+                className="btn btn--outline"
+              >
                 {buttonText || "Meet the Team"}
               </Link>
-            </div>
-          </RevealWrapper>
+            </RevealWrapper>
+          </div>
         </div>
       </div>
     </section>

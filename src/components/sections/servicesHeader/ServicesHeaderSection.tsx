@@ -82,32 +82,49 @@ export default function ServicesHeaderSection(props: ServicesHeaderSectionProps)
   return (
     <section className="services-header">
       <div className="services-header__container container">
-        <RevealWrapper>
-          <div className="services-header__content">
-            {hasLabel && (
+        <div className="services-header__content">
+          {hasLabel && (
+            <RevealWrapper>
               <div className="services-header__label">{sectionLabel}</div>
-            )}
-            {hasTitle && (
+            </RevealWrapper>
+          )}
+          {hasTitle && (
+            <RevealWrapper delay={hasLabel ? 1 : undefined}>
               <h2 className="services-header__title">{parseEmphasis(title!)}</h2>
-            )}
-            {hasBody && (
+            </RevealWrapper>
+          )}
+          {hasBody && (
+            <RevealWrapper
+              delay={
+                hasLabel && hasTitle ? 2 : hasLabel || hasTitle ? 1 : undefined
+              }
+            >
               <div className="services-header__body">
-                <PortableText value={body as PortableTextBlock[]} components={bodyComponents} />
+                <PortableText
+                  value={body as PortableTextBlock[]}
+                  components={bodyComponents}
+                />
               </div>
-            )}
-          </div>
-        </RevealWrapper>
-        <RevealWrapper delay={2}>
-          <div className="services-header__visual-wrap">
-            {hasVisual && (
+            </RevealWrapper>
+          )}
+        </div>
+        <div className="services-header__visual-wrap">
+          {hasVisual && (
+            <RevealWrapper>
               <div className="services-header__visual">
-                <span className="services-header__visual-label">{visualLabel}</span>
+                <span className="services-header__visual-label">
+                  {visualLabel}
+                </span>
               </div>
-            )}
-            {hasAccred && (
+            </RevealWrapper>
+          )}
+          {hasAccred && (
+            <RevealWrapper delay={hasVisual ? 1 : undefined}>
               <div className="services-header__accred">
                 {hasAccredTitle && (
-                  <div className="services-header__accred-top">{accredBadgeTitle}</div>
+                  <div className="services-header__accred-top">
+                    {accredBadgeTitle}
+                  </div>
                 )}
                 {hasAccredChips && (
                   <div className="services-header__accred-chips">
@@ -119,9 +136,9 @@ export default function ServicesHeaderSection(props: ServicesHeaderSectionProps)
                   </div>
                 )}
               </div>
-            )}
-          </div>
-        </RevealWrapper>
+            </RevealWrapper>
+          )}
+        </div>
       </div>
     </section>
   );

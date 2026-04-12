@@ -37,13 +37,27 @@ export default function FeaturedBookOnline({
       <section className="section featured-book-online">
         <div className="container">
           {(subtitle || title || description) && (
-            <RevealWrapper>
-              <div className="section__header">
-                {subtitle && <span className="section-label">{subtitle}</span>}
-                {title && <h2>{parseEmphasis(title)}</h2>}
-                {description && <p>{description}</p>}
-              </div>
-            </RevealWrapper>
+            <div className="section__header">
+              {subtitle && (
+                <RevealWrapper>
+                  <span className="section-label">{subtitle}</span>
+                </RevealWrapper>
+              )}
+              {title && (
+                <RevealWrapper delay={subtitle ? 1 : undefined}>
+                  <h2>{parseEmphasis(title)}</h2>
+                </RevealWrapper>
+              )}
+              {description && (
+                <RevealWrapper
+                  delay={
+                    subtitle && title ? 2 : subtitle || title ? 1 : undefined
+                  }
+                >
+                  <p>{description}</p>
+                </RevealWrapper>
+              )}
+            </div>
           )}
           {consultationNote && (
             <div className="booking-note mb-5">{consultationNote}</div>

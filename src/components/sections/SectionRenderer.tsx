@@ -11,12 +11,15 @@ import FeaturedBookOnline from "./featuredBookOnline";
 import StatementBanner from "./statementBanner";
 import About from "./about";
 import CtaBanner from "./ctaBanner";
+import CtaBannerDownload from "./ctaBanner/CtaBannerDownload";
 import BlogPreview from "./blogPreview";
 import OpeningHours from "./openingHours";
 import ContactForm from "./contactForm";
 import ContactPageSection from "./contactPage";
 import TeamGrid from "./teamGrid";
 import GoogleReviews from "./googleReviews";
+import MissionVision from "./missionVision";
+import SmartTipsPdf from "./smartTipsPdf";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface Section {
@@ -34,10 +37,13 @@ const sectionComponents: Record<string, React.ComponentType<any>> = {
   whatYouNeedSection: WhatYouNeed,
   servicesSection: Services,
   servicesHeaderSection: ServicesHeaderSection,
+  missionVisionSection: MissionVision,
+  smartTipsPdfSection: SmartTipsPdf,
   featuredBookOnlineSection: FeaturedBookOnline,
   statementBannerSection: StatementBanner,
   aboutSection: About,
   ctaBannerSection: CtaBanner,
+  ctaBannerDownloadSection: CtaBannerDownload,
   blogPreviewSection: BlogPreview,
   openingHoursSection: OpeningHours,
   contactFormSection: ContactForm,

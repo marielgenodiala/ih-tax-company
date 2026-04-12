@@ -53,31 +53,54 @@ export default function ServicesHeaderLeadContent({
   return (
     <section className="lead">
       <div className="container">
-        <RevealWrapper>
-          <div className="w">
-            <div className="lead-text">
-              {hasLabel && <div className="lbl">{sectionLabel}</div>}
-              {hasTitle && <h2>{parseEmphasis(title as string)}</h2>}
-              {hasBody && (
+        <div className="w">
+          <div className="lead-text">
+            {hasLabel && (
+              <RevealWrapper>
+                <div className="lbl">{sectionLabel}</div>
+              </RevealWrapper>
+            )}
+            {hasTitle && (
+              <RevealWrapper delay={hasLabel ? 1 : undefined}>
+                <h2>{parseEmphasis(title as string)}</h2>
+              </RevealWrapper>
+            )}
+            {hasBody && (
+              <RevealWrapper
+                delay={
+                  hasLabel && hasTitle ? 2 : hasLabel || hasTitle ? 1 : undefined
+                }
+              >
                 <div className="lead-text__body">
                   <PortableText
                     value={body as PortableTextBlock[]}
                     components={leadBodyComponents}
                   />
                 </div>
-              )}
-            </div>
-            <div className="incl-box">
+              </RevealWrapper>
+            )}
+          </div>
+          <div className="incl-box">
+            <RevealWrapper
+              delay={
+                hasLabel || hasTitle || hasBody ? 1 : undefined
+              }
+            >
               <div className="incl-box-header">
                 <h3>{checklistHeading}</h3>
                 {checklistSubheading && <p>{checklistSubheading}</p>}
               </div>
-              <ul className="incl-list">
-                {items.map((item, i) => {
-                  if (!item?.title?.trim() && !item?.description?.trim())
-                    return null;
-                  return (
-                    <li key={item._key ?? i}>
+            </RevealWrapper>
+            <ul className="incl-list">
+              {items.map((item, i) => {
+                if (!item?.title?.trim() && !item?.description?.trim())
+                  return null;
+                return (
+                  <li key={item._key ?? i}>
+                    <RevealWrapper
+                      className="incl-list__reveal-wrap"
+                      delay={((i % 4) + 1) as 1 | 2 | 3 | 4}
+                    >
                       <span className="ck">
                         <svg viewBox="0 0 24 24" aria-hidden>
                           <polyline points="20 6 9 17 4 12" />
@@ -87,13 +110,13 @@ export default function ServicesHeaderLeadContent({
                         {item.title && <strong>{item.title}</strong>}
                         {item.description && <span>{item.description}</span>}
                       </div>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+                    </RevealWrapper>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
-        </RevealWrapper>
+        </div>
       </div>
     </section>
   );

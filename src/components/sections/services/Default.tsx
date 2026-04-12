@@ -63,13 +63,27 @@ export default async function Services({
     <section className="section section--light" id="services">
       <div className="container">
         {hasHeader && (
-          <RevealWrapper>
-            <div className="section__header">
-              {hasSubtitle && <span className="section-label">{subtitle}</span>}
-              {hasTitle && <h2>{parseEmphasis(title!)}</h2>}
-              {hasDescription && <p>{description}</p>}
-            </div>
-          </RevealWrapper>
+          <div className="section__header">
+            {hasSubtitle && (
+              <RevealWrapper>
+                <span className="section-label">{subtitle}</span>
+              </RevealWrapper>
+            )}
+            {hasTitle && (
+              <RevealWrapper delay={hasSubtitle ? 1 : undefined}>
+                <h2>{parseEmphasis(title!)}</h2>
+              </RevealWrapper>
+            )}
+            {hasDescription && (
+              <RevealWrapper
+                delay={
+                  hasSubtitle && hasTitle ? 2 : hasSubtitle || hasTitle ? 1 : undefined
+                }
+              >
+                <p>{description}</p>
+              </RevealWrapper>
+            )}
+          </div>
         )}
         {services.length > 0 && (
           <div className="services-grid">

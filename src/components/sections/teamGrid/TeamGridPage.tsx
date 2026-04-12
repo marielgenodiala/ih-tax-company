@@ -77,12 +77,14 @@ export default async function TeamGridPage({
     <section className="section--compact team-page-section">
       <div className="team-page-section__inner container">
         {(introLabel?.trim() || introHeading?.trim() || introText?.trim()) && (
-          <RevealWrapper>
-            <div className="team-page-header">
-              {introLabel?.trim() && (
+          <div className="team-page-header">
+            {introLabel?.trim() && (
+              <RevealWrapper>
                 <div className="team-page-header__eyebrow">{introLabel}</div>
-              )}
-              {introHeading?.trim() && (
+              </RevealWrapper>
+            )}
+            {introHeading?.trim() && (
+              <RevealWrapper delay={introLabel?.trim() ? 1 : undefined}>
                 <h2 className="team-page-header__title">
                   {(() => {
                     const parts = parseEmphasis(introHeading);
@@ -99,12 +101,22 @@ export default async function TeamGridPage({
                     return result;
                   })()}
                 </h2>
-              )}
-              {introText?.trim() && (
+              </RevealWrapper>
+            )}
+            {introText?.trim() && (
+              <RevealWrapper
+                delay={
+                  introLabel?.trim() && introHeading?.trim()
+                    ? 2
+                    : introLabel?.trim() || introHeading?.trim()
+                      ? 1
+                      : undefined
+                }
+              >
                 <p className="team-page-header__desc">{introText}</p>
-              )}
-            </div>
-          </RevealWrapper>
+              </RevealWrapper>
+            )}
+          </div>
         )}
         {team.length > 0 && (
           <div className="team-page-grid">

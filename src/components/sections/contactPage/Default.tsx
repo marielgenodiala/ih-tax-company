@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import RevealWrapper from "@/components/ui/RevealWrapper";
 import {
   parseEmphasis,
@@ -201,22 +202,30 @@ export default function ContactPageSection({
     <section className="section--compact contact-page" id="contact">
       <div className="container">
         {(subtitle || title) && (
-          <RevealWrapper>
-            <div className="contact-page__header">
-              {subtitle && <span className="section-label">{subtitle}</span>}
-              {title && (
+          <div className="contact-page__header">
+            {subtitle && (
+              <RevealWrapper>
+                <span className="section-label">{subtitle}</span>
+              </RevealWrapper>
+            )}
+            {title && (
+              <RevealWrapper delay={subtitle ? 1 : undefined}>
                 <h2 className="contact-page__title">{parseEmphasis(title)}</h2>
-              )}
-            </div>
-          </RevealWrapper>
+              </RevealWrapper>
+            )}
+          </div>
         )}
         <div className="contact-page__grid">
-          <RevealWrapper direction="left">
-            <div className="contact-page__form">
+          <div className="contact-page__form">
+            <RevealWrapper direction="left">
               <h3 className="contact-page__heading">{formTitle}</h3>
-              {formIntro && (
+            </RevealWrapper>
+            {formIntro && (
+              <RevealWrapper direction="left" delay={1}>
                 <p className="contact-page__form-intro">{formIntro}</p>
-              )}
+              </RevealWrapper>
+            )}
+            <RevealWrapper direction="left" delay={formIntro ? 2 : 1}>
               <form className="form" ref={formRef} onSubmit={handleSubmit}>
                 {groupFields(fields).map((row, i) => {
                   if (Array.isArray(row)) {
@@ -251,13 +260,15 @@ export default function ContactPageSection({
                   {status === "loading" ? "Sending…" : buttonText}
                 </button>
               </form>
-            </div>
-          </RevealWrapper>
-          <RevealWrapper direction="right">
-            <div className="contact-page__info">
+            </RevealWrapper>
+          </div>
+          <div className="contact-page__info">
+            <RevealWrapper direction="right">
               <h3 className="contact-page__heading">Contacts</h3>
-              <div className="contact-page__cards">
-                {phone && (
+            </RevealWrapper>
+            <div className="contact-page__cards">
+              {phone && (
+                <RevealWrapper direction="right" delay={1}>
                   <div className="contact-page__card">
                     <div className="contact-page__card-head">
                       <span className="contact-page__card-icon" aria-hidden>
@@ -272,8 +283,10 @@ export default function ContactPageSection({
                       {phone}
                     </a>
                   </div>
-                )}
-                {email && (
+                </RevealWrapper>
+              )}
+              {email && (
+                <RevealWrapper direction="right" delay={2}>
                   <div className="contact-page__card contact-page__card--email">
                     <div className="contact-page__card-head">
                       <span className="contact-page__card-icon" aria-hidden>
@@ -290,8 +303,10 @@ export default function ContactPageSection({
                       </span>
                     </a>
                   </div>
-                )}
-                {socialLinks && socialLinks.length > 0 && (
+                </RevealWrapper>
+              )}
+              {socialLinks && socialLinks.length > 0 && (
+                <RevealWrapper direction="right" delay={3}>
                   <div className="contact-page__card">
                     <div className="contact-page__card-head">
                       <span className="contact-page__card-icon" aria-hidden>
@@ -300,38 +315,60 @@ export default function ContactPageSection({
                       <span className="contact-page__card-label">Socials</span>
                     </div>
                     <div className="contact-page__socials">
-                      {socialLinks.map((social) => {
+                      {socialLinks.map((social, idx) => {
                         const Icon = socialIconMap[social.platform];
+                        const label =
+                          social.platform === "rednote"
+                            ? "Red Note"
+                            : social.platform;
                         return (
                           <a
-                            key={social.platform}
+                            key={`${social.platform}-${idx}`}
                             href={normalizeSocialUrl(social.url)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="contact-page__social-link"
-                            aria-label={social.platform}
+                            aria-label={label}
                           >
-                            {Icon && <Icon />}
+                            {social.platform === "rednote" ? (
+                              <Image
+                                src="/images/red-note-logo.png"
+                                alt=""
+                                width={18}
+                                height={18}
+                                className="contact-page__social-img"
+                              />
+                            ) : (
+                              Icon && <Icon />
+                            )}
                           </a>
                         );
                       })}
                     </div>
                   </div>
-                )}
-              </div>
+                </RevealWrapper>
+              )}
+            </div>
+            <RevealWrapper direction="right" delay={1}>
               <h3 className="contact-page__heading contact-page__hours-title">
                 Opening Hours
               </h3>
-              <div className="contact-page__hours">
-                {scheduleItems.map((item) => (
-                  <div key={item.days} className="contact-page__row">
+            </RevealWrapper>
+            <div className="contact-page__hours">
+              {scheduleItems.map((item, i) => (
+                <RevealWrapper
+                  key={item.days}
+                  direction="right"
+                  delay={((i % 4) + 1) as 1 | 2 | 3 | 4}
+                >
+                  <div className="contact-page__row">
                     <span>{item.days}</span>
                     <span>{item.hours}</span>
                   </div>
-                ))}
-              </div>
+                </RevealWrapper>
+              ))}
             </div>
-          </RevealWrapper>
+          </div>
         </div>
       </div>
       {(mapLinkUrl || mapEmbedUrl) && (

@@ -98,17 +98,30 @@ export default function ServicesCarousel({
     <section className="section section--compact !bg-white" id="services">
       <div className="container">
         {hasHeader && (
-          <RevealWrapper>
-            <div className="section__header">
-              {hasSubtitle && <span className="section-label">{subtitle}</span>}
-              {hasTitle && <h2>{parseEmphasis(title!)}</h2>}
-              {hasDescription && <p>{description}</p>}
-            </div>
-          </RevealWrapper>
+          <div className="section__header">
+            {hasSubtitle && (
+              <RevealWrapper>
+                <span className="section-label">{subtitle}</span>
+              </RevealWrapper>
+            )}
+            {hasTitle && (
+              <RevealWrapper delay={hasSubtitle ? 1 : undefined}>
+                <h2>{parseEmphasis(title!)}</h2>
+              </RevealWrapper>
+            )}
+            {hasDescription && (
+              <RevealWrapper
+                delay={
+                  hasSubtitle && hasTitle ? 2 : hasSubtitle || hasTitle ? 1 : undefined
+                }
+              >
+                <p>{description}</p>
+              </RevealWrapper>
+            )}
+          </div>
         )}
 
-        <RevealWrapper>
-          <div className="services-carousel">
+        <div className="services-carousel">
           <div className="services-carousel__row">
             <button
               type="button"
@@ -198,22 +211,24 @@ export default function ServicesCarousel({
                     key={slide.title ?? i}
                     className="services-carousel__slide"
                   >
-                    {href ? (
-                      <Link
-                        href={href}
-                        className="services-carousel__card services-carousel__card--link"
-                        aria-label={
-                          slide.buttonLabel ||
-                          `Learn more about ${slide.title ?? "this service"}`
-                        }
-                      >
-                        {cardContent}
-                      </Link>
-                    ) : (
-                      <div className="services-carousel__card">
-                        {cardContent}
-                      </div>
-                    )}
+                    <RevealWrapper delay={((i % 4) + 1) as 1 | 2 | 3 | 4}>
+                      {href ? (
+                        <Link
+                          href={href}
+                          className="services-carousel__card services-carousel__card--link"
+                          aria-label={
+                            slide.buttonLabel ||
+                            `Learn more about ${slide.title ?? "this service"}`
+                          }
+                        >
+                          {cardContent}
+                        </Link>
+                      ) : (
+                        <div className="services-carousel__card">
+                          {cardContent}
+                        </div>
+                      )}
+                    </RevealWrapper>
                   </SwiperSlide>
                 );
               })}
@@ -230,8 +245,7 @@ export default function ServicesCarousel({
           </div>
 
           <div className="services-carousel__pagination" aria-hidden="true" />
-          </div>
-        </RevealWrapper>
+        </div>
       </div>
     </section>
   );

@@ -31,10 +31,14 @@ export default function OpeningHours({
     <section className="section section--light opening-hours">
       <div className="container">
         <div className="opening-hours__grid">
-          <RevealWrapper direction="left">
-            <div className="opening-hours__text">
+          <div className="opening-hours__text">
+            <RevealWrapper direction="left">
               <span className="section-label">{subtitle || "Come Visit"}</span>
+            </RevealWrapper>
+            <RevealWrapper direction="left" delay={1}>
               <h2>{title ? parseEmphasis(title) : "Opening Hours"}</h2>
+            </RevealWrapper>
+            <RevealWrapper direction="left" delay={2}>
               <p>
                 {addressText.split("\n").map((line, i) => (
                   <span key={i}>
@@ -43,24 +47,30 @@ export default function OpeningHours({
                   </span>
                 ))}
               </p>
-            </div>
-          </RevealWrapper>
-          <RevealWrapper direction="right">
-            <div className="opening-hours__schedule">
-              {scheduleItems.map((item) => (
-                <div key={item.days} className="opening-hours__row">
+            </RevealWrapper>
+          </div>
+          <div className="opening-hours__schedule">
+            {scheduleItems.map((item, i) => (
+              <RevealWrapper
+                key={item.days}
+                direction="right"
+                delay={((i % 4) + 1) as 1 | 2 | 3 | 4}
+              >
+                <div className="opening-hours__row">
                   <span>{item.days}</span>
                   <span>{item.hours}</span>
                 </div>
-              ))}
+              </RevealWrapper>
+            ))}
+            <RevealWrapper direction="right" delay={2}>
               <Link
                 href={normalizeHref(buttonHref || "/book-online")}
                 className="btn btn--primary btn--arrow"
               >
                 {buttonText || "Book an Appointment"}
               </Link>
-            </div>
-          </RevealWrapper>
+            </RevealWrapper>
+          </div>
         </div>
       </div>
     </section>

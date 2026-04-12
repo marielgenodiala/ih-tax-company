@@ -5,6 +5,9 @@ import { client } from "@/sanity/lib/client";
 import { seoSettingsQuery } from "@/sanity/lib/queries";
 import { SITE_URL, SITE_NAME, SITE_SUFFIX, DEFAULT_DESCRIPTION } from "@/lib/seo";
 import "./globals.css";
+/* Load after globals so mission/vision grid + card styles win Tailwind cascade */
+import "@/styles/sections/mission-vision.css";
+import "@/styles/sections/smart-tips-pdf.css";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],

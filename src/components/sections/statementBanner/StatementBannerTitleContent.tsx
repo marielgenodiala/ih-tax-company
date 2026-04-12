@@ -20,20 +20,25 @@ export default function StatementBannerTitleContent({
   return (
     <section className="statement statement--title-content">
       <div className="statement__title-content-inner container">
-        <RevealWrapper>
-          {title && (
+        {title && (
+          <RevealWrapper>
             <h2 className="statement__title">{title}</h2>
-          )}
-          {blocks.length > 0 && (
-            <div className="statement__content-blocks">
-              {blocks.map((block, i) => (
-                <p key={block._key ?? i} className="statement__content-block">
+          </RevealWrapper>
+        )}
+        {blocks.length > 0 && (
+          <div className="statement__content-blocks">
+            {blocks.map((block, i) => (
+              <RevealWrapper
+                key={block._key ?? i}
+                delay={((i % 4) + 1) as 1 | 2 | 3 | 4}
+              >
+                <p className="statement__content-block">
                   {parseEmphasis(block.text ?? "")}
                 </p>
-              ))}
-            </div>
-          )}
-        </RevealWrapper>
+              </RevealWrapper>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -27,19 +27,29 @@ export default function ServicesWhoWeServe({
     >
       <div className="services-who-we-serve__container container">
         {(hasSubtitle || hasTitle || hasDescription) && (
-          <RevealWrapper>
-            <div className="services-who-we-serve__header">
-              {hasSubtitle && (
+          <div className="services-who-we-serve__header">
+            {hasSubtitle && (
+              <RevealWrapper>
                 <div className="services-who-we-serve__label">{subtitle}</div>
-              )}
-              {hasTitle && (
-                <h2 className="services-who-we-serve__title">{parseEmphasis(title!)}</h2>
-              )}
-              {hasDescription && (
+              </RevealWrapper>
+            )}
+            {hasTitle && (
+              <RevealWrapper delay={hasSubtitle ? 1 : undefined}>
+                <h2 className="services-who-we-serve__title">
+                  {parseEmphasis(title!)}
+                </h2>
+              </RevealWrapper>
+            )}
+            {hasDescription && (
+              <RevealWrapper
+                delay={
+                  hasSubtitle && hasTitle ? 2 : hasSubtitle || hasTitle ? 1 : undefined
+                }
+              >
                 <p className="services-who-we-serve__desc">{description}</p>
-              )}
-            </div>
-          </RevealWrapper>
+              </RevealWrapper>
+            )}
+          </div>
         )}
         {hasItems && (
           <div className="services-who-we-serve__grid">

@@ -66,41 +66,61 @@ export default function ServicesHeaderIntroPillars({
   return (
     <section className="services-header services-header--intro">
       <div className="services-header__container container">
-        <RevealWrapper>
-          <div className="services-header__content services-header__content--intro">
-            {hasLabel && (
+        <div className="services-header__content services-header__content--intro">
+          {hasLabel && (
+            <RevealWrapper>
               <div className="services-header__label">{sectionLabel}</div>
-            )}
-            {hasTitle && (
+            </RevealWrapper>
+          )}
+          {hasTitle && (
+            <RevealWrapper delay={hasLabel ? 1 : undefined}>
               <h2 className="services-header__title">{parseEmphasis(title!)}</h2>
-            )}
-            {hasBody && (
+            </RevealWrapper>
+          )}
+          {hasBody && (
+            <RevealWrapper
+              delay={
+                hasLabel && hasTitle ? 2 : hasLabel || hasTitle ? 1 : undefined
+              }
+            >
               <div className="services-header__body">
-                <PortableText value={body as PortableTextBlock[]} components={bodyComponents} />
+                <PortableText
+                  value={body as PortableTextBlock[]}
+                  components={bodyComponents}
+                />
               </div>
-            )}
-          </div>
-        </RevealWrapper>
+            </RevealWrapper>
+          )}
+        </div>
         {hasPillars && (
-          <RevealWrapper delay={2}>
-            <div className="services-header__pillars">
-              {valuePillars.map((pillar, i) => (
-                <div key={pillar._key ?? i} className="services-header__pillar">
+          <div className="services-header__pillars">
+            {valuePillars.map((pillar, i) => (
+              <RevealWrapper
+                key={pillar._key ?? i}
+                delay={((i % 4) + 1) as 1 | 2 | 3 | 4}
+              >
+                <div className="services-header__pillar">
                   <div className="services-header__pillar-icon">
                     {pillar.iconKey && pillarIcons[pillar.iconKey]
                       ? pillarIcons[pillar.iconKey]
                       : pillarIcons.shield}
                   </div>
                   <div>
-                    {pillar.title && <h4 className="services-header__pillar-title">{pillar.title}</h4>}
+                    {pillar.title && (
+                      <h4 className="services-header__pillar-title">
+                        {pillar.title}
+                      </h4>
+                    )}
                     {pillar.description && (
-                      <p className="services-header__pillar-desc">{pillar.description}</p>
+                      <p className="services-header__pillar-desc">
+                        {pillar.description}
+                      </p>
                     )}
                   </div>
                 </div>
-              ))}
-            </div>
-          </RevealWrapper>
+              </RevealWrapper>
+            ))}
+          </div>
         )}
       </div>
     </section>
