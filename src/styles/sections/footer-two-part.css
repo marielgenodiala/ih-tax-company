@@ -273,6 +273,13 @@
   fill: currentColor;
 }
 
+.footer-2p__social-link img.footer-2p__social-img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
 .footer-2p__social-link:has(svg[fill="none"]) svg {
   fill: none;
   stroke: currentColor;

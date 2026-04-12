@@ -45,6 +45,12 @@
   font-weight: 500;
 }
 
+.cta-banner h3 {
+  color: #ffffff;
+  font-size: var(--font-size-2xl);
+  font-weight: 500;
+}
+
 .cta-banner h2 em {
   font-style: italic;
   color: rgba(255, 255, 255, 0.7);
@@ -113,6 +119,15 @@
   gap: var(--space-6);
   width: 100%;
   min-width: 0;
+}
+
+.cta-banner--two-column__reveal-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.cta-banner--two-column__reveal-col--action {
+  flex: 0 0 auto;
 }
 
 .cta-banner--two-column__content {
@@ -186,4 +201,100 @@
     display: flex;
     justify-content: center;
   }
+}
+
+/* ============================================
+   CTA Banner — Download PDF (title + icon)
+   ============================================ */
+.cta-banner--download {
+  background-color: var(--color-primary);
+  padding: var(--space-5) 0;
+  position: relative;
+}
+
+.cta-banner--download::before,
+.cta-banner--download::after {
+  display: none;
+}
+
+.cta-banner--download .container {
+  position: relative;
+  z-index: 1;
+}
+
+.cta-banner--download__row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.cta-banner--download__inner {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.cta-banner--download__link {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+  padding: var(--space-2) var(--space-2);
+  text-decoration: none;
+  color: #ffffff;
+  transition: opacity var(--transition);
+}
+
+.cta-banner--download__link:hover {
+  opacity: 0.92;
+}
+
+.cta-banner--download__title {
+  flex: 0 1 auto;
+  min-width: 0;
+  margin: 0;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.35;
+}
+
+.cta-banner--download h2.cta-banner--download__title {
+  margin-bottom: 0;
+  max-width: 36rem;
+}
+
+.cta-banner--download__title em {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.cta-banner--download__icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  transition:
+    background var(--transition),
+    transform var(--transition);
+}
+
+.cta-banner--download__link:hover .cta-banner--download__icon-wrap {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(1px);
+}
+
+.cta-banner--download__icon {
+  display: block;
 }

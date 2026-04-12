@@ -450,10 +450,9 @@
 /* ============================================
 
 
-/* Team Page layout (cards with photo on top) */
+/* Team Page layout (cards with photo on top) — width from `container` utility */
 .team-page-section__inner {
-  max-width: 1160px;
-  margin-inline: auto;
+  width: 100%;
 }
 
 .team-page-header {

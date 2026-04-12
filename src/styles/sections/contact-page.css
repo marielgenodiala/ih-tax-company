@@ -167,6 +167,18 @@
   height: 18px;
 }
 
+.contact-page__social-link img.contact-page__social-img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  filter: brightness(0);
+  opacity: 0.85;
+}
+
+.contact-page__social-link:hover img.contact-page__social-img {
+  opacity: 1;
+}
+
 .contact-page__link {
   color: var(--color-primary);
   font-weight: 500;
