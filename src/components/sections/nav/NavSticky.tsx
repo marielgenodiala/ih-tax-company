@@ -61,6 +61,8 @@ function DropdownMenu({
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    /* Desktop only: capture-phase doc listener breaks mobile accordion toggle on some devices. */
+    if (isMobile) return;
     function handleOutsideClick(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         onToggle(null);
@@ -71,7 +73,7 @@ function DropdownMenu({
     }
     return () =>
       document.removeEventListener("click", handleOutsideClick, true);
-  }, [isOpen, onToggle]);
+  }, [isOpen, onToggle, isMobile]);
 
   const children = item.children ?? [];
 
@@ -79,7 +81,10 @@ function DropdownMenu({
     <div ref={ref} className="nav-sticky__dropdown-wrap">
       <button
         type="button"
-        onClick={() => onToggle(isOpen ? null : item.label)}
+        onClick={(e) => {
+          e.stopPropagation();
+          onToggle(isOpen ? null : item.label);
+        }}
         className="nav-sticky__dropdown-trigger"
         aria-expanded={isOpen}
         aria-haspopup="true"
@@ -368,59 +373,65 @@ export default function NavSticky({
           >
             ×
           </button>
-          {/* Order: non-highlight items → right links → highlight CTA (same format/spacing for md & mobile) */}
-          {items
-            .filter((item) => !item.highlight)
-            .map((item) =>
-              item.children?.length ? (
-                <DropdownMenu
-                  key={item.label}
-                  item={item}
-                  isOpen={openMenu === item.label}
-                  onToggle={setOpenMenu}
-                  isMobile
-                  servicesLink={
-                    item.showServicesLinkInDropdown
-                      ? {
-                          label: item.servicesLinkLabel ?? "Our Services",
-                          url: item.servicesLinkUrl ?? "/#services",
-                        }
-                      : null
-                  }
-                />
-              ) : (
+          <div className="nav-sticky__mobile-body">
+            {/* Order: non-highlight items → right links → highlight CTA (same format/spacing for md & mobile) */}
+            {items
+              .filter((item) => !item.highlight)
+              .map((item) =>
+                item.children?.length ? (
+                  <DropdownMenu
+                    key={item.label}
+                    item={item}
+                    isOpen={openMenu === item.label}
+                    onToggle={setOpenMenu}
+                    isMobile
+                    servicesLink={
+                      item.showServicesLinkInDropdown
+                        ? {
+                            label: item.servicesLinkLabel ?? "Our Services",
+                            url: item.servicesLinkUrl ?? "/#services",
+                          }
+                        : null
+                    }
+                  />
+                ) : (
+                  <Link
+                    key={item.label}
+                    href={normalizeHref(item.href ?? "#")}
+                    className="nav-sticky__mobile-link"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ),
+              )}
+            {rightLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={normalizeHref(link.href)}
+                className="nav-sticky__mobile-link"
+                onClick={() => setMobileOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+            {items
+              .filter((item) => item.highlight)
+              .map((item) => (
                 <Link
                   key={item.label}
                   href={normalizeHref(item.href ?? "#")}
-                  className="nav-sticky__mobile-link"
+                  className="btn btn--primary btn--arrow nav-sticky__mobile-cta"
                   onClick={() => setMobileOpen(false)}
                 >
                   {item.label}
                 </Link>
-              ),
-            )}
-          {rightLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={normalizeHref(link.href)}
-              className="nav-sticky__mobile-link"
-              onClick={() => setMobileOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
-          {items
-            .filter((item) => item.highlight)
-            .map((item) => (
-              <Link
-                key={item.label}
-                href={normalizeHref(item.href ?? "#")}
-                className="btn btn--primary btn--arrow nav-sticky__mobile-cta"
-                onClick={() => setMobileOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
+              ))}
+          </div>
+          <p className="nav-sticky__mobile-copy">
+            © {new Date().getFullYear()} I H Professionals &amp; Co. Pty Ltd. All
+            rights reserved.
+          </p>
         </div>
       </nav>
     </div>
