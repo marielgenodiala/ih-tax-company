@@ -33,6 +33,7 @@ export const ctaBannerSection = defineType({
       title: "Subtitle",
       type: "string",
       description: "Small label above the heading.",
+      hidden: ({ parent }) => parent?.variant === "twoColumn",
     }),
     defineField({
       name: "heading",

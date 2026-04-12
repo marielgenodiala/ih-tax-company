@@ -17,6 +17,7 @@ import { servicesHeaderSection } from "./sections/servicesHeaderSection";
 import { statementBannerSection } from "./sections/statementBannerSection";
 import { aboutSection } from "./sections/aboutSection";
 import { ctaBannerSection } from "./sections/ctaBannerSection";
+import { ctaBannerDownloadSection } from "./sections/ctaBannerDownloadSection";
 import { blogPreviewSection } from "./sections/blogPreviewSection";
 import { openingHoursSection } from "./sections/openingHoursSection";
 import { contactFormSection } from "./sections/contactFormSection";
@@ -28,6 +29,8 @@ import { pageHeroSection } from "./sections/pageHeroSection";
 import { featuredBookOnlineSection } from "./sections/featuredBookOnlineSection";
 import { contactPageSection } from "./sections/contactPageSection";
 import { googleReviewsSection } from "./sections/googleReviewsSection";
+import { missionVisionSection } from "./sections/missionVisionSection";
+import { smartTipsPdfSection } from "./sections/smartTipsPdfSection";
 import { reusableSection } from "./sections/reusableSection";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
@@ -51,6 +54,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     statementBannerSection,
     aboutSection,
     ctaBannerSection,
+    ctaBannerDownloadSection,
     blogPreviewSection,
     openingHoursSection,
     contactFormSection,
@@ -62,6 +66,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     featuredBookOnlineSection,
     contactPageSection,
     googleReviewsSection,
+    missionVisionSection,
+    smartTipsPdfSection,
     reusableSection,
   ],
 };

@@ -66,6 +66,19 @@ const sectionImageResolvers = `
   _type == "ctaBannerSection" => {
     ...,
     "backgroundImage": backgroundImage.asset->url
+  },
+  _type == "ctaBannerDownloadSection" => {
+    ...,
+    "pdfUrl": pdfFile.asset->url
+  },
+  _type == "missionVisionSection" => { ... },
+  _type == "smartTipsPdfSection" => {
+    ...,
+    "featuredPdfUrl": featuredPdf.asset->url,
+    tipCards[] {
+      ...,
+      "pdfUrl": pdfFile.asset->url
+    }
   }
 `;
 
