@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { FacebookIcon, LinkedInIcon } from "@/lib/icons";
+import { FacebookIcon, LinkedInIcon, WeChatIcon } from "@/lib/icons";
 import { normalizeHref, normalizeSocialUrl } from "@/lib/normalizeHref";
 import NewsletterForm from "@/components/ui/NewsletterForm";
 
@@ -62,6 +62,7 @@ const defaultServiceLinks: FooterLink[] = [
 const socialIconMap: Record<string, React.ComponentType> = {
   facebook: FacebookIcon,
   linkedin: LinkedInIcon,
+  wechat: WeChatIcon,
 };
 
 export default function FooterDefault(props: FooterDefaultProps) {

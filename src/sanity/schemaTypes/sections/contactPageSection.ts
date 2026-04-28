@@ -61,6 +61,7 @@ export const contactPageSection = defineType({
                   { title: "Twitter / X", value: "twitter" },
                   { title: "YouTube", value: "youtube" },
                   { title: "WhatsApp", value: "whatsapp" },
+                  { title: "WeChat", value: "wechat" },
                   { title: "Red Note", value: "rednote" },
                 ],
               },

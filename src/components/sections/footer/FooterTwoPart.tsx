@@ -11,6 +11,7 @@ import {
   TwitterIcon,
   YoutubeIcon,
   WhatsAppIcon,
+  WeChatIcon,
   EmailIcon,
   PhoneIcon,
   MapPinIcon,
@@ -37,6 +38,7 @@ const socialIconMap: Record<
   twitter: TwitterIcon,
   youtube: YoutubeIcon,
   whatsapp: WhatsAppIcon,
+  wechat: WeChatIcon,
 };
 
 export interface FooterTwoPartProps {

@@ -16,6 +16,7 @@ import {
   TwitterIcon,
   WhatsAppIcon,
   YoutubeIcon,
+  WeChatIcon,
   PhoneIcon,
   EmailIcon,
   ShareIcon,
@@ -73,6 +74,7 @@ const socialIconMap: Record<string, React.ComponentType> = {
   twitter: TwitterIcon,
   youtube: YoutubeIcon,
   whatsapp: WhatsAppIcon,
+  wechat: WeChatIcon,
 };
 
 function toFieldName(label: string) {
@@ -321,13 +323,19 @@ export default function ContactPageSection({
                           social.platform === "rednote"
                             ? "Red Note"
                             : social.platform;
+                        const href = social.platform === "wechat"
+                          ? (social.url?.startsWith("http") || social.url?.startsWith("weixin://")
+                              ? social.url
+                              : `weixin://dl/business/?username=${encodeURIComponent(social.url ?? "")}`)
+                          : normalizeSocialUrl(social.url);
                         return (
                           <a
                             key={`${social.platform}-${idx}`}
-                            href={normalizeSocialUrl(social.url)}
+                            href={href}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="contact-page__social-link"
+                            data-platform={social.platform}
                             aria-label={label}
                           >
                             {social.platform === "rednote" ? (
@@ -352,6 +360,7 @@ export default function ContactPageSection({
             <RevealWrapper direction="right" delay={1}>
               <h3 className="contact-page__heading contact-page__hours-title">
                 Opening Hours
+                <small className="contact-page__hours-note">(AUD time)</small>
               </h3>
             </RevealWrapper>
             <div className="contact-page__hours">
