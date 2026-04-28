@@ -13,6 +13,9 @@ import {apiVersion, dataset, projectId} from './src/sanity/env'
 import {schema} from './src/sanity/schemaTypes'
 import {structure} from './src/sanity/structure'
 import {ViewPageAction} from './src/sanity/actions/ViewPageAction'
+import {UnpublishPageAction} from './src/sanity/actions/VisibilityAction'
+
+const VISIBILITY_TYPES = ['page', 'blogPost', 'teamMember', 'teamMembers', 'service']
 
 export default defineConfig({
   basePath: '/sanity',
@@ -28,10 +31,16 @@ export default defineConfig({
   ],
   document: {
     actions: (prev, context) => {
+      let actions = prev
+
       if (context.schemaType === 'page' || context.schemaType === 'blogPost') {
-        return [...prev, ViewPageAction]
+        actions = [...actions, ViewPageAction]
       }
-      return prev
+      if (VISIBILITY_TYPES.includes(context.schemaType)) {
+        actions = [...actions, UnpublishPageAction]
+      }
+
+      return actions
     },
   },
 })

@@ -281,8 +281,8 @@ export const serviceByPathQuery = groq`
   *[
     _type == "service" &&
     categorySegment == $category &&
-    slug.current == $slug
-  ][0] {
+    slug.current == $slug &&
+][0] {
     title,
     "slug": slug.current,
     categorySegment,

@@ -51,8 +51,7 @@ export const googleReviewsSection = defineType({
       name: "reviewCount",
       title: "Review Count",
       type: "number",
-      description: "e.g. 48",
-      initialValue: 48,
+      description: "e.g. 48. Leave blank to hide.",
     }),
     defineField({
       name: "reviewCountLabel",

@@ -70,6 +70,15 @@
   flex-shrink: 0;
 }
 
+.google-reviews__score-card--no-count {
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.google-reviews__score-card--no-count .google-reviews__stars-row {
+  margin-bottom: 0;
+}
+
 .google-reviews__g-badge {
   width: 40px;
   height: 40px;
@@ -181,7 +190,6 @@
   position: relative;
   overflow: hidden;
   transition: box-shadow 0.22s, border-color 0.22s, transform 0.22s;
-  animation: googleReviewsFadeUp 0.4s ease both;
 }
 
 .google-reviews__card::before {
@@ -205,17 +213,6 @@
 
 .google-reviews__card:hover::before {
   opacity: 1;
-}
-
-@keyframes googleReviewsFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .google-reviews__quote {

@@ -88,11 +88,11 @@ export default function GoogleReviews({
   headingItalic = "Say About Us",
   googleReviewsUrl,
   rating = 4.9,
-  reviewCount = 48,
+  reviewCount,
   reviewCountLabel = "Google reviews",
   reviews = [],
 }: GoogleReviewsProps) {
-  const [page, setPage] = useState(0);
+  const [startIndex, setStartIndex] = useState(0);
   const [perPage, setPerPage] = useState(2);
 
   useEffect(() => {
@@ -112,31 +112,29 @@ export default function GoogleReviews({
     };
   }, []);
 
-  const totalPages = Math.max(1, Math.ceil(reviews.length / perPage));
-  const safePage = Math.min(page, totalPages - 1);
-  const currentPage = reviews.length === 0 ? 0 : safePage;
+  const canNavigate = reviews.length > perPage;
 
   const goNext = useCallback(() => {
-    setPage((p) => (p + 1) % totalPages);
-  }, [totalPages]);
+    setStartIndex((i) => (i + 1) % reviews.length);
+  }, [reviews.length]);
 
   const goPrev = useCallback(() => {
-    setPage((p) => (p - 1 + totalPages) % totalPages);
-  }, [totalPages]);
+    setStartIndex((i) => (i - 1 + reviews.length) % reviews.length);
+  }, [reviews.length]);
 
-  const goTo = useCallback((p: number) => {
-    setPage(p);
+  const goTo = useCallback((i: number) => {
+    setStartIndex(i);
   }, []);
 
   useEffect(() => {
-    if (totalPages <= 1) return;
+    if (!canNavigate) return;
     const timer = setInterval(goNext, AUTO_ADVANCE_MS);
     return () => clearInterval(timer);
-  }, [totalPages, goNext]);
+  }, [canNavigate, goNext]);
 
-  const visibleReviews = reviews.slice(
-    currentPage * perPage,
-    currentPage * perPage + perPage,
+  // Slide by 1: show perPage items starting from startIndex, wrapping around
+  const visibleReviews = Array.from({ length: Math.min(perPage, reviews.length) }, (_, i) =>
+    reviews[(startIndex + i) % reviews.length]
   );
 
   const viewAllUrl = googleReviewsUrl ? normalizeHref(googleReviewsUrl) : null;
@@ -162,25 +160,28 @@ export default function GoogleReviews({
             </div>
 
             <div className="google-reviews__header-right">
-              <div className="google-reviews__score-card">
-                <span className="google-reviews__g-badge" aria-hidden>
-                  G
-                </span>
-                <div className="google-reviews__score-divider" />
-                <span className="google-reviews__score-big">{rating}</span>
-                <div>
-                  <div className="google-reviews__stars-row" aria-hidden>
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <StarIcon key={i} />
-                    ))}
-                  </div>
-                  <div className="google-reviews__score-sub">
-                    <strong>
-                      {reviewCount} {reviewCountLabel}
-                    </strong>
+              {reviewCount ? (
+                <div className="google-reviews__score-card">
+                  <span className="google-reviews__g-badge" aria-hidden>G</span>
+                  <div className="google-reviews__score-divider" />
+                  <span className="google-reviews__score-big">{rating}</span>
+                  <div>
+                    <div className="google-reviews__stars-row" aria-hidden>
+                      {[1, 2, 3, 4, 5].map((i) => <StarIcon key={i} />)}
+                    </div>
+                    <div className="google-reviews__score-sub">
+                      <strong>{reviewCount} {reviewCountLabel}</strong>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div className="google-reviews__score-card google-reviews__score-card--no-count">
+                  <span className="google-reviews__score-big">{rating}</span>
+                  <div className="google-reviews__stars-row" aria-hidden>
+                    {[1, 2, 3, 4, 5].map((i) => <StarIcon key={i} />)}
+                  </div>
+                </div>
+              )}
 
               {viewAllUrl && (
                 <a
@@ -209,12 +210,8 @@ export default function GoogleReviews({
                   const avatarColor = getAvatarColor(reviewerName);
                   return (
                     <article
-                      key={`${currentPage}-${idx}-${reviewerName}`}
+                      key={`${startIndex}-${idx}-${reviewerName}`}
                       className="google-reviews__card"
-                      style={{
-                        animationDelay: `${idx * 0.07}s`,
-                        display: "flex",
-                      }}
                     >
                       <div className="google-reviews__quote" aria-hidden>
                         "
@@ -239,10 +236,10 @@ export default function GoogleReviews({
                             {reviewerName}
                           </div>
                           <div className="google-reviews__rev-meta">
-                            <span className="google-reviews__g-label">
+                            {/* <span className="google-reviews__g-label">
                               <span className="google-reviews__g-letter">G</span>{" "}
                               Google Review
-                            </span>
+                            </span> */}
                             {review.timeAgo && (
                               <>
                                 <span className="google-reviews__sep">·</span>
@@ -257,7 +254,7 @@ export default function GoogleReviews({
                 })}
               </div>
 
-              {totalPages > 1 && (
+              {canNavigate && (
                 <div className="google-reviews__controls">
                   <button
                     type="button"
@@ -268,14 +265,14 @@ export default function GoogleReviews({
                     <ChevronLeft />
                   </button>
                   <div className="google-reviews__dots" role="tablist">
-                    {Array.from({ length: totalPages }, (_, i) => (
+                    {Array.from({ length: reviews.length }, (_, i) => (
                       <button
                         key={i}
                         type="button"
                         role="tab"
-                        aria-selected={i === currentPage}
-                        aria-label={`Page ${i + 1}`}
-                        className={`google-reviews__dot ${i === currentPage ? "on" : ""}`}
+                        aria-selected={i === startIndex}
+                        aria-label={`Item ${i + 1}`}
+                        className={`google-reviews__dot ${i === startIndex ? "on" : ""}`}
                         onClick={() => goTo(i)}
                       />
                     ))}
