@@ -1,6 +1,12 @@
 /* ============================================
-   Thank You Page
+   Thank You Page / 404 Page
    ============================================ */
+
+/* Wraps header + section so the gray bg shows behind the transparent nav */
+.thank-you-wrapper {
+  background-color: #000000;
+}
+
 .thank-you {
   min-height: 70vh;
   display: flex;
@@ -31,12 +37,12 @@
   font-size: var(--font-size-3xl);
   font-weight: 500;
   margin-bottom: var(--space-4);
-  color: var(--color-text);
+  color: #ffffff;
 }
 
 .thank-you__text {
   font-size: var(--font-size-md);
-  color: var(--color-text-light);
+  color: rgba(255, 255, 255, 0.65);
   line-height: 1.7;
   margin-bottom: var(--space-8);
 }

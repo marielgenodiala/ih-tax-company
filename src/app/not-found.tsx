@@ -1,16 +1,10 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { client } from "@/sanity/lib/client";
 import { navigationV2Query, footerV2Query } from "@/sanity/lib/queries";
 
-export const metadata: Metadata = {
-  title: "Thank You | I H Professionals & Co.",
-  description: "Thank you for contacting I H Professionals & Co.",
-};
-
-export default async function ThankYouPage() {
+export default async function NotFound() {
   const [navSection, footerSection] = await Promise.all([
     client.fetch(navigationV2Query),
     client.fetch(footerV2Query),
@@ -34,13 +28,14 @@ export default async function ThankYouPage() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
-                  <polyline points="20 6 9 17 4 12" />
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
               </div>
-              <h1 className="thank-you__title">Thank You!</h1>
+              <h1 className="thank-you__title">Page Not Found</h1>
               <p className="thank-you__text">
-                We&apos;ve received your submission. A member of our team will be
-                in touch shortly.
+                Sorry, the page you&apos;re looking for doesn&apos;t exist or has
+                been moved.
               </p>
               <Link href="/" className="btn btn--primary btn--arrow">
                 Go Back to Homepage
