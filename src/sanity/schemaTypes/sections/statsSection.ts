@@ -75,6 +75,22 @@ export const statsSection = defineType({
       hidden: ({ parent }) => parent?.variant !== "fullWidthImage",
     }),
     defineField({
+      name: "ctaLabel",
+      title: "CTA Button Label",
+      type: "string",
+      initialValue: "Contact Us",
+      description: "Shown in place of statistics when no stats are added.",
+      hidden: ({ parent }) => parent?.variant !== "fullWidthImage",
+    }),
+    defineField({
+      name: "ctaHref",
+      title: "CTA Button Link",
+      type: "string",
+      initialValue: "/contact-us",
+      description: "URL the CTA button navigates to.",
+      hidden: ({ parent }) => parent?.variant !== "fullWidthImage",
+    }),
+    defineField({
       name: "shortDesc",
       title: "Short Description",
       type: "string",

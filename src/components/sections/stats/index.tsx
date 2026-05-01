@@ -42,6 +42,8 @@ export default function Stats(props: StatsSectionProps) {
         title={title}
         body={body}
         stats={stats}
+        ctaLabel={props.ctaLabel}
+        ctaHref={props.ctaHref}
       />
     );
   }

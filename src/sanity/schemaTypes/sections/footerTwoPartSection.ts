@@ -128,6 +128,12 @@ export const footerTwoPartSection = defineType({
       rows: 2,
     }),
     defineField({
+      name: "contactAddress2",
+      title: "Contact Address 2 (Optional)",
+      type: "text",
+      rows: 2,
+    }),
+    defineField({
       name: "servicesLabel",
       title: "Services Label",
       type: "string",

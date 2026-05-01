@@ -52,6 +52,7 @@ export interface FooterTwoPartProps {
   contactEmail?: string | null;
   contactNumber?: string | null;
   contactAddress?: string | null;
+  contactAddress2?: string | null;
   servicesLabel?: string | null;
   serviceLinks?: FooterLink[] | null;
   aboutLabel?: string | null;
@@ -191,6 +192,14 @@ export default function FooterTwoPart(props: FooterTwoPartProps) {
                     <MapPinIcon />
                   </span>
                   <span>{props.contactAddress}</span>
+                </p>
+              )}
+              {props.contactAddress2 && (
+                <p className="footer-2p__contact-line footer-2p__address">
+                  <span className="footer-2p__contact-icon" aria-hidden>
+                    <MapPinIcon />
+                  </span>
+                  <span>{props.contactAddress2}</span>
                 </p>
               )}
             </div>

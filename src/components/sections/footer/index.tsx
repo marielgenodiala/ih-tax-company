@@ -29,6 +29,7 @@ export default function FooterSection(props: FooterSectionProps) {
       contactEmail: rest.contactEmail as string | null | undefined,
       contactNumber: rest.contactNumber as string | null | undefined,
       contactAddress: rest.contactAddress as string | null | undefined,
+      contactAddress2: rest.contactAddress2 as string | null | undefined,
       servicesLabel: rest.twoPartServicesLabel as string | null | undefined,
       serviceLinks: rest.twoPartServiceLinks as FooterTwoPartProps["serviceLinks"],
       aboutLabel: rest.twoPartAboutLabel as string | null | undefined,

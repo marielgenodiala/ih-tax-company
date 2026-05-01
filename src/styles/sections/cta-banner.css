@@ -238,7 +238,7 @@
 .cta-banner--download__link {
   display: inline-flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
   gap: var(--space-3);

@@ -1,14 +1,15 @@
 import { MetadataRoute } from "next";
 import { client } from "@/sanity/lib/client";
-import { blogPostSlugsQuery, allTeamMemberSlugsQuery, allServicePathsQuery } from "@/sanity/lib/queries";
+import { blogPostSlugsQuery, allTeamMemberSlugsQuery, allServicePathsQuery, allPageSlugsQuery } from "@/sanity/lib/queries";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://ih-tax-company.vercel.app";
+const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://ih-tax-company.vercel.app").replace(/\/$/, "");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [blogSlugs, teamSlugs, servicePaths] = await Promise.all([
+  const [blogSlugs, teamSlugs, servicePaths, pageSlugs] = await Promise.all([
     client.fetch<{ slug: string }[]>(blogPostSlugsQuery),
     client.fetch<{ slug: string }[]>(allTeamMemberSlugsQuery),
     client.fetch<{ category: string; slug: string }[]>(allServicePathsQuery),
+    client.fetch<{ slug: string }[]>(allPageSlugsQuery),
   ]);
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -33,11 +34,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const serviceRoutes: MetadataRoute.Sitemap = (servicePaths || []).map(({ category, slug }) => ({
-    url: `${BASE_URL}/services/${category}/${slug}`,
+    url: `${BASE_URL}/${category}/${slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly",
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...blogRoutes, ...teamRoutes, ...serviceRoutes];
+  const pageRoutes: MetadataRoute.Sitemap = (pageSlugs || []).map(({ slug }) => ({
+    url: `${BASE_URL}/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...pageRoutes, ...blogRoutes, ...teamRoutes, ...serviceRoutes];
 }

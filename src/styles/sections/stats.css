@@ -265,6 +265,49 @@ a.stats__partner-item:hover {
   margin-top: 4px;
 }
 
+.img-strip__stat--cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  color: #ffffff;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.img-strip__stat--cta:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.img-strip__stat--cta:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.img-strip__stat--cta svg {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.img-strip__cta-text {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+@media (max-width: 767px) {
+  .img-strip__stats--cta-only {
+    display: flex;
+    justify-content: center;
+  }
+
+  .img-strip__cta-spacer {
+    display: none;
+  }
+}
+
 @media (max-width: 767px) {
   .img-strip {
     min-height: 420px;
@@ -291,6 +334,10 @@ a.stats__partner-item:hover {
 
   .img-strip__stat {
     padding: 14px 12px;
+  }
+
+  .img-strip__stat--cta {
+    padding: 18px 40px;
   }
 
   .img-strip__stat-number {

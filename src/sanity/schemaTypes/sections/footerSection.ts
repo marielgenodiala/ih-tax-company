@@ -140,6 +140,13 @@ export const footerSection = defineType({
       hidden: ({ parent }) => parent?.layout !== "twoPart",
     }),
     defineField({
+      name: "contactAddress2",
+      title: "Contact Address 2 (Optional)",
+      type: "text",
+      rows: 2,
+      hidden: ({ parent }) => parent?.layout !== "twoPart",
+    }),
+    defineField({
       name: "twoPartServicesLabel",
       title: "Services Label",
       type: "string",

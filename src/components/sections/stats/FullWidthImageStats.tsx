@@ -6,7 +6,7 @@ import { CountUpNumber } from "./Default";
 export interface FullWidthStatItem {
   _key?: string;
   number?: string;
-  label?: string;
+  label?: string; 
 }
 
 export interface FullWidthImageStatsProps {
@@ -14,6 +14,8 @@ export interface FullWidthImageStatsProps {
   title?: string | null;
   body?: string | null;
   stats?: FullWidthStatItem[] | null;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
 }
 
 function renderTitle(title?: string | null) {
@@ -44,9 +46,14 @@ export default function FullWidthImageStats({
   title,
   body,
   stats,
+  ctaLabel,
+  ctaHref,
 }: FullWidthImageStatsProps) {
   const items = Array.isArray(stats) && stats.length > 0 ? stats : [];
   const hasBody = Boolean(body?.trim());
+  const resolvedCtaLabel = ctaLabel?.trim() || "Contact Us";
+  const resolvedCtaHref = ctaHref?.trim() || "/contact-us";
+  const showCta = items.length === 0;
 
   return (
     <section className="img-strip">
@@ -64,24 +71,52 @@ export default function FullWidthImageStats({
               </RevealWrapper>
             )}
           </div>
-          <div className="img-strip__stats">
-            {items.map((item, i) => (
-              <RevealWrapper
-                key={item._key ?? i}
-                delay={(i + 1) as 1 | 2 | 3 | 4}
-              >
-                <div className="img-strip__stat">
-                  {item.number && (
-                    <div className="img-strip__stat-number">
-                      <CountUpNumber value={item.number} />
+          <div className={`img-strip__stats${showCta ? " img-strip__stats--cta-only" : ""}`}>
+            {items.length > 0
+              ? items.map((item, i) => (
+                  <RevealWrapper
+                    key={item._key ?? i}
+                    delay={(i + 1) as 1 | 2 | 3 | 4}
+                  >
+                    <div className="img-strip__stat">
+                      {item.number && (
+                        <div className="img-strip__stat-number">
+                          <CountUpNumber value={item.number} />
+                        </div>
+                      )}
+                      {item.label && (
+                        <div className="img-strip__stat-label">{item.label}</div>
+                      )}
                     </div>
-                  )}
-                  {item.label && (
-                    <div className="img-strip__stat-label">{item.label}</div>
-                  )}
-                </div>
-              </RevealWrapper>
-            ))}
+                  </RevealWrapper>
+                ))
+              : showCta && (
+                  <>
+                    <div className="img-strip__cta-spacer" aria-hidden />
+                    <RevealWrapper delay={1}>
+                      <a
+                        href={resolvedCtaHref}
+                        className="img-strip__stat img-strip__stat--cta"
+                      >
+                        <span className="img-strip__cta-text">{resolvedCtaLabel}</span>
+                        <svg
+                          aria-hidden
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <line x1="7" y1="17" x2="17" y2="7" />
+                          <polyline points="7 7 17 7 17 17" />
+                        </svg>
+                      </a>
+                    </RevealWrapper>
+                  </>
+                )}
           </div>
         </div>
       </div>

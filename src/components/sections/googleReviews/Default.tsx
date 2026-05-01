@@ -242,7 +242,6 @@ export default function GoogleReviews({
                             </span> */}
                             {review.timeAgo && (
                               <>
-                                <span className="google-reviews__sep">·</span>
                                 <span>{review.timeAgo}</span>
                               </>
                             )}

@@ -244,7 +244,7 @@ export const navigationV2Query = groq`
 export const footerV2Query = groq`
   *[_type == "sectionTemplate" && name == "Main Footer v2"][0].section[0] {
     _type, _key, layout, "logo": logo.asset->url, logoText, newsletterLabel, newsletterPlaceholder, newsletterButtonText, newsletterEmail,
-    contactLabel, contactEmail, contactNumber, contactAddress,
+    contactLabel, contactEmail, contactNumber, contactAddress, contactAddress2,
     twoPartServicesLabel, twoPartServiceLinks, twoPartAboutLabel, twoPartAboutLinks, followLabel, twoPartSocialLinks, copyrightText
   }
 `;
