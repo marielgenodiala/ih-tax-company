@@ -637,3 +637,36 @@ nav.nav-sticky.nav-sticky--scrolled .nav-sticky__inner {
   font-size: var(--font-size-sm);
   font-weight: 500;
 }
+
+/* lg-only: compact logo and nav to fit 1024px without overflow */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .nav-sticky__inner {
+    padding-block: var(--space-3);
+  }
+  .nav-sticky__logo {
+    gap: var(--space-2);
+  }
+  .nav-sticky__logo-img {
+    height: 26px;
+  }
+  .nav-sticky__logo-box {
+    width: 26px;
+    height: 26px;
+    font-size: 0.6rem;
+  }
+  .nav-sticky__logo-line1 {
+    font-size: var(--font-size-sm);
+  }
+  .nav-sticky__desktop {
+    gap: var(--space-3);
+  }
+  .nav-sticky__link,
+  .nav-sticky__dropdown-trigger {
+    font-size: var(--font-size-xs);
+    padding: var(--space-1) 0;
+  }
+  .nav-sticky__cta.btn {
+    font-size: var(--font-size-xs);
+    padding: 8px 14px;
+  }
+}
